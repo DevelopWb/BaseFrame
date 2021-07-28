@@ -33,5 +33,11 @@ public interface AppServer {
             "userId") int userId,
                                          @Query("source") int source, @Query("json") String json);
 
-
+    /**
+     * account  手机号
+     *
+     * @return
+     */
+    @POST(AppHttpPath.GET_SMS_CODE)
+    Observable<BaseResult> getSMSCode(@Query("account") String account);
 }

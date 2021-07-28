@@ -160,10 +160,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
      * @param view
      */
     public void add(View view) {
-//        if (!MyApp.isLogin()) {
-//            MyApp.goLogin();
-//            return;
-//        }
         View viewPop = LayoutInflater.from(mContext).inflate(R.layout.pop_add, null);
         //背景颜色
         view.setBackgroundColor(Color.WHITE);
@@ -208,10 +204,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         }
     }
 
-    AlertDialog alertDialog;
-    int id22;
-    String content;
-    int type;//推送类型，1案件指派、3巡检退回
 
     @Override
     public void onClick(View v) {
@@ -257,10 +249,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
     @Override
     protected void onResume() {
         super.onResume();
-        //        if (MyApp.getUser().getData().getSettleStatus() == 2){
-        //主线程中调用：
-        //            mHandler.postDelayed(runnable, 1000 * 62);//延时60秒
-        //        }
     }
 
     @Override
@@ -305,10 +293,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         super.onPause();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-    }
 
 
     /**

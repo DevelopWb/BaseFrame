@@ -19,4 +19,9 @@ public class AppHttpPath {
      */
 //    public static final String APP_UPDATE = BASE + "/detectionAppVersions.shtml";
     public static final String APP_UPDATE = BASE + "";
+
+    /**
+     * 获取短信验证码
+     */
+    public static final String GET_SMS_CODE = BASE + "getSMSCode.shtml";
 }
