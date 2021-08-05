@@ -14,10 +14,11 @@ import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.MD5;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
+import com.juntai.wisdom.inspection.AppHttpPath;
 import com.juntai.wisdom.inspection.base.selectPics.BaseSelectPicsActivity;
 import com.juntai.wisdom.inspection.bean.UserBean;
 import com.juntai.wisdom.inspection.entrance.LoginActivity;
-import com.juntai.wisdom.inspection.utils.AppUtils;
+import com.juntai.disabled.basecomponent.utils.AppUtils;
 import com.juntai.wisdom.inspection.utils.StringTools;
 import com.juntai.wisdom.inspection.utils.UserInfoManager;
 import com.orhanobut.hawk.Hawk;
@@ -40,7 +41,10 @@ import okhttp3.RequestBody;
  */
 public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelectPicsActivity<P> {
 
-
+    @Override
+    protected String getUpdateHttpUrl() {
+        return AppHttpPath.APP_UPDATE;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

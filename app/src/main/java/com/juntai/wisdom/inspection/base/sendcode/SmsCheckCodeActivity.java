@@ -4,8 +4,8 @@ package com.juntai.wisdom.inspection.base.sendcode;
 import android.support.v4.content.ContextCompat;
 import android.widget.TextView;
 
+import com.juntai.disabled.basecomponent.R;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.disabled.federation.R;
 import com.juntai.wisdom.inspection.base.BaseAppActivity;
 
 

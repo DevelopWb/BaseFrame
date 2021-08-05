@@ -1,5 +1,6 @@
 package com.juntai.wisdom.inspection.utils;
 
+import com.juntai.disabled.basecomponent.utils.AppUtils;
 import com.juntai.wisdom.inspection.bean.UserBean;
 import com.orhanobut.hawk.Hawk;
 

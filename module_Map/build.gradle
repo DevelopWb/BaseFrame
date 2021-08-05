@@ -34,10 +34,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     api files('libs/BaiduLBS_Android.jar')
-//    api files('libs/component_common_sdk_1.0.0.jar')
-//    api files('libs/IndoorscapeAlbumPlugin.jar')
-//    implementation files('libs/BaiduTraceSDK_v3_0_8.jar')
-//    implementation files('libs/bos-android-sdk-1.0.3.jar')
-//    implementation 'com.squareup.picasso:picasso:2.71828'
     implementation project(':module_Base')
 }

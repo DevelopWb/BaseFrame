@@ -24,7 +24,7 @@ import com.juntai.wisdom.inspection.MyApp;
 import com.juntai.disabled.federation.R;
 import com.juntai.wisdom.inspection.base.sendcode.SendCodeModel;
 import com.juntai.wisdom.inspection.bean.UserBean;
-import com.juntai.wisdom.inspection.utils.AppUtils;
+import com.juntai.disabled.basecomponent.utils.AppUtils;
 import com.juntai.wisdom.inspection.utils.UserInfoManager;
 import com.orhanobut.hawk.Hawk;
 

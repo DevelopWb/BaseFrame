@@ -14,12 +14,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 
+import com.juntai.disabled.basecomponent.base.update.UpdateActivity;
+import com.juntai.disabled.bdmap.BaseRequestLocationActivity;
+import com.juntai.wisdom.inspection.base.sendcode.SmsCheckCodeActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.GlideEngine4;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
-import com.juntai.wisdom.inspection.base.update.UpdateActivity;
 import com.juntai.wisdom.inspection.utils.CalendarUtil;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
@@ -43,7 +45,7 @@ import top.zibin.luban.OnCompressListener;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/5/21 15:04
  */
-public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends UpdateActivity<P> {
+public abstract class BaseSelectPicsActivity<P extends BasePresenter> extends BaseRequestLocationActivity<P> {
 
 
     private int SELECT_PIC_RESULT = 1000;

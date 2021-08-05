@@ -2,13 +2,10 @@ package com.juntai.wisdom.inspection.home_page;
 
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -19,7 +16,7 @@ import com.juntai.disabled.federation.R;
 import com.juntai.wisdom.inspection.bean.HomePageMenuBean;
 import com.juntai.wisdom.inspection.mine.MyCenterContract;
 import com.juntai.wisdom.inspection.securityCheck.SecurityCheckSiteActivity;
-import com.juntai.wisdom.inspection.utils.AppUtils;
+import com.juntai.disabled.basecomponent.utils.AppUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 /**

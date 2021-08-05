@@ -200,6 +200,11 @@ public class LocateSelectionActivity extends BaseRequestLocationActivity impleme
         }
     }
 
+    @Override
+    protected String getUpdateHttpUrl() {
+        return null;
+    }
+
 
     public class Address {
         PoiInfo poiInfo;

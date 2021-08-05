@@ -29,7 +29,6 @@ import java.io.IOException;
  */
 public class MyApp extends BaseApplication {
     public static MyApp app;
-    public static int CHECK_UPDATE_TYPE = 1;//类型id（1：警小宝）（2：巡小管）（3：邻小帮）
     public boolean isFinish = false;
     private String BUGLY_APPID = "77648a6776";//bugly appid警小宝
     public LatLng myLocation;
