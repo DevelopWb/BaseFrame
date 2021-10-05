@@ -1,6 +1,5 @@
 package com.juntai.wisdom.inspection.home_page.baseinspect;
 
-import com.haibin.calendarview.BaseView;
 import com.juntai.disabled.basecomponent.mvp.IView;
 
 /**

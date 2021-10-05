@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -31,7 +30,6 @@ import com.juntai.disabled.federation.R;
 import com.juntai.wisdom.inspection.base.BaseAppActivity;
 import com.juntai.wisdom.inspection.base.customview.CustomViewPager;
 import com.juntai.wisdom.inspection.base.customview.MainPagerAdapter;
-import com.juntai.wisdom.inspection.bean.LocationBean;
 import com.juntai.wisdom.inspection.entrance.LoginActivity;
 import com.juntai.wisdom.inspection.home_page.HomePageFragment;
 import com.juntai.wisdom.inspection.mine.MyCenterFragment;
@@ -44,8 +42,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
     private MainPagerAdapter adapter;
     private LinearLayout mainLayout;
     private CustomViewPager mainViewpager;
-    final static Handler mHandler = new Handler();
-    List<LocationBean> cacheDatas = new ArrayList<>();//
 
     private TabLayout mainTablayout;
     private String[] title = new String[]{"首页", "添加","我的"};
@@ -192,13 +188,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
     @Override
     public void onSuccess(String tag, Object o) {
         switch (tag) {
-            case MainPageContract.UPLOAD_HISTORY:
-                if (cacheDatas != null) {
-                    for (LocationBean locationBean : cacheDatas) {
-                        MyApp.getDaoSession().getLocationBeanDao().delete(locationBean);
-                    }
-                }
-                break;
             default:
                 break;
         }
@@ -222,8 +211,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
                 String error = intent.getStringExtra("error");
                 ToastUtils.info(MyApp.app, error);
                 //                SPTools.saveString(mContext, "login", "");
-                mHandler.removeCallbacks(runnable);
-                mHandler.removeCallbacksAndMessages(null);
                 startActivity(new Intent(mContext, LoginActivity.class));
                 //重置界面
                 //                EventManager.sendStringMsg(ActionConfig.UN_READ_MESSAG_TAG);
@@ -258,8 +245,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         if (broadcastReceiver != null) {
             unregisterReceiver(broadcastReceiver);
         }
-        mHandler.removeCallbacks(runnable);
-        mHandler.removeCallbacksAndMessages(null);
         super.onDestroy();
     }
 
@@ -295,29 +280,4 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
 
 
 
-    /**
-     * 查询本地数据并上传
-     */
-    Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            //do something
-            List<LocationBean> datas = null;
-            try {
-                datas = MyApp.getDaoSession().getLocationBeanDao().loadAll();
-            } catch (Exception e) {
-                e.printStackTrace();
-                datas = new ArrayList<>();
-            }
-            if (datas.size() > 0 && datas.size() < 30) {
-                cacheDatas.clear();
-                cacheDatas.addAll(datas);
-                mPresenter.uploadHistory(new Gson().toJson(datas), MainPageContract.UPLOAD_HISTORY);
-            } else {
-                MyApp.getDaoSession().getLocationBeanDao().deleteAll();
-            }
-            //每隔62s循环执行run方法
-            mHandler.postDelayed(runnable, 1000 * 62);
-        }
-    };
 }
