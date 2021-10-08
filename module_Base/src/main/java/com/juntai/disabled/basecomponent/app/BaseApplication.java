@@ -22,17 +22,15 @@ import com.scwang.smartrefresh.layout.api.RefreshHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
-import com.squareup.leakcanary.LeakCanary;
-import com.squareup.leakcanary.RefWatcher;
 
 import java.lang.ref.SoftReference;
 import java.util.ArrayList;
+
 
 public abstract class BaseApplication extends MultiDexApplication {
     public static int HEIGHT, width, statusBarH;
     public static int navigationBarH;
     public static BaseApplication app;
-    private RefWatcher mRefWatcher;
     ArrayList<Activity> activities = new ArrayList<>();
     public static boolean isReLoadWarn = true;//登录被顶，是否提示
 
@@ -61,7 +59,6 @@ public abstract class BaseApplication extends MultiDexApplication {
             LogUtil.logInit(true);
             com.juntai.disabled.basecomponent.utils.Logger.LOG_ENABLE = true;
         }
-        initLeakCanary();
         registerActivityLifecycleCallbacks(mCallbacks);
 //        hotFix();
     }
@@ -161,16 +158,7 @@ public abstract class BaseApplication extends MultiDexApplication {
         }
     }
 
-    private void initLeakCanary() {
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            return;
-        }
-        mRefWatcher = LeakCanary.install(this);
-    }
 
-    public static RefWatcher getRefWatcher(Context context) {
-        return app.mRefWatcher;
-    }
 
     /**
      * 下拉刷新
@@ -242,15 +230,6 @@ public abstract class BaseApplication extends MultiDexApplication {
         }
     };
 
-    /**
-     * 清理当前的所有activity
-     */
-    public void clearActivitys() {
-        for (Activity a : activities) {
-            //LogUtil.d("Activity-clearActivitys = " + a.getClass().getName());
-            a.finish();
-        }
-    }
 
 
     @Override
