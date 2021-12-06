@@ -48,7 +48,13 @@ public class FileCacheUtils {
         }
         return destDir.getAbsolutePath() +"/";
     }
-
+    /**
+     * 压缩图片存放目录
+     * @return
+     */
+    public static String getMapShotImagePath(){
+        return getAppImagePath()+"mapShot.png";
+    }
     /**
      * 压缩图片存放目录
      * @return

@@ -678,6 +678,28 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         drawable.setBounds(0, 0, DisplayUtil.dp2px(this, width), DisplayUtil.dp2px(this, height));//第一个 0 是距左边距离，第二个 0 是距上边距离，40 分别是长宽
         textView.setCompoundDrawables(null, null, drawable, null);//只放右边
     }
+    /**
+     * 隐藏控件
+     * @param views
+     */
+    public  void  setViewsGone(View... views ){
+        if (views.length>0) {
+            for (View view : views) {
+                view.setVisibility(View.GONE);
+            }
+        }
+    }
 
+    /**
+     * 显示控件
+     * @param views
+     */
+    public  void  showViews(View... views ){
+        if (views.length>0) {
+            for (View view : views) {
+                view.setVisibility(View.VISIBLE);
+            }
+        }
+    }
 
 }

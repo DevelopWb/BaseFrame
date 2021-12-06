@@ -1,11 +1,14 @@
 package com.juntai.disabled.bdmap.act;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.map.BaiduMap;
@@ -30,7 +33,9 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.BaseRequestLocationActivity;
 import com.juntai.disabled.bdmap.R;
 import com.juntai.disabled.bdmap.adapter.PlaceListAdapter;
+import com.juntai.disabled.bdmap.bean.AddressBean;
 import com.juntai.disabled.bdmap.utils.MapUtil;
+import com.juntai.disabled.bdmap.utils.ScreenShotHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,21 +45,25 @@ import java.util.List;
  * @description 描述  地图中选择地址
  * @date 2020/7/8 10:16
  */
-public class LocateSelectionActivity extends BaseRequestLocationActivity implements BaiduMap.OnMapClickListener,
+public class LocateSelectionActivity extends BaseRequestLocationActivity implements BaiduMap.OnMapClickListener, BaiduMap.SnapshotReadyCallback,
         OnGetGeoCoderResultListener {
 
-    public static int SELECT_ADDR = 998;
-    private String address = "";
-    private RecyclerView addressListRV;
+    public static String RIGHT_CONTENT = "right_content";
+    public static String LAT = "lat";
+    public static String LNG = "lng";
+    public static String ADDRNAME = "addrName";
+    public static String ADDRDES = "addrDes";
+    private String addrName = "";
+    private String addrDes = "";
+    private RecyclerView mAddressListRv;
     private MapView mapView;
     private Double lat = 0.0, lng = 0.0;
     private BaiduMap mBaiduMap = null;
     private BitmapDescriptor locationMarker = null;
-    private List<Address> addressList = new ArrayList<>();
     private ProgressBar progressBar = null;
     private PlaceListAdapter adapter = null;
-    private int selectedPosition = 0;
     private GeoCoder mGeoCoder = null;
+    private RelativeLayout mMapViewRl;
 
     @Override
     public int getLayoutView() {
@@ -65,36 +74,74 @@ public class LocateSelectionActivity extends BaseRequestLocationActivity impleme
     @Override
     public void initView() {
         setTitleName("地理位置");
-
+        if (getIntent() != null) {
+            String rightContent = getIntent().getStringExtra(RIGHT_CONTENT);
+            getTitleRightTv().setText(TextUtils.isEmpty(rightContent) ? "确定" : rightContent);
+        }
         getTitleRightTv().setVisibility(View.VISIBLE);
-        getTitleRightTv().setText("确定");
+
         getTitleRightTv().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
-                if (lat != 0.0 && lng != 0.0 && !address.equals("") && lat != 4.9E-324) {
-                    intent.putExtra("lat", lat);
-                    intent.putExtra("lng", lng);
-                    intent.putExtra("address", address);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                if (lat != 0.0 && lng != 0.0 ) {
+                    if ("发送".equals(getTextViewValue(getTitleRightTv()))) {
+                        progressBar.setVisibility(View.VISIBLE);
+                        //发送位置的时候   地图截屏
+                        mBaiduMap.snapshot(LocateSelectionActivity.this);
+                    }else {
+                        intent.putExtra(LAT, lat);
+                        intent.putExtra(LNG, lng);
+                        intent.putExtra(ADDRNAME, addrName);
+                        intent.putExtra(ADDRDES, addrDes);
+                        setResult(BASE_REQUEST_RESULT, intent);
+                        finish();
+                    }
+
                 } else {
                     ToastUtils.toast(mContext, "未选择位置或位置错误");
                 }
+
+
+
             }
         });
 
-        addressListRV = findViewById(R.id.address_listRy);
         mapView = findViewById(R.id.mMapViewRy);
+        mMapViewRl = findViewById(R.id.mapview_rl);
         mBaiduMap = mapView.getMap();
         mapView.showScaleControl(false);
         mapView.showZoomControls(false);
         mapView.removeViewAt(1);
         locationMarker = BitmapDescriptorFactory
                 .fromResource(R.drawable.red_marker_im);
-        addressListRV = findViewById(R.id.address_listRy);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(mContext);
-        addressListRV.setLayoutManager(layoutManager);
+        mAddressListRv = findViewById(R.id.address_list_rv);
+        adapter = new PlaceListAdapter(R.layout.item_immap_list);
+        adapter.openLoadAnimation();
+        initRecyclerview(mAddressListRv, adapter, LinearLayoutManager.VERTICAL);
+        adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+                List<AddressBean> addressBeanList = (List<AddressBean>) adapter.getData();
+                for (int i = 0; i < addressBeanList.size(); i++) {
+                    AddressBean addrBean = addressBeanList.get(i);
+                    if (i == position) {
+                        addrBean.setIschecked(true);
+                        lat = addrBean.getPoiInfo().location.latitude;
+                        lng = addrBean.getPoiInfo().location.longitude;
+                        addrName = addrBean.getPoiInfo().getName();
+                        addrDes = addrBean.getPoiInfo().getAddress();
+                    } else {
+                        addrBean.setIschecked(false);
+                    }
+                }
+                onMapClick(new LatLng(lat, lng));
+                MapUtil.mapMoveTo(mBaiduMap, new LatLng(lat, lng));
+                adapter.notifyDataSetChanged();
+            }
+        });
+
         progressBar = findViewById(R.id.progressBarRy);
         mGeoCoder = GeoCoder.newInstance();
         mGeoCoder.setOnGetGeoCodeResultListener(this);
@@ -111,7 +158,6 @@ public class LocateSelectionActivity extends BaseRequestLocationActivity impleme
         }
         mBaiduMap.setOnMapClickListener(this);//先搜索再设置监听，有概率收不到回调
         onMapClick(new LatLng(lat, lng));
-
         MapStatusUpdate u = MapStatusUpdateFactory.newLatLngZoom(new LatLng(lat, lng), 18);    //设置地图中心点以及缩放级别
         mBaiduMap.animateMapStatus(u);
     }
@@ -156,45 +202,24 @@ public class LocateSelectionActivity extends BaseRequestLocationActivity impleme
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             return;
         } else {
-            if (addressList != null) {
-                addressList.clear();
-            }
-            lat = reverseGeoCodeResult.getLocation().latitude;
-            lng = reverseGeoCodeResult.getLocation().longitude;
-            address = reverseGeoCodeResult.getAddress();
             List<PoiInfo> searchList = reverseGeoCodeResult.getPoiList();
+            List<AddressBean> addressList = new ArrayList<>();
             if (searchList != null) {
                 for (int i = 0; i < searchList.size(); i++) {
                     PoiInfo poiInfo = searchList.get(i);
-                    if (0==i) {
-                        addressList.add(new Address(poiInfo, true));
-                    }else {
-                        addressList.add(new Address(poiInfo, false));
+                    if (0 == i) {
+                        lat = poiInfo.getLocation().latitude;
+                        lng = poiInfo.getLocation().longitude;
+                        addrName = poiInfo.getName();
+                        addrDes = poiInfo.getAddress();
+                        addressList.add(new AddressBean(poiInfo, true));
+                    } else {
+                        addressList.add(new AddressBean(poiInfo, false));
                     }
                 }
             }
-            adapter = new PlaceListAdapter(R.layout.item_immap_list, addressList);
-            adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-                @Override
-                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    if (selectedPosition == position && selectedPosition != 0) {
-                        return;
-                    } else {
-                        PoiInfo poiInfo = addressList.get(position).getPoiInfo();
-                        address = poiInfo.getAddress();
-                        lat = poiInfo.getLocation().latitude;
-                        lng = poiInfo.getLocation().longitude;
-                        addressList.get(selectedPosition).setIschecked(false);
-                        addressList.get(position).setIschecked(true);
-                        adapter.notifyItemChanged(position);
-                        adapter.notifyItemChanged(selectedPosition);
-                        selectedPosition = position;
-                    }
-                }
-            });
-            adapter.openLoadAnimation();
-            addressListRV.setAdapter(adapter);
-            selectedPosition = 0;
+            adapter.setNewData(addressList);
+            mAddressListRv.scrollToPosition(0);
             progressBar.setVisibility(View.INVISIBLE);
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         }
@@ -205,32 +230,6 @@ public class LocateSelectionActivity extends BaseRequestLocationActivity impleme
         return null;
     }
 
-
-    public class Address {
-        PoiInfo poiInfo;
-        public boolean ischecked;
-
-        public Address(PoiInfo poiInfo, boolean ischecked) {
-            this.poiInfo = poiInfo;
-            this.ischecked = ischecked;
-        }
-
-        public PoiInfo getPoiInfo() {
-            return poiInfo;
-        }
-
-        public void setPoiInfo(PoiInfo poiInfo) {
-            this.poiInfo = poiInfo;
-        }
-
-        public boolean ischecked() {
-            return ischecked;
-        }
-
-        public void setIschecked(boolean ischecked) {
-            this.ischecked = ischecked;
-        }
-    }
 
     @Override
     public void onLocationReceived(BDLocation bdLocation) {
@@ -268,10 +267,25 @@ public class LocateSelectionActivity extends BaseRequestLocationActivity impleme
         mapView.onDestroy();
         mapView = null;
         mGeoCoder.destroy();
-        if (addressList != null) {
-            addressList.clear();
-            addressList=null;
-        }
         super.onDestroy();
+    }
+
+    @Override
+    public void onSnapshotReady(Bitmap bitmap) {
+        //截图的回调
+        ScreenShotHelper.saveScreenShot(bitmap, mMapViewRl, mapView);
+        getTitleRightTv().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent();
+                intent.putExtra(LAT, lat);
+                intent.putExtra(LNG, lng);
+                intent.putExtra(ADDRNAME, addrName);
+                intent.putExtra(ADDRDES, addrDes);
+                setResult(BASE_REQUEST_RESULT, intent);
+                progressBar.setVisibility(View.INVISIBLE);
+                finish();
+            }
+        },500);
     }
 }

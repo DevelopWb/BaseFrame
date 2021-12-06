@@ -1,6 +1,8 @@
 package com.juntai.disabled.bdmap.utils;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -35,6 +37,40 @@ public class NagivationUtils {
     }
 
 
+    /**
+     * 导航
+     *
+     * @param endLatlng 目的地
+     * @param endName   目的地名称
+     */
+    public static void navigationLogic(final Context  mContext,final LatLng endLatlng, final String endName) {
+        AlertDialog.Builder build = new AlertDialog.Builder(mContext);
+        final String item_list[] = {"腾讯地图", "高德地图", "百度地图"};
+        build.setItems(item_list, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog,  int which) {
+                switch (item_list[which]) {
+                    case "腾讯地图":
+                        NagivationUtils.getInstant().openTencent(mContext, endLatlng.latitude, endLatlng.longitude,
+                                endName);
+                        break;
+                    case "高德地图":
+                        NagivationUtils.getInstant().openGaoDeMap(mContext, endLatlng.latitude, endLatlng.longitude,
+                                endName);
+                        break;
+                    case "百度地图":
+                        NagivationUtils.getInstant().openBaiduMap(mContext, endLatlng.latitude, endLatlng.longitude,
+                                endName);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+        build.setTitle("请选择导航方式");
+        AlertDialog alertDialog = build.create();
+        alertDialog.show();
+    }
 
     /**
      * BD-09 坐标转换成 GCJ-02 坐标
