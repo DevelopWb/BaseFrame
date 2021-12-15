@@ -3,6 +3,7 @@ package com.juntai.wisdom.inspection;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.text.TextUtils;
@@ -12,14 +13,28 @@ import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.model.LatLng;
 import com.juntai.disabled.basecomponent.app.BaseApplication;
+import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
+import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.video.ModuleVideo_Init;
+import com.juntai.wisdom.inspection.utils.UserInfoManager;
 import com.mob.MobSDK;
 import com.orhanobut.hawk.Hawk;
+import com.siyee.oscvpush.PushConstants;
+import com.siyee.oscvpush.base.PushAdapter;
+import com.siyee.oscvpush.huawei.HWPushRegister;
+import com.siyee.oscvpush.mi.MiPushRegister;
+import com.siyee.oscvpush.model.Message;
+import com.siyee.oscvpush.model.Token;
+import com.siyee.oscvpush.oppo.OppoPushRegister;
+import com.siyee.oscvpush.util.LogUtils;
+import com.siyee.oscvpush.util.RomUtil;
+import com.siyee.oscvpush.vivo.VivoPushRegister;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * @aouther Ma
@@ -37,6 +52,33 @@ public class MyApp extends BaseApplication {
 
     public static int BASE_REQUESR = 10086;
     public static int BASE_RESULT = 10087;
+    public static String pushRegId = "";
+
+
+    /**
+     * 推送注册回调
+     */
+    private PushAdapter adapter = new PushAdapter() {
+
+        @Override
+        public void onRegister(int resCode, Token regId) {
+            if (resCode == PushConstants.SUCCESS_CODE && regId != null) {
+                pushRegId = regId.getRegId();
+            }
+        }
+
+        /**
+         * APP不在线的时候 收到推送的消息
+         * @param msg
+         */
+        @Override
+        public void onMessage(Message msg) {
+        }
+
+        @Override
+        public void onMessageClicked(Message msg) {
+        }
+    };
 
     @Override
     public void onCreate() {
@@ -55,8 +97,35 @@ public class MyApp extends BaseApplication {
         //创建压缩图片存放目录
         FileCacheUtils.creatFile(FileCacheUtils.getAppImagePath());
 //        initBugly();
+        initPushRegist();
     }
 
+    public void initPushRegist() {
+        if (!UserInfoManager.isLogin()) {
+            if (RomUtil.isEmui()) {
+                //华为
+                HWPushRegister.getInstance(this).register();
+            } else if (RomUtil.isVivo()) {
+                VivoPushRegister.getInstance(this).register();
+            } else if (RomUtil.isOppo()) {
+                OppoPushRegister.getInstance(this).register("a8aaa44a557b420f921aa4079ec1774b", "34eecd930b2849edbc5162305fee687e");
+            } else {
+                //小米
+                MiPushRegister.getInstance(this).register("2882303761520089591", "5432008920591");
+            }
+        }
+        if (RomUtil.isEmui()) {
+            //华为
+            HWPushRegister.getInstance(this).setPushCallback(adapter);
+        } else if (RomUtil.isVivo()) {
+            VivoPushRegister.getInstance(this).setPushCallback(adapter);
+        } else if (RomUtil.isOppo()) {
+            OppoPushRegister.getInstance(this).setPushCallback(adapter);
+        } else {
+            //小米
+            MiPushRegister.getInstance(this).setPushCallback(adapter);
+        }
+    }
 
     /**
      * 获取当前定位
@@ -99,8 +168,6 @@ public class MyApp extends BaseApplication {
             //            manager.cancelAll();
         }
     }
-
-
 
 
     /**

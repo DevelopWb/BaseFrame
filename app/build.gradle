@@ -88,7 +88,8 @@ dependencies {
     implementation project(':module_Video')
     implementation 'com.sunfusheng:MarqueeView:1.4.1'//跑马灯
     implementation 'com.oginotihiro:cropview:1.0.0'
-    implementation project(':jjdxm-ijkplayer')
+    implementation project((':oscvpush'))
+//    implementation project(':jjdxm-ijkplayer')
 }
 
 configurations.all {

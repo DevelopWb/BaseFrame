@@ -12,11 +12,10 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/banner" />
-            <option value="$PROJECT_DIR$/jjdxm-ijkplayer" />
             <option value="$PROJECT_DIR$/module_Base" />
             <option value="$PROJECT_DIR$/module_Map" />
             <option value="$PROJECT_DIR$/module_Video" />
-            <option value="$PROJECT_DIR$/pushpermission" />
+            <option value="$PROJECT_DIR$/oscvpush" />
             <option value="$PROJECT_DIR$/zXingLiteLib" />
           </set>
         </option>
