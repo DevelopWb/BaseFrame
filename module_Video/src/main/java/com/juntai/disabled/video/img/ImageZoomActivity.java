@@ -102,6 +102,7 @@ public class ImageZoomActivity extends BaseDownLoadActivity {
         return "保存图片";
     }
 
+
     @Override
     protected String getDownLoadPath() {
         return diaplayPath;

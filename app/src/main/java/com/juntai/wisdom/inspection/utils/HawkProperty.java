@@ -8,4 +8,6 @@ package com.juntai.wisdom.inspection.utils;
  * @UpdateDate: 2021/2/27 10:59
  */
 public class HawkProperty {
+    public static String   DEV_REGID = "dev_regid";
+
 }

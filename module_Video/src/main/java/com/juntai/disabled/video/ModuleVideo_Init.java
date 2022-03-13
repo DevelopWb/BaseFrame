@@ -22,7 +22,7 @@ public class ModuleVideo_Init {
         // 设置拍摄视频缓存路径
         //File dcim = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
         //自定义的位置--/ChengGuan/video/
-        File dcim = new File(FileCacheUtils.getAppVideoPath());
+        File dcim = new File(FileCacheUtils.getAppVideoPath(true));
         if (DeviceUtils.isZte()) {
             if (dcim.exists()) {
                 JianXiCamera.setVideoCachePath(dcim.getPath()+"/");

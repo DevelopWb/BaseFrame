@@ -1,0 +1,19 @@
+com.tu.tcircleprogresslibrary
+attr tcpv_animation_duration
+attr tcpv_arc_background_color
+attr tcpv_arc_end_color
+attr tcpv_arc_start_color
+attr tcpv_background_color
+attr tcpv_blank_angle
+attr tcpv_border_width
+attr tcpv_hint_background_color
+attr tcpv_hint_semicircle_rate
+attr tcpv_hint_show
+attr tcpv_hint_text
+attr tcpv_hint_text_color
+attr tcpv_hint_text_padding
+attr tcpv_hint_text_size
+attr tcpv_start_angle
+attr tcpv_total_progress
+string app_name
+styleable TCircleProgressView tcpv_animation_duration tcpv_arc_background_color tcpv_arc_end_color tcpv_arc_start_color tcpv_background_color tcpv_blank_angle tcpv_border_width tcpv_hint_background_color tcpv_hint_semicircle_rate tcpv_hint_show tcpv_hint_text tcpv_hint_text_color tcpv_hint_text_padding tcpv_hint_text_size tcpv_start_angle tcpv_total_progress

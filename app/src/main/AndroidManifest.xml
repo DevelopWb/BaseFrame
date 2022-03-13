@@ -103,7 +103,10 @@
         <!-- 图片裁切 -->
         <activity
             android:name="com.juntai.wisdom.inspection.mine.myinfo.ImageCropActivity"
-            android:launchMode="singleTop" /> <!-- 案件追踪 -->
+            android:launchMode="singleTop" />
+        <activity
+            android:name="com.juntai.wisdom.inspection.mine.myinfo.HeadCropActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name="com.juntai.wisdom.inspection.mine.UserAgreementActivity"
             android:launchMode="singleTop" />

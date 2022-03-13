@@ -17,6 +17,7 @@ import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.video.ModuleVideo_Init;
+import com.juntai.wisdom.inspection.utils.HawkProperty;
 import com.juntai.wisdom.inspection.utils.UserInfoManager;
 import com.mob.MobSDK;
 import com.orhanobut.hawk.Hawk;
@@ -52,7 +53,6 @@ public class MyApp extends BaseApplication {
 
     public static int BASE_REQUESR = 10086;
     public static int BASE_RESULT = 10087;
-    public static String pushRegId = "";
 
 
     /**
@@ -63,7 +63,8 @@ public class MyApp extends BaseApplication {
         @Override
         public void onRegister(int resCode, Token regId) {
             if (resCode == PushConstants.SUCCESS_CODE && regId != null) {
-                pushRegId = regId.getRegId();
+                String pushRegId = regId.getRegId();
+                Hawk.put(HawkProperty.DEV_REGID,pushRegId);
             }
         }
 
@@ -94,8 +95,6 @@ public class MyApp extends BaseApplication {
         //        //包括BD09LL和GCJ02两种坐标，默认是BD09LL坐标。
         SDKInitializer.setCoordType(CoordType.BD09LL);
 
-        //创建压缩图片存放目录
-        FileCacheUtils.creatFile(FileCacheUtils.getAppImagePath());
 //        initBugly();
         initPushRegist();
     }
@@ -110,7 +109,7 @@ public class MyApp extends BaseApplication {
             } else if (RomUtil.isOppo()) {
                 OppoPushRegister.getInstance(this).register("a8aaa44a557b420f921aa4079ec1774b", "34eecd930b2849edbc5162305fee687e");
             } else {
-                //小米
+                //小米推送 只需要改这个地地方就可以  平台创建完应用后需要等一段时间才能获取到tag
                 MiPushRegister.getInstance(this).register("2882303761520089591", "5432008920591");
             }
         }

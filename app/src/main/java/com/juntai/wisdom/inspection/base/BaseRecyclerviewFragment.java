@@ -33,21 +33,27 @@ public abstract class BaseRecyclerviewFragment<P extends IPresenter> extends Bas
         mRecyclerview = (RecyclerView) getView(R.id.recyclerview);
         mSmartrefreshlayout = (SmartRefreshLayout) getView(R.id.smartrefreshlayout);
         adapter = getAdapter();
-        adapter.setEmptyView(getBaseActivity().getAdapterEmptyView("一条数据也没有...",-1));
-        getBaseActivity().initRecyclerview(mRecyclerview,adapter, LinearLayoutManager.VERTICAL);
-        mSmartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(RefreshLayout refreshLayout) {
-                mSmartrefreshlayout.setNoMoreData(false);
-                freshlayoutOnRefresh();
-            }
-        });
-        mSmartrefreshlayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(RefreshLayout refreshLayout) {
-                freshlayoutOnLoadMore();
-            }
-        });
+        mRecyclerview = (RecyclerView) getView(R.id.recyclerview);
+        mSmartrefreshlayout = (SmartRefreshLayout) getView(R.id.smartrefreshlayout);
+        adapter = getAdapter();
+        if (adapter != null) {
+            getBaseActivity().initRecyclerview(mRecyclerview,adapter, LinearLayoutManager.VERTICAL);
+            mSmartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
+                @Override
+                public void onRefresh(RefreshLayout refreshLayout) {
+                    freshlayoutOnRefresh();
+                }
+            });
+            mSmartrefreshlayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+                @Override
+                public void onLoadMore(RefreshLayout refreshLayout) {
+                    freshlayoutOnLoadMore();
+                }
+            });
+        }
+        mSmartrefreshlayout.setEnableLoadMore(false);
+        freshlayoutOnRefresh();
+
     }
 
     protected abstract void freshlayoutOnLoadMore();

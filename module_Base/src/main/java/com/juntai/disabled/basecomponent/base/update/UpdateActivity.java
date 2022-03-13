@@ -22,6 +22,9 @@ import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by Ma
  * on 2019/12/24
@@ -77,8 +80,8 @@ public abstract class UpdateActivity<P extends BasePresenter> extends BaseDownLo
                         LogUtil.d("更新" + message);
                     }
                 })
-                .setDownloadAPKPath(FileCacheUtils.getAppPath())//自定义下载路径
-                .setApkName(AppUtils.getAppName(mContext))
+                .setDownloadAPKPath(FileCacheUtils.getAppPath(true))//自定义下载路径
+                .setApkName(new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss").format(new Date()))
                 .setCustomVersionDialogListener((context, versionBundle) -> {
                     UpdateDialog updateDialog = new UpdateDialog(context, R.style.BaseDialog, R.layout.update_dialog);
                     //versionBundle 就是UIData，之前开发者传入的，在这里可以拿出UI数据并展示

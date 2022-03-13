@@ -6,6 +6,9 @@ import com.google.gson.reflect.TypeToken;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+
 /**
  * @aouther Ma
  * @date 2019/3/23
@@ -55,5 +58,11 @@ public class GsonTools {
         map = gson.fromJson(gsonString, new TypeToken<Map<String, T>>() {
         }.getType());
         return map;
+    }
+
+
+    //通过Gson将Bean转化为Json字符串形式
+    public static RequestBody getJsonRequest(Object object) {
+        return RequestBody.create(okhttp3.MediaType.parse("application/json; charset=utf-8"), createGsonString(object));
     }
 }

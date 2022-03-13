@@ -1,11 +1,17 @@
 package com.juntai.disabled.basecomponent.base;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.juntai.disabled.basecomponent.bean.BaseMenuBean;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.net.FileRetrofit;
 import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
@@ -18,7 +24,6 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -39,7 +44,7 @@ public abstract class BaseDownLoadActivity<P extends BasePresenter> extends Base
     private String notice = "图片";
     private BaseBottomDialog.OnItemClick onItemClick;
 
-    private OnFileDownloaded  fileDownLoadCallBack;
+    private OnFileDownloaded fileDownLoadCallBack;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,7 +56,7 @@ public abstract class BaseDownLoadActivity<P extends BasePresenter> extends Base
                 getTitleRightTv().setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        initBottomDialog(Arrays.asList(getTitleRightName()), getDownLoadPath());
+                        initBottomDialog(getBaseBottomDialogMenus(getTitleRightName()), getDownLoadPath());
                     }
                 });
             }
@@ -60,12 +65,14 @@ public abstract class BaseDownLoadActivity<P extends BasePresenter> extends Base
 
     /**
      * 设置回调
+     *
      * @param fileDownLoadCallBack
      */
-    public void  setFileDownLoadCallBack(OnFileDownloaded  fileDownLoadCallBack){
+    public void setFileDownLoadCallBack(OnFileDownloaded fileDownLoadCallBack) {
 
-       this.fileDownLoadCallBack = fileDownLoadCallBack;
+        this.fileDownLoadCallBack = fileDownLoadCallBack;
     }
+
     /**
      * 获取标题栏右侧的内容  图片的时候可以传空
      *
@@ -88,19 +95,13 @@ public abstract class BaseDownLoadActivity<P extends BasePresenter> extends Base
     private String getSavePath(String downloadPath) {
         String path = null;
         if (!TextUtils.isEmpty(downloadPath)) {
-            if (downloadPath.contains(".mp4")) {
+            if (2 == FileCacheUtils.getFileType(downloadPath)) {
                 notice = "视频";
-                path = FileCacheUtils.getAppVideoPath() + downloadPath.substring(downloadPath.lastIndexOf("/") + 1,
+                path = FileCacheUtils.getAppVideoPath(false) + downloadPath.substring(downloadPath.lastIndexOf("/") + 1,
                         downloadPath.length());
             } else {
                 notice = "图片";
-                if (downloadPath.contains(".jpeg") || downloadPath.contains(".jpg") || downloadPath.contains(".png") || downloadPath.contains(".svg")) {
-                    path = FileCacheUtils.getAppImagePath() + downloadPath.substring(downloadPath.lastIndexOf("/") + 1, downloadPath.length());
-                } else {
-                    //巡检图片  直接从crm读取的"xunjiantubiao" +
-                    path = FileCacheUtils.getAppImagePath() + downloadPath.substring(downloadPath.lastIndexOf("/") + 1, downloadPath.length()) + ".jpeg";
-
-                }
+                path = FileCacheUtils.getAppImagePath(false) + downloadPath.substring(downloadPath.lastIndexOf("/") + 1, downloadPath.length());
             }
         }
         return path;
@@ -109,7 +110,7 @@ public abstract class BaseDownLoadActivity<P extends BasePresenter> extends Base
     /**
      * 初始化dialog
      */
-    public void initBottomDialog(List<String> arrays, final String downLoadPath) {
+    public void initBottomDialog(List<BaseMenuBean> arrays, final String downLoadPath) {
 
         if (baseBottomDialog == null) {
             onItemClick = new BaseBottomDialog.OnItemClick() {
@@ -120,9 +121,21 @@ public abstract class BaseDownLoadActivity<P extends BasePresenter> extends Base
                 }
             };
             baseBottomDialog = new BaseBottomDialog();
-            baseBottomDialog.setOnBottomDialogCallBack(onItemClick);
         }
-        baseBottomDialog.setData(arrays);
+        baseBottomDialog.initBottomDg(arrays, null, null, onItemClick);
+        baseBottomDialog.show(getSupportFragmentManager(), "arrays");
+
+    }
+
+    /**
+     * 初始化dialog
+     */
+    public void initBottomDialog(List<BaseMenuBean> arrays, BaseQuickAdapter adapter, LinearLayoutManager manager, BaseBottomDialog.OnItemClick onItemClick) {
+
+        if (baseBottomDialog == null) {
+            baseBottomDialog = new BaseBottomDialog();
+        }
+        baseBottomDialog.initBottomDg(arrays, adapter, manager, onItemClick);
         baseBottomDialog.show(getSupportFragmentManager(), "arrays");
 
     }
@@ -168,29 +181,31 @@ public abstract class BaseDownLoadActivity<P extends BasePresenter> extends Base
 
     /**
      * 获取保存路径
+     *
      * @param dirPath
      * @param downloadPath
      * @return
      */
     private String getSavePath(String dirPath, String downloadPath) {
         String savePath;
-        String dir = FileCacheUtils.getAppImagePath(dirPath);
+        String dir = FileCacheUtils.getAppImagePath(dirPath,false);
         File dirFile = new File(dir);
         if (!dirFile.exists()) {
             dirFile.mkdirs();
         }
-        if (downloadPath.contains(".jpeg") || downloadPath.contains(".jpg") || downloadPath.contains(".png") || downloadPath.contains(".svg")) {
-            savePath =dir + File.separator + downloadPath.substring(downloadPath.lastIndexOf(
-                            "/") + 1, downloadPath.lastIndexOf("."));
+        if (1 == FileCacheUtils.getFileType(downloadPath)) {
+            savePath = dir + File.separator + downloadPath.substring(downloadPath.lastIndexOf(
+                    "/") + 1, downloadPath.lastIndexOf("."));
         } else {
             //巡检图片  直接从crm读取的"xunjiantubiao" +
-            savePath =dir + File.separator + downloadPath.substring(downloadPath.lastIndexOf("/") + 1,
-                            downloadPath.length());
+            savePath = dir + File.separator + downloadPath.substring(downloadPath.lastIndexOf("/") + 1,
+                    downloadPath.length());
 
         }
         return savePath;
     }
 
+    @SuppressLint("CheckResult")
     private void downFileLogic(String downloadPath, File file) {
         FileRetrofit.getInstance().getFileService()
                 .getFile_GET(downloadPath)
@@ -203,9 +218,7 @@ public abstract class BaseDownLoadActivity<P extends BasePresenter> extends Base
                             //responseBody里的数据只可以读取一次
                             //Log.e("ffffffff", "" + responseBody.bytes().length);
                             saveFileToLocal(file, responseBody.byteStream());
-                            //                            playVideo();
-                            //                            startActivity(new Intent(mContext, VideoPlayerActivity
-                            //                            .class).putExtra("path",savePath));
+
                         } catch (Exception e) {
                             e.printStackTrace();
                             LogUtil.e(e.toString());
@@ -246,12 +259,30 @@ public abstract class BaseDownLoadActivity<P extends BasePresenter> extends Base
             LogUtil.d("----->ok");
             os.close();
             ins.close();
+            sendBroadcastToAlbum(mContext,file.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
             LogUtil.d("----->error-" + e.toString());
         }
     }
-
+    /**
+     * 通知系统相册更新图库
+     * @param context
+     * @param imagePath
+     */
+    public static void sendBroadcastToAlbum(Context context, String imagePath) {
+        if (context != null && imagePath != null && imagePath.length() > 0) {
+            File imageFile = new File(imagePath);
+            if (imageFile.exists()) {
+                Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                Uri uri = Uri.fromFile(imageFile);
+                if (uri != null && context != null) {
+                    intent.setData(uri);
+                    context.sendBroadcast(intent);
+                }
+            }
+        }
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -265,7 +296,7 @@ public abstract class BaseDownLoadActivity<P extends BasePresenter> extends Base
         if (baseBottomDialog != null) {
             if (baseBottomDialog.isAdded()) {
                 onItemClick = null;
-                if (baseBottomDialog.getDialog().isShowing()){
+                if (baseBottomDialog.getDialog().isShowing()) {
                     baseBottomDialog.dismiss();
                 }
             }
@@ -275,9 +306,9 @@ public abstract class BaseDownLoadActivity<P extends BasePresenter> extends Base
     /**
      * 文件下载成功的回调
      */
-    public interface  OnFileDownloaded{
+    public interface OnFileDownloaded {
 
-        void  onFileDownloaded(String  fileName);
+        void onFileDownloaded(String fileName);
 
     }
 

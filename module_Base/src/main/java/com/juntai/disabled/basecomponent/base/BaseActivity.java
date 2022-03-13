@@ -19,11 +19,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
@@ -36,6 +38,7 @@ import com.allenliu.versionchecklib.utils.AppUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.barlibrary.ImmersionBar;
 import com.juntai.disabled.basecomponent.R;
+import com.juntai.disabled.basecomponent.bean.BaseMenuBean;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.DisplayUtil;
 import com.juntai.disabled.basecomponent.utils.DividerItemDecoration;
@@ -55,6 +58,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -88,6 +92,13 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
     public FrameLayout frameLayout;
     public static int ActivityResult = 1001;//activity返回值
     public static int BASE_REQUEST_RESULT = 10086;//请求的回执
+
+    public static String PARCELABLE_KEY = "parcelable";
+    public static String BASE_ID = "baseid";
+    public static String BASE_ID2 = "baseid2";
+    public int baseId;
+    public int baseId2;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,6 +126,10 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         initToolbarAndStatusBar(true);
         initLeftBackTv(true);
         initView();
+        if (getIntent() != null) {
+            baseId = getIntent().getIntExtra(BASE_ID, 0);
+            baseId2 = getIntent().getIntExtra(BASE_ID2, 0);
+        }
         initData();
         ActivityManagerTool.getInstance().addActivity(this);
     }
@@ -590,53 +605,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
             }
         });
     }
-    /**
-     * 压缩图片
-     * @param path  图片路径
-     * @param saveDirName  保存本地图片的目录
-     * @param onImageCompressedPath
-     * @param saveFileName  保存文件的名称
-     */
-    public void  compressImage(String path, String saveDirName,
-                               String saveFileName,OnImageCompressedPath onImageCompressedPath) {
-        //        showLoadingDialog(mContext);
-        Luban.with(mContext).load(path).ignoreBy(100)
-                .setTargetDir(FileCacheUtils.getAppImagePath(saveDirName))
-                .filter(new CompressionPredicate() {
-                    @Override
-                    public boolean apply(String path) {
-                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
-                    }
-                }).setRenameListener(new OnRenameListener() {
-            @Override
-            public String rename(String filePath) {
-                return TextUtils.isEmpty(saveFileName)||saveFileName==null?System.currentTimeMillis()+".jpg":
-                        saveFileName+".jpg";
-            }
-        })
-                .setCompressListener(new OnCompressListener() {
-                    @Override
-                    public void onStart() {
-                        //  压缩开始前调用，可以在方法内启动 loading UI
-
-                    }
-
-                    @Override
-                    public void onSuccess(File file) {
-                        //  压缩成功后调用，返回压缩后的图片文件
-                        if (onImageCompressedPath != null) {
-                            onImageCompressedPath.compressedImagePath(file);
-                        }
-                        stopLoadingDialog();
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        LogUtil.e("push-图片压缩失败");
-                        stopLoadingDialog();
-                    }
-                }).launch();
-    }
 
     /**
      * 图片压缩成功回调
@@ -698,6 +666,104 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         if (views.length>0) {
             for (View view : views) {
                 view.setVisibility(View.VISIBLE);
+            }
+        }
+    }
+    /**
+     * 设置alertdialog的宽高
+     * 这个是为了类似锤子手机 对话框显示不全的问题
+     * 需要在dialog  show()方法调用之后 调用此方法
+     *
+     * @param dialog
+     * @param width  -1代表屏幕宽度  0 代表 wrap_content  其他就是自定义值了
+     * @param height
+     */
+    public void setAlertDialogHeightWidth(AlertDialog dialog, int width, int height) {
+        // 设置dialog的宽度
+        WindowManager.LayoutParams params = dialog.getWindow().getAttributes();
+        if (-1 == width) {
+            params.width = getScreenWidth();
+        } else if (0 == width) {
+            params.width = params.width;
+        } else {
+            params.width = width;
+        }
+        if (-1 == height) {
+            params.height = getScreenHeight();
+        } else if (0 == height) {
+            params.height = params.height;
+        } else {
+            params.height = height;
+        }
+        dialog.getWindow().setAttributes(params);
+    }
+    /**
+     * 获取屏幕宽度(px)
+     *
+     * @param
+     * @return
+     */
+    public int getScreenWidth() {
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int width = dm.widthPixels;
+
+        return width;
+    }
+
+    /**
+     * 获取屏幕高度(px)
+     *
+     * @param
+     * @return
+     */
+    public int getScreenHeight() {
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+        int height = dm.heightPixels;
+
+        return height;
+    }
+
+    /**
+     * @return
+     */
+    public List<BaseMenuBean>  getBaseBottomDialogMenus(String... names) {
+        List<BaseMenuBean> calls = new ArrayList<>();
+        if (names.length==0) {
+            return null;
+        }
+        for (String name : names) {
+            calls.add(new BaseMenuBean(name));
+        }
+        return calls;
+    }
+    /**
+     * @return
+     */
+    public List<BaseMenuBean>  getBaseBottomDialogMenus(BaseMenuBean... menus) {
+        List<BaseMenuBean> calls = new ArrayList<>();
+        if (menus.length==0) {
+            return null;
+        }
+        for (BaseMenuBean menu : menus) {
+            calls.add(menu);
+        }
+        return calls;
+    }
+
+
+    /**
+     * 所有view可见or 不可见
+     */
+    public void  setViewVisibleOrGone(boolean visible,View... views){
+        if (views != null&&views.length>0) {
+            for (View view : views) {
+                if (visible) {
+                    view.setVisibility(View.VISIBLE);
+                }else {
+                    view.setVisibility(View.GONE);
+                }
             }
         }
     }

@@ -35,7 +35,14 @@ public class UserInfoManager {
         }
         return status;
     }
-
+    /**
+     * 退出登录清理缓存配置
+     */
+    public static void clearUserData() {
+//        Hawk.delete(HawkProperty.SP_KEY_USER);
+//        Hawk.delete(HawkProperty.SP_KEY_TOKEN);
+//        Hawk.delete(HawkProperty.SP_KEY_UNREAD_COUNT);
+    }
     /**
      * 获取用户信息
      *

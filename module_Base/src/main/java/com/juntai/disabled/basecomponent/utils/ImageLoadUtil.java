@@ -72,7 +72,47 @@ public class ImageLoadUtil {
     public static void loadImageCache(Context context, int url, ImageView view) {
         Glide.with(context).load(url).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE).error(R.drawable.nopicture).into(view);
     }
+    /**
+     * 加载圆角方形图片
+     *
+     * @param context
+     * @param url
+     * @param view
+     */
+    public static void loadSquareImage(Context context, String url, ImageView view) {
+        Glide.with(context).load(url).apply(new RequestOptions()
 
+                .error(R.drawable.nopicture).placeholder(R.drawable.nopicture)
+                .transform(new RoundedCorners(15)).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE)).into(view);
+
+    }
+    /**
+     * 加载圆角方形图片
+     *
+     * @param context
+     * @param res
+     * @param view
+     */
+    public static void loadSquareImage(Context context, int res, ImageView view) {
+        Glide.with(context).load(res).apply(new RequestOptions()
+
+                .error(R.drawable.nopicture).placeholder(R.drawable.nopicture)
+                .transform(new RoundedCorners(15)).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE)).into(view);
+
+    }
+
+    /**
+     * 加载圆角方形图片
+     *
+     * @param context
+     * @param url
+     * @param view
+     */
+    public static void loadSquareImage(Context context, String url, int defaultPic, ImageView view) {
+        Glide.with(context).load(url).apply(new RequestOptions().error(defaultPic).placeholder(defaultPic)
+                .transform(new RoundedCorners(15)).skipMemoryCache(false).diskCacheStrategy(DiskCacheStrategy.RESOURCE)).into(view);
+
+    }
     /**
      * @param context
      * @param url     加载网络视频的时候 不能使用硬盘缓存

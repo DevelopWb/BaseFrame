@@ -24,6 +24,7 @@ import android.widget.TextView;
 import com.baidu.location.BDLocation;
 import com.google.gson.Gson;
 import com.juntai.disabled.basecomponent.utils.ActionConfig;
+import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.disabled.federation.R;
@@ -33,6 +34,7 @@ import com.juntai.wisdom.inspection.base.customview.MainPagerAdapter;
 import com.juntai.wisdom.inspection.entrance.LoginActivity;
 import com.juntai.wisdom.inspection.home_page.HomePageFragment;
 import com.juntai.wisdom.inspection.mine.MyCenterFragment;
+import com.juntai.wisdom.inspection.utils.UserInfoManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -207,13 +209,10 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         @Override
         public void onReceive(Context context, Intent intent) {
             if (ActionConfig.BROAD_LOGIN.equals(intent.getAction())) {
-                //登录信息设置为空
-                String error = intent.getStringExtra("error");
-                ToastUtils.info(MyApp.app, error);
-                //                SPTools.saveString(mContext, "login", "");
+                ToastUtils.info(MyApp.app, "账号在另一设备登录");
+                UserInfoManager.clearUserData();
+                ActivityManagerTool.getInstance().finishApp();
                 startActivity(new Intent(mContext, LoginActivity.class));
-                //重置界面
-                //                EventManager.sendStringMsg(ActionConfig.UN_READ_MESSAG_TAG);
             }
         }
     }

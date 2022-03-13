@@ -231,7 +231,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
      * @return
      */
     protected String getSignPath(String picName) {
-        String picPath = FileCacheUtils.getAppImagePath() + picName;
+        String picPath = FileCacheUtils.getAppImagePath(true) + picName;
         File file = new File(picPath);
         return file.exists()?picPath:null;
     }
@@ -241,7 +241,7 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
      * @return
      */
     protected String getHeadPath(String picName) {
-        String picPath = FileCacheUtils.getAppImagePath() + picName;
+        String picPath = FileCacheUtils.getAppImagePath(true) + picName;
         File file = new File(picPath);
         if (!file.exists()) {
             try {
