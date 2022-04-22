@@ -13,7 +13,7 @@ def configs = rootProject.ext.android
 android {
     compileSdkVersion configs.compileSdkVersion
     defaultConfig {
-        applicationId "com.juntai.wisdom.inspection"
+        applicationId "com.juntai.wisdom.project.shop"
         minSdkVersion configs.minSdkVersion
         targetSdkVersion configs.targetSdkVersion
         versionCode configs.versionCode
@@ -88,6 +88,7 @@ dependencies {
     implementation project(':module_Map')
     implementation project(':banner')
     implementation project(':module_Video')
+    implementation project(':zXingLiteLib')
     implementation 'com.sunfusheng:MarqueeView:1.4.1'//跑马灯
     implementation 'com.oginotihiro:cropview:1.0.0'
     implementation project((':oscvpush'))
