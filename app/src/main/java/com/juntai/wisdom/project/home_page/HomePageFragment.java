@@ -15,7 +15,6 @@ import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.bean.HomePageMenuBean;
 import com.juntai.wisdom.project.mine.MyCenterContract;
-import com.juntai.wisdom.project.securityCheck.SecurityCheckSiteActivity;
 import com.juntai.disabled.basecomponent.utils.AppUtils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -59,33 +58,6 @@ public class HomePageFragment extends BaseMvpFragment<HomePagePresent> implement
         menuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                HomePageMenuBean menuBean = (HomePageMenuBean) adapter.getData().get(position);
-                String menuName = menuBean.getMenuName();
-                if (TextUtils.isEmpty(menuName)) {
-                    return;
-                }
-                Intent intent = new Intent();
-                switch (menuName) {
-                    //                    case HomePageContract.HOMEPAGE_MENU_FIRE_CHECK:
-                    //                        //消防检查
-                    //                        intent.setClass(mContext,)
-                    //                        break;
-                    //                    case HomePageContract.HOMEPAGE_MENU_FIRE_CHECK:
-                    //                        //消防检查
-                    //                        intent.setClass(mContext,)
-                    //                        break;
-                    case HomePageContract.HOMEPAGE_MENU_SECURITY_CHECK:
-                        //消防检查
-                        intent.setClass(mContext, SecurityCheckSiteActivity.class);
-                        break;
-                    case HomePageContract.HOMEPAGE_MENU_FIRE_CHECK:
-                        //消防检查
-                        //                        intent.setClass(mContext,)
-                        break;
-                    default:
-                        break;
-                }
-                startActivity(intent);
             }
         });
 

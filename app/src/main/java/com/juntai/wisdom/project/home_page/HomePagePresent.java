@@ -2,7 +2,7 @@ package com.juntai.wisdom.project.home_page;
 
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
-import com.juntai.disabled.federation.R;
+import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.bean.HomePageMenuBean;
 
 import java.util.ArrayList;

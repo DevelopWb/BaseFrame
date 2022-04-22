@@ -28,7 +28,6 @@ ext {
             "appcompat-v7"                 : "com.android.support:appcompat-v7:$rootProject.supportVersion",
             "support-v4"                   : "com.android.support:support-v4:$rootProject.supportVersion",
             "design"                       : "com.android.support:design:$rootProject.supportVersion",
-            "material"                       : "com.google.android.material:material:1.1.0",
             "annotations"                  : "com.android.support:support-annotations:$rootProject.supportVersion",
             "gson"                         : "com.google.code.gson:gson:2.6.2",
 //            "fastjson"                     :'com.alibaba:fastjson:1.2.67',

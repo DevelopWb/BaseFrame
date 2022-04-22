@@ -4,7 +4,7 @@ package com.juntai.wisdom.project.mine;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.disabled.basecomponent.mvp.IView;
-import com.juntai.disabled.federation.R;
+import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.bean.MyMenuBean;
 import com.juntai.wisdom.project.mine.setting.MySettingActivity;
 

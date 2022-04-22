@@ -5,33 +5,53 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.support.design.widget.BottomNavigationView;
+import android.graphics.Color;
+import android.os.Handler;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.util.SparseArray;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
-
-
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
+import com.google.gson.Gson;
 import com.juntai.disabled.basecomponent.utils.ActionConfig;
 import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.disabled.bdmap.service.LocateAndUpload;
 import com.juntai.wisdom.project.base.BaseAppActivity;
+import com.juntai.wisdom.project.base.customview.CustomViewPager;
+import com.juntai.wisdom.project.base.customview.MainPagerAdapter;
 import com.juntai.wisdom.project.entrance.LoginActivity;
+import com.juntai.wisdom.project.home_page.HomePageFragment;
+import com.juntai.wisdom.project.mine.MyCenterFragment;
 import com.juntai.wisdom.project.utils.UserInfoManager;
 
-/**
- * @aouther tobato
- * @description 描述  首页
- * @date 2022/4/22 14:39
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class MainActivity extends BaseAppActivity<MainPagePresent> implements ViewPager.OnPageChangeListener,
         View.OnClickListener, MainPageContract.IMainPageView {
+    private MainPagerAdapter adapter;
+    private LinearLayout mainLayout;
+    private CustomViewPager mainViewpager;
+
+    private TabLayout mainTablayout;
+    private String[] title = new String[]{"首页", "添加","我的"};
+    private int[] tabDrawables = new int[]{R.drawable.home_index,R.drawable.home_index,R.drawable.home_msg};
+    private SparseArray<Fragment> mFragments = new SparseArray<>();
     //
     CGBroadcastReceiver broadcastReceiver = new CGBroadcastReceiver();
 
+    PopupWindow popupWindow;
 
 
     @Override
@@ -41,17 +61,18 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
 
     @Override
     public void initView() {
-
-        BottomNavigationView navView = findViewById(R.id.nav_view);
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_msg, R.id.navigation_mine)
-                .build();
-        // 設置ActionBar跟随联动
-        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        // 设置Nav跟随联动
-        NavigationUI.setupWithNavController(navView, navController);
-
+        mainViewpager = findViewById(R.id.main_viewpager);
+        mainTablayout = findViewById(R.id.main_tablayout);
+        mainLayout = findViewById(R.id.main_layout);
+        mainViewpager.setScanScroll(false);
+        mFragments.append(0, new HomePageFragment());//
+//        mFragments.append(1, new HandlerBusinessFragment());//
+        mFragments.append(1, new MyCenterFragment());//资讯
+        //
+        getToolbar().setVisibility(View.GONE);
+        mBaseRootCol.setFitsSystemWindows(false);
+        mainViewpager.setOffscreenPageLimit(4);
+        initTab();
         //注册广播
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ActionConfig.BROAD_LOGIN);
@@ -65,6 +86,54 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
     }
 
 
+    public void initTab() {
+        adapter = new MainPagerAdapter(getSupportFragmentManager(), getApplicationContext(), title, tabDrawables,
+                mFragments);
+        mainViewpager.setAdapter(adapter);
+        mainViewpager.setOffscreenPageLimit(title.length);
+        /*viewpager切换监听，包含滑动点击两种*/
+        mainViewpager.addOnPageChangeListener(this);
+        for (int i = 0; i < title.length; i++) {
+            TabLayout.Tab tab = mainTablayout.newTab();
+            if (tab != null) {
+                if (i == title.length - 1) {
+                    tab.setCustomView(adapter.getTabView(i, true));
+                } else {
+                    tab.setCustomView(adapter.getTabView(i, false));
+                }
+                mainTablayout.addTab(tab);
+            }
+        }
+
+        mainTablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 1) {
+                    //条件弹窗
+                } else {
+                    mainViewpager.setCurrentItem(tab.getPosition(), false);
+
+                }
+
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 1) {
+                    //条件弹窗
+                }
+            }
+        });
+
+        //        mainTablayout.newTab();
+        /*viewpager切换默认第一个*/
+        mainViewpager.setCurrentItem(0);
+    }
 
     @Override
     public void onPageScrolled(int i, float v, int i1) {

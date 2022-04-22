@@ -30,10 +30,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".securityCheck.EditSecurityInspectSiteActivity"></activity>
-        <activity android:name=".securityCheck.SecurityInspectionSiteMoreInfoActivity" />
-        <activity android:name=".securityCheck.SecurityInspectionInfoActivity" />
-        <activity android:name=".securityCheck.SecurityCheckSiteActivity" />
         <activity
             android:name=".home_page.QRScanActivity"
             android:launchMode="singleTop" />

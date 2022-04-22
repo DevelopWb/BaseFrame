@@ -10,7 +10,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.juntai.disabled.federation.R;
+import com.juntai.wisdom.project.R;
+
 
 /**
  * 首页tablayout适配器
