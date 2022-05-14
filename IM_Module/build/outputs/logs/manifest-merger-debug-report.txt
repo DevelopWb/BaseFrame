@@ -1,0 +1,41 @@
+-- Merging decision tree log ---
+manifest
+ADDED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml:2:1-10:12
+INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml:2:1-10:12
+INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml:2:1-10:12
+INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml:2:1-10:12
+INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml:2:1-10:12
+INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml:2:1-10:12
+INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml:2:1-10:12
+	package
+		ADDED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml:3:5-31
+		INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml
+		INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml
+		ADDED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml:2:1-10:12
+		INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml
+	android:versionCode
+		INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml
+		ADDED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml:2:1-10:12
+		INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml
+	xmlns:android
+		ADDED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml:2:11-69
+application
+ADDED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml:5:5-8:19
+	android:allowBackup
+		ADDED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml:6:9-35
+uses-sdk
+INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml
+INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml
+INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml
+INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml
+	android:targetSdkVersion
+		INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml
+		ADDED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml
+		INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml
+		ADDED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml
+		INJECTED from D:\Project\baseFrame\IM_Module\src\main\AndroidManifest.xml

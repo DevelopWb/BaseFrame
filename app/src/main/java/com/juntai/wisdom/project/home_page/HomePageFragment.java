@@ -23,7 +23,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
  * @description 描述  homepage
  * @date 2021/4/18 14:59
  */
-public class HomePageFragment extends BaseMvpFragment<HomePagePresent> implements MyCenterContract.ICenterView,
+public class HomePageFragment extends BaseMvpFragment<HomePagePresent> implements HomePageContract.IHomePageView,
         View.OnClickListener {
 
     private View view;

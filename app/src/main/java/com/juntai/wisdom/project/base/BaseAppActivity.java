@@ -139,13 +139,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     //        return UserInfoManager.isTest();
     //    }
 
-    @Override
-    public void singleLogin() {
-        //        ToastUtils.toast(mContext, "登录过期,请重新登录");
-        //        Hawk.delete(HawkProperty.USER_INFO);
-        //        ActivityManagerTool.getInstance().finishApp();
-        //        startActivity(new Intent(mContext, LoginActivity.class));
-    }
 
     @Override
     public void onLocationReceived(BDLocation bdLocation) {

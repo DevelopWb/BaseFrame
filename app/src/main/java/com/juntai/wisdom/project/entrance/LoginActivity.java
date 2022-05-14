@@ -12,8 +12,8 @@ import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
 import com.juntai.disabled.basecomponent.bean.UnionidBean;
+import com.juntai.disabled.basecomponent.eventbus.EventManager;
 import com.juntai.disabled.basecomponent.utils.ActionConfig;
-import com.juntai.disabled.basecomponent.utils.EventManager;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.HttpUtil;
 import com.juntai.disabled.basecomponent.utils.LogUtil;

@@ -11,6 +11,8 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import java.util.List;
+
 /**
  * @Author: tobato
  * @Description: 作用描述  只有一个recyclerview的fragment
@@ -95,25 +97,26 @@ public abstract class BaseRecyclerviewActivity<P extends BasePresenter> extends 
             mSmartrefreshlayout.finishRefresh();
         }
     }
+    public void setData(List data, int totalAmount) {
+        boolean isEnd = false;
+        final int size = data == null ? 0 : data.size();
+        if (page == 0) {
+            baseQuickAdapter.setNewData(data);
+        } else {
+            if (size > 0) {
+                baseQuickAdapter.addData(data);
+            }
+        }
+        if (baseQuickAdapter.getData().size()==totalAmount) {
+            isEnd = true;
+        }
+        if (enableLoadMore()) {
+            if (isEnd) {
+                mSmartrefreshlayout.setNoMoreData(true);
+            } else {
+                mSmartrefreshlayout.setNoMoreData(false);
+            }
+        }
 
-//    public void setData(List data) {
-//        final int size = data == null ? 0 : data.size();
-//        if (page == 0) {
-//            baseQuickAdapter.setNewData(data);
-//        } else {
-//            if (size > 0) {
-//                baseQuickAdapter.addData(data);
-//            }
-//        }
-//        if (enableLoadMore()) {
-////            if (size < limit) {
-//            if (isEnd) {
-//                //第一页如果不够一页就不显示没有更多数据布局
-//                mSmartrefreshlayout.finishLoadMoreWithNoMoreData();
-//            } else {
-//                mSmartrefreshlayout.setNoMoreData(false);
-//            }
-//        }
-//
-//    }
+    }
 }
