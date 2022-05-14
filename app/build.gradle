@@ -88,7 +88,6 @@ dependencies {
     implementation project(':module_Map')
     implementation project(':banner')
     implementation project(':module_Video')
-    implementation project(':zXingLiteLib')
     implementation 'com.sunfusheng:MarqueeView:1.4.1'//跑马灯
     implementation 'com.oginotihiro:cropview:1.0.0'
     implementation project((':oscvpush'))
