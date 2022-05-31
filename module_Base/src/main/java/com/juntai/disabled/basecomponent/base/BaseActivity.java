@@ -3,6 +3,7 @@ package com.juntai.disabled.basecomponent.base;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
@@ -183,10 +184,9 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
     /**
      * 展示加载动画
      */
-    public void showLoadingDialog(Context context) {
-        LoadingDialog.getInstance().showProgress(context);
+    public void showLoadingDialog(Context context,boolean canCancel) {
+        LoadingDialog.getInstance().showProgress(context,canCancel);
     }
-
     /**
      * 获取左控件
      *
@@ -745,6 +745,55 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
                 }
             }
         }
+    }
+    /**
+     * 展示对话框
+     * @param msg
+     * @param positiveTitle
+     * @param negativeTitle
+     * @param positiveListener
+     */
+    public void showAlertDialog(String msg, String positiveTitle, String negativeTitle, DialogInterface.OnClickListener positiveListener) {
+        AlertDialog alertDialog = new AlertDialog.Builder(mContext)
+                .setMessage(msg)
+                .setPositiveButton(positiveTitle, positiveListener).setNegativeButton(negativeTitle, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
+        setAlertDialogHeightWidth(alertDialog,-1,0);
+    }
+    /**
+     * 展示对话框
+     * @param msg
+     */
+    public void showAlertDialogOfKnown(String msg) {
+        AlertDialog alertDialog = new AlertDialog.Builder(mContext)
+                .setMessage(msg)
+                .setPositiveButton("知道了", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
+        setAlertDialogHeightWidth(alertDialog,-1,0);
+    }
+    /**
+     * 展示对话框
+     * @param msg
+     * @param positiveTitle
+     * @param negativeTitle
+     * @param positiveListener
+     */
+    public void showAlertDialog(String msg, String positiveTitle, String negativeTitle, DialogInterface.OnClickListener positiveListener, DialogInterface.OnClickListener negativeListener) {
+        AlertDialog alertDialog = new AlertDialog.Builder(mContext)
+                .setMessage(msg)
+                .setPositiveButton(positiveTitle, positiveListener).setNegativeButton(negativeTitle, negativeListener).show();
+
+        setAlertDialogHeightWidth(alertDialog,-1,0);
     }
 
 }

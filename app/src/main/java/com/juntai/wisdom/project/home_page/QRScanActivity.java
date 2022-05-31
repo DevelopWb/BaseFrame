@@ -1,32 +1,30 @@
 package com.juntai.wisdom.project.home_page;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.juntai.disabled.basecomponent.base.BaseMvpActivity;
+import com.huawei.hms.hmsscankit.ScanUtil;
+import com.huawei.hms.ml.scan.HmsScan;
+import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions;
+import com.juntai.disabled.basecomponent.base.BaseWebViewActivity;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
-import com.juntai.disabled.basecomponent.utils.GlideEngine4;
+import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.JsonUtil;
-import com.juntai.wisdom.project.MainActivity;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.R;
-import com.juntai.wisdom.project.utils.StringTools;
+import com.juntai.wisdom.project.base.BaseAppActivity;
 import com.king.zxing.CaptureHelper;
 import com.king.zxing.OnCaptureCallback;
 import com.king.zxing.ViewfinderView;
 import com.king.zxing.util.CodeUtils;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
 
-import es.dmoral.toasty.Toasty;
-import io.reactivex.functions.Consumer;
+import java.util.List;
 
 /**
  * 扫码
@@ -35,7 +33,7 @@ import io.reactivex.functions.Consumer;
  * @date 2020-3-18
  * @update 2020-06-08 tobato
  */
-public class QRScanActivity extends BaseMvpActivity implements View.OnClickListener, OnCaptureCallback {
+public class QRScanActivity extends BaseAppActivity implements View.OnClickListener, OnCaptureCallback {
     private SurfaceView mSurfaceView;
     private ViewfinderView mViewfinderView;
     private ImageView mZxingPic;
@@ -94,7 +92,7 @@ public class QRScanActivity extends BaseMvpActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.zxing_pic:
-                choseImageFromFragment(0, this, 1, SELECT_PIC_RESULT);
+                choseImage(0, this, 1);
                 break;
             case R.id.zxing_back_btn:
                 finish();
@@ -109,13 +107,53 @@ public class QRScanActivity extends BaseMvpActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SELECT_PIC_RESULT && resultCode == RESULT_OK) {
             String content = CodeUtils.parseCode(Matisse.obtainPathResult(data).get(0));
-            showResult(content);
-            finish();
+            resolveQrcode(content);
         }
+    }
+
+    @Override
+    protected void selectedPicsAndEmpressed(List icons) {
+        super.selectedPicsAndEmpressed(icons);
+
+        if (icons != null && icons.size() > 0) {
+            String pic = (String) icons.get(0);
+            String result = null;
+            Bitmap bitmap = FileCacheUtils.getImageBitmap(pic);
+            //“QRCODE_SCAN_TYPE ”和“ DATAMATRIX_SCAN_TYPE表示只扫描QR和Data Matrix的码
+            HmsScanAnalyzerOptions options = new HmsScanAnalyzerOptions.Creator().setHmsScanTypes(HmsScan.QRCODE_SCAN_TYPE, HmsScan.DATAMATRIX_SCAN_TYPE).setPhotoMode(true).create();
+            HmsScan[] hmsScans = ScanUtil.decodeWithBitmap(mContext, bitmap, options);
+            //处理扫码结果
+            if (hmsScans != null && hmsScans.length > 0) {
+                result = hmsScans[0].showResult;
+                resolveQrcode(result);
+            }else {
+                ToastUtils.toast(mContext,"没有检测到有效的二维码");
+            }
+
+        }
+
+    }
+
+    /**
+     * 解析二维码
+     *
+     * @param result
+     */
+    public void resolveQrcode(String result) {
+        /**
+         *  21960 菜优选的端口号
+         */
+        if (result.contains("juntaikeji") && result.contains("21960")) {
+            //内部二维码
+            String id = result.substring(result.lastIndexOf("=") + 1, result.length());
+        } else {
+            startActivity(new Intent(mContext, BaseWebViewActivity.class).putExtra("url", result));
+        }
+        finish();
     }
 
     @Override
@@ -138,6 +176,11 @@ public class QRScanActivity extends BaseMvpActivity implements View.OnClickListe
     }
 
     @Override
+    protected boolean canCancelLoadingDialog() {
+        return false;
+    }
+
+    @Override
     public boolean onTouchEvent(MotionEvent event) {
         mCaptureHelper.onTouchEvent(event);
         return super.onTouchEvent(event);
@@ -146,73 +189,16 @@ public class QRScanActivity extends BaseMvpActivity implements View.OnClickListe
     @Override
     public boolean onResultCallback(String result) {
         String resultData = JsonUtil.transcoding(result);
-        if (JsonUtil.isNumber(resultData)){
+        if (JsonUtil.isNumber(resultData)) {
             mCaptureHelper.onPause();
             mCaptureHelper.onResume();
-        }else {
-            showResult(resultData);
-            finish();
+        } else {
+            resolveQrcode(resultData);
         }
         return true;
     }
 
-    /**
-     * 结果处理
-     * 最好是用ActivityResult将结果返回上个界面
-     *
-     * @param result
-     */
-    private void showResult(String result) {
-        if (!StringTools.isStringValueOk(result)) {
-            return;
-        }
-        setResult(RESULT_OK, new Intent(this, MainActivity.class).putExtra("result", result));
-    }
 
-    /**
-     * 图片选择
-     *
-     * @param type          选择类型 0 图片 1 短视频
-     * @param activity
-     * @param maxSelectable 最大图片选择数
-     * @param requestCode   请求得code
-     */
-    public void choseImageFromFragment(int type, Activity activity, int maxSelectable, int requestCode) {
-        new RxPermissions(this)
-                .request(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.CAMERA)
-                .compose(this.bindToLife())
-                .subscribe(new Consumer<Boolean>() {
-                    @Override
-                    public void accept(Boolean aBoolean) throws Exception {
-                        if (aBoolean) {
-                            if (type == 0) {
-                                Matisse.from(activity)
-                                        .choose(MimeType.ofImage())
-                                        .showSingleMediaType(true)//是否只显示选择的类型的缩略图，就不会把所有图片视频都放在一起，而是需要什么展示什么
-                                        .countable(true)
-                                        .maxSelectable(maxSelectable)
-                                        //                                        .capture(true)//是否显示照相，两行连用
-                                        //                                        .captureStrategy(new
-                                        //                                        CaptureStrategy(true, BaseAppUtils
-                                        //                                        .getFileprovider()))
-                                        //参数1 true表示拍照存储在共有目录，false表示存储在私有目录；参数2与
-                                        // AndroidManifest中authorities值相同，用于适配7.0系统 必须设置
-                                        .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
-                                        .thumbnailScale(0.85f)
-                                        .imageEngine(new GlideEngine4())
-                                        .forResult(requestCode);
-                                //包括裁剪和压缩后的缓存，要在上传成功后调用，注意：需要系统sd卡权限
-                            } else {
-                                //选择小视频
-                                //                                mPresenter.recordVideo(getActivity());
-                            }
-                        } else {
-                            Toasty.info(mContext, "请给与相应权限").show();
-                        }
-                    }
-                });
-    }
 
     @Override
     public void onSuccess(String tag, Object o) {

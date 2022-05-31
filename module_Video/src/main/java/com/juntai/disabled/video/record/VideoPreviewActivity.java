@@ -15,7 +15,7 @@ import android.widget.VideoView;
 import com.juntai.disabled.basecomponent.base.BaseActivity;
 import com.juntai.disabled.basecomponent.utils.ActionConfig;
 import com.juntai.disabled.video.R;
-import com.juntai.disabled.video.player.PlayerActivity;
+import com.juntai.disabled.video.player.DisplayVideoActivity;
 import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
 
 /**
@@ -97,7 +97,7 @@ public class VideoPreviewActivity extends BaseActivity implements View.OnClickLi
             sendBroadcast(intent);
             finish();
         } else if (i == R.id.iv_video_screenshot) {//播放
-            startActivity(new Intent(this, PlayerActivity.class).putExtra(
+            startActivity(new Intent(this, DisplayVideoActivity.class).putExtra(
                     "locPath", videoUri));
         }
     }

@@ -63,7 +63,7 @@
             android:value="Nb7K5CgYPX5xE8UhppiKirMt0BeoyGEy" /> <!-- 百度地图 -->
         <!--  -->
         <activity
-            android:name=".entrance.StartActivity"
+            android:name=".entrance.SplashActivity"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

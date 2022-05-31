@@ -20,4 +20,9 @@ public abstract class BaseAppFragment<P extends IPresenter> extends BaseMvpFragm
     public BaseAppActivity getBaseAppActivity() {
         return (BaseAppActivity) getActivity();
     }
+
+    @Override
+    protected boolean canCancelLoadingDialog() {
+        return false;
+    }
 }

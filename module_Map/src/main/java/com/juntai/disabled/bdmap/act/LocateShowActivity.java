@@ -214,4 +214,9 @@ public class LocateShowActivity extends BaseRequestLocationActivity implements V
         locationMarker.recycle();
         locationMarker = null;
     }
+
+    @Override
+    protected boolean canCancelLoadingDialog() {
+        return false;
+    }
 }

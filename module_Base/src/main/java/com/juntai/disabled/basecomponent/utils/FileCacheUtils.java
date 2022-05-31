@@ -9,11 +9,14 @@ import android.os.Environment;
 import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
 import com.juntai.disabled.basecomponent.app.BaseApplication;
+import com.juntai.disabled.basecomponent.mvp.IView;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -52,7 +55,25 @@ public class FileCacheUtils {
         return file.exists();
 
     }
-
+    /**
+     * 将本地图片转成Bitmap
+     *
+     * @param path 已有图片的路径
+     * @return
+     */
+    public static Bitmap getImageBitmap(String path) {
+        Bitmap bitmap = null;
+        try {
+            BufferedInputStream bis = new BufferedInputStream(new FileInputStream(path));
+            bitmap = BitmapFactory.decodeStream(bis);
+            bis.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+    }
     /**
      * 查看文件夹下是否有视频文件
      *
@@ -117,55 +138,69 @@ public class FileCacheUtils {
         return destDir.getAbsolutePath() + "/";
     }
 
-
     /**
      * @param oldPath String 原文件路径
      * @param newPath String 复制后路径
      * @return boolean
      */
 
-    public static void copyFile(String oldPath, String newPath) {
+    public static void copyFile(IView iView, String oldPath, String newPath, boolean isCatch) {
+        RxScheduler.doTask(iView, new RxTask<String>() {
+            @Override
+            public String doOnIoThread() {
+                String  str = null;
+                try {
 
-        try {
+                    int bytesum = 0;
 
-            int bytesum = 0;
+                    int byteread = 0;
 
-            int byteread = 0;
+                    File oldfile = new File(oldPath);
 
-            File oldfile = new File(oldPath);
+                    if (oldfile.exists()) { //文件存在时
 
-            if (oldfile.exists()) { //文件存在时
+                        InputStream inStream = new FileInputStream(oldPath); //读入原文件
 
-                InputStream inStream = new FileInputStream(oldPath); //读入原文件
+                        FileOutputStream fs = new FileOutputStream(newPath);
 
-                FileOutputStream fs = new FileOutputStream(newPath);
+                        byte[] buffer = new byte[1024];
 
-                byte[] buffer = new byte[1024];
+                        int length;
 
-                int length;
+                        while ((byteread = inStream.read(buffer)) != -1) {
 
-                while ((byteread = inStream.read(buffer)) != -1) {
+                            bytesum += byteread; //字节数 文件大小
 
-                    bytesum += byteread; //字节数 文件大小
+                            System.out.println(bytesum);
 
-                    System.out.println(bytesum);
+                            fs.write(buffer, 0, byteread);
 
-                    fs.write(buffer, 0, byteread);
+                        }
+
+                        inStream.close();
+
+                    }
+                    str = "已保存到本地";
+
+                } catch (Exception e) {
+                    str = "复制单个文件操作出错";
+
+                    e.printStackTrace();
 
                 }
+                return str;
+            }
 
-                inStream.close();
+            @Override
+            public void doOnUIThread(String s) {
+                if (!isCatch) {
+                    ToastUtils.success(BaseApplication.app, s);
+                    sendBroadcastToAlbum(BaseApplication.app,newPath);
+                }
 
             }
-            ToastUtils.toast(BaseApplication.app, "已保存到本地");
+        });
 
-        } catch (Exception e) {
-
-            System.out.println("复制单个文件操作出错");
-
-            e.printStackTrace();
-
-        }
 
     }
 
@@ -237,6 +272,51 @@ public class FileCacheUtils {
             destDir.mkdirs();
         }
         return destDir.getAbsolutePath() + "/";
+    }
+    /**
+     * 缓存bmp
+     *
+     * @return
+     */
+    public static void saveBitmapByView(IView iView, Context context, View view, String picName) {
+        RxScheduler.doTask(iView, new RxTask<String>(){
+            @Override
+            public String doOnIoThread() {
+                view.setDrawingCacheEnabled(true);
+                view.buildDrawingCache();
+                Bitmap bmp = view.getDrawingCache();
+                FileOutputStream out;
+                File file;
+                String path = null;
+                try {
+                    // 获取SDCard指定目录下
+                    String sdCardDir = getAppImagePath(false);
+                    File dirFile = new File(sdCardDir);  //目录转化成文件夹
+                    if (!dirFile.exists()) {              //如果不存在，那就建立这个文件夹
+                        dirFile.mkdirs();
+                    }
+                    file = new File(sdCardDir, picName);
+                    out = new FileOutputStream(file);
+                    bmp.compress(Bitmap.CompressFormat.JPEG, 100, out);
+                    out.flush();
+                    out.close();
+                    path = sdCardDir + picName;
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return path;
+            }
+
+            @Override
+            public void doOnUIThread(String s) {
+                view.destroyDrawingCache();
+                sendBroadcastToAlbum(context, s);
+                ToastUtils.toast(context, "已保存到本地");
+            }
+        });
     }
 
 

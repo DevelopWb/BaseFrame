@@ -1,6 +1,5 @@
 package com.juntai.disabled.basecomponent.base;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -50,10 +49,11 @@ public abstract class BaseMvpFragment<P extends IPresenter> extends BaseLazyFrag
         }
         this.mPresenter = null;
     }
+    protected abstract boolean canCancelLoadingDialog();
 
     @Override
     public void showLoading() {
-        getBaseActivity().showLoadingDialog(getContext());
+        getBaseActivity().showLoadingDialog(getContext(),canCancelLoadingDialog());
     }
 
     @Override
@@ -78,7 +78,7 @@ public abstract class BaseMvpFragment<P extends IPresenter> extends BaseLazyFrag
     @Override
     public void onError(String tag, Object o) {
         LogUtil.d("tag-->" +tag);
-        ToastUtils.error(mContext,(String)o);
+        ToastUtils.toast(mContext,(String)o);
     }
 
     @Override

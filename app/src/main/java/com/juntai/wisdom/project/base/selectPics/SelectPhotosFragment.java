@@ -26,6 +26,7 @@ import com.juntai.disabled.basecomponent.utils.FileCacheUtils;
 import com.juntai.disabled.basecomponent.utils.GlideEngine4;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.base.BaseAppFragment;
 import com.juntai.wisdom.project.utils.CalendarUtil;
 import com.juntai.wisdom.project.utils.StringTools;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -67,7 +68,7 @@ import static android.app.Activity.RESULT_OK;
  * //最后一步 记得commit
  * beginTransaction.commit();
  */
-public class SelectPhotosFragment extends BaseMvpFragment implements View.OnClickListener {
+public class SelectPhotosFragment extends BaseAppFragment implements View.OnClickListener {
 
     private RecyclerView mSelectPhotosRv;
     private TextView mSelectPhotosTitleTv;
@@ -243,7 +244,7 @@ public class SelectPhotosFragment extends BaseMvpFragment implements View.OnClic
      */
     private void imageCompress(List<String> paths) {
         compressedSize = 0;
-        getBaseActivity().showLoadingDialog(getContext());
+        getBaseActivity().showLoadingDialog(getContext(),false);
         Luban.with(mContext).load(paths).ignoreBy(100).setTargetDir(FileCacheUtils.getAppImagePath(true)).filter(new CompressionPredicate() {
             @Override
             public boolean apply(String path) {
@@ -285,7 +286,7 @@ public class SelectPhotosFragment extends BaseMvpFragment implements View.OnClic
      * 图片压缩
      */
     private void imageCompress(String path) {
-        getBaseActivity().showLoadingDialog(getContext());
+        getBaseActivity().showLoadingDialog(getContext(),false);
         Luban.with(mContext).load(path).ignoreBy(100).setTargetDir(FileCacheUtils.getAppImagePath(true)).filter(new CompressionPredicate() {
             @Override
             public boolean apply(String path) {
@@ -324,6 +325,7 @@ public class SelectPhotosFragment extends BaseMvpFragment implements View.OnClic
             throw new RuntimeException(context.toString() + " must implement SelectPhotosFragment.OnPhotoItemClick");
         }
     }
+
 
     @Override
     protected int getLayoutRes() {

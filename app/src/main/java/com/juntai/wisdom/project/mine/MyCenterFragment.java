@@ -14,6 +14,7 @@ import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.utils.DialogUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.base.BaseAppFragment;
 import com.juntai.wisdom.project.bean.UserBean;
 import com.juntai.wisdom.project.utils.GridDividerItemDecoration;
 import com.juntai.wisdom.project.utils.UserInfoManager;
@@ -23,7 +24,7 @@ import com.juntai.wisdom.project.utils.UserInfoManager;
  * @description 描述
  * @date 2021/4/17 16:12
  */
-public class MyCenterFragment extends BaseMvpFragment<MyCenterPresent> implements MyCenterContract.ICenterView, View.OnClickListener {
+public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implements MyCenterContract.ICenterView, View.OnClickListener {
 
     private UserBean userBean;
     MyMenuAdapter myMenuAdapter;

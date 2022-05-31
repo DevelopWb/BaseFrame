@@ -62,37 +62,40 @@ public class LoadingDialog {
 
 
     @SuppressLint("CheckResult")
-    public void showProgress(Context context) {
+    public void showProgress(Context context, boolean canCancel) {
         //在dialog show之前判断一下
-            dismissProgress();
-            initDialog(context);
-            disposable = Observable.interval(0,1000, TimeUnit.MILLISECONDS)
-                                    .take(6)
-                                    .subscribeOn(Schedulers.io())
-                                    .observeOn(AndroidSchedulers.mainThread())
-                                    .subscribe(new Consumer<Long>() {
-                                        @Override
-                                        public void accept(Long aLong) throws Exception {
+        dismissProgress();
+        initDialog(context);
+        if (canCancel) {
+            disposable = Observable.interval(0, 1000, TimeUnit.MILLISECONDS)
+                    .take(6)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Consumer<Long>() {
+                        @Override
+                        public void accept(Long aLong) throws Exception {
 
-                                        }
-                                    }, new Consumer<Throwable>() {
-                                        @Override
-                                        public void accept(Throwable throwable) throws Exception {
+                        }
+                    }, new Consumer<Throwable>() {
+                        @Override
+                        public void accept(Throwable throwable) throws Exception {
 
-                                        }
-                                    }, new Action() {
-                                        @Override
-                                        public void run() throws Exception {
-                                            if (mDialog != null) {
-                                                mDialog.setCancelable(true);// 不可以用“返回键”取消
-                                            }
-                                        }
-                                    });
-            if (mDialog != null) {
-                mDialog.show();
-            }
+                        }
+                    }, new Action() {
+                        @Override
+                        public void run() throws Exception {
+                            if (mDialog != null) {
+                                mDialog.setCancelable(true);// 不可以用“返回键”取消
+                            }
+                        }
+                    });
+        }
+        if (mDialog != null) {
+            mDialog.show();
+        }
 
     }
+
 
 
     public void dismissProgress() {

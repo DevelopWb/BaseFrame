@@ -5,6 +5,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.support.v4.content.FileProvider;
 
+import com.juntai.disabled.basecomponent.utils.BaseAppUtils;
+
 import java.io.File;
 
 /**
@@ -18,8 +20,7 @@ public class MyFileProvider extends FileProvider {
         Uri  uri = null;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {   //如果在Android7.0以上,使用FileProvider获取Uri
             try {
-                uri = FileProvider.getUriForFile(context, "com.juntai.wisdom.inspection" +
-                                ".fileProvider",
+                uri = FileProvider.getUriForFile(context, BaseAppUtils.getFileprovider(),
                         file);
             } catch (Exception e) {
                 e.printStackTrace();

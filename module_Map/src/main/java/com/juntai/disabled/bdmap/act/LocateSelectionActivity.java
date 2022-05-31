@@ -271,6 +271,11 @@ public class LocateSelectionActivity extends BaseRequestLocationActivity impleme
     }
 
     @Override
+    protected boolean canCancelLoadingDialog() {
+        return false;
+    }
+
+    @Override
     public void onSnapshotReady(Bitmap bitmap) {
         //截图的回调
         ScreenShotHelper.saveScreenShot(bitmap, mMapViewRl, mapView);

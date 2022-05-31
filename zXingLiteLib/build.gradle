@@ -41,4 +41,5 @@ dependencies {
 
     api 'com.android.support:design:28.0.0'
     api 'com.google.zxing:core:3.3.3'
+    api 'com.huawei.hms:scanplus:1.2.4.300'
 }

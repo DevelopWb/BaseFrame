@@ -43,7 +43,8 @@ public abstract class BaseRecyclerviewActivity<P extends BasePresenter> extends 
         baseQuickAdapter = getBaseQuickAdapter();
         linearLayoutManager = getBaseAdapterManager() == null ? new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false) : getBaseAdapterManager();
         if (baseQuickAdapter != null) {
-            initRecyclerview(mRecyclerview, baseQuickAdapter, LinearLayoutManager.VERTICAL);
+            mRecyclerview.setLayoutManager(linearLayoutManager);
+            mRecyclerview.setAdapter(baseQuickAdapter);
             mSmartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
                 @Override
                 public void onRefresh(RefreshLayout refreshLayout) {

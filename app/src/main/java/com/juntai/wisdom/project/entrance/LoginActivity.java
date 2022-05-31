@@ -22,6 +22,7 @@ import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.MyApp;
 import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.base.BaseAppActivity;
 import com.juntai.wisdom.project.base.sendcode.SendCodeModel;
 import com.juntai.wisdom.project.bean.UserBean;
 import com.juntai.disabled.basecomponent.utils.AppUtils;
@@ -43,7 +44,7 @@ import cn.sharesdk.wechat.friends.Wechat;
  * @description 描述  登录
  * @date 2020/3/6 9:12
  */
-public class LoginActivity extends BaseMvpActivity<EntrancePresent> implements EntranceContract.IEntranceView,
+public class LoginActivity extends BaseAppActivity<EntrancePresent> implements EntranceContract.IEntranceView,
         View.OnClickListener {
     public String otherHeadIcon = "";
     /**
