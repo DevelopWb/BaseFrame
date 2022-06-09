@@ -52,7 +52,7 @@ public abstract class BaseRecyclerviewFragment<P extends IPresenter> extends Bas
             mSmartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
                 @Override
                 public void onRefresh(RefreshLayout refreshLayout) {
-                    page = 0;
+                    page = 1;
                     getRvAdapterData();
                 }
             });
@@ -118,7 +118,7 @@ public abstract class BaseRecyclerviewFragment<P extends IPresenter> extends Bas
     public void setData(List data, int totalAmount) {
         boolean isEnd = false;
         final int size = data == null ? 0 : data.size();
-        if (page == 0) {
+        if (page == 1) {
             baseQuickAdapter.setNewData(data);
         } else {
             if (size > 0) {
