@@ -11,10 +11,8 @@ import java.io.Serializable;
 public class MyMenuBean implements Serializable {
 
     public static final  String MENU_MODIFY_PWD = "修改密码";
-    public static final  String MENU_MODIFY_SIGN = "电子签名设置";
     public static final  String MENU_MODIFY_SUGGESTION = "意见反馈";
     public static final  String MENU_MODIFY_CLEAR = "清空缓存";
-    public static final  String MENU_MODIFY_ADVISER = "专属顾问";
     public static final  String MENU_MODIFY_ABOUT_US = "关于我们";
 
     private String name;

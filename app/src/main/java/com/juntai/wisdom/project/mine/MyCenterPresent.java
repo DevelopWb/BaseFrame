@@ -22,16 +22,9 @@ public class MyCenterPresent extends BasePresenter<IModel, MyCenterContract.ICen
     public List<MultipleItem> getMenuBeans() {
         List<MultipleItem> menuBeans = new ArrayList<>();
         menuBeans.add(new MultipleItem(MultipleItem.ITEM_MYCENTER_MENUS, new MyMenuBean(MyMenuBean.MENU_MODIFY_PWD, 0, R.mipmap.ic_launcher,  true)));
-        menuBeans.add(new MultipleItem(MultipleItem.ITEM_MYCENTER_MENUS, new MyMenuBean(MyMenuBean.MENU_MODIFY_SIGN, 0, R.mipmap.ic_launcher, true)));
+        menuBeans.add(new MultipleItem(MultipleItem.ITEM_MYCENTER_MENUS, new MyMenuBean(MyMenuBean.MENU_MODIFY_ABOUT_US, 0, R.mipmap.ic_launcher, true)));
         menuBeans.add(new MultipleItem(MultipleItem.ITEM_MYCENTER_MENUS, new MyMenuBean(MyMenuBean.MENU_MODIFY_SUGGESTION, 0, R.mipmap.ic_launcher,  true)));
         menuBeans.add(new MultipleItem(MultipleItem.ITEM_MYCENTER_MENUS, new MyMenuBean(MyMenuBean.MENU_MODIFY_CLEAR, 0, R.mipmap.ic_launcher,  true)));
-
-        return menuBeans;
-    }
-    public List<MultipleItem> getMenuBeans2() {
-        List<MultipleItem> menuBeans = new ArrayList<>();
-        menuBeans.add(new MultipleItem(MultipleItem.ITEM_MYCENTER_MENUS, new MyMenuBean(MyMenuBean.MENU_MODIFY_ADVISER, 0, R.mipmap.ic_launcher,  true)));
-        menuBeans.add(new MultipleItem(MultipleItem.ITEM_MYCENTER_MENUS, new MyMenuBean(MyMenuBean.MENU_MODIFY_CLEAR, 0, R.mipmap.ic_launcher, true)));
 
         return menuBeans;
     }

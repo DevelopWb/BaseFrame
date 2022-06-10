@@ -28,12 +28,12 @@ import com.juntai.wisdom.project.utils.UserInfoManager;
  */
 public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implements MyCenterContract.ICenterView, View.OnClickListener {
 
-    MyMenuAdapter myMenuAdapter,myMenuAdapter2;
+    MyMenuAdapter myMenuAdapter;
 
     private ImageView mHeadImage;
     private TextView mNickname;
     private TextView mTelNumber;
-    private RecyclerView mMenuRecycler,mMenuRecycler2;
+    private RecyclerView mMenuRecycler;
 
     @Override
     protected int getLayoutRes() {
@@ -47,11 +47,8 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         mNickname = getView(R.id.nickname_tv);
         mTelNumber = getView(R.id.company_name_tv);
         mMenuRecycler = getView(R.id.menu_recycler);
-        mMenuRecycler2 = getView(R.id.menu_recycler_2);
         myMenuAdapter = new MyMenuAdapter(mPresenter.getMenuBeans());
-        myMenuAdapter2 = new MyMenuAdapter(mPresenter.getMenuBeans2());
         getBaseActivity().initRecyclerview(mMenuRecycler, myMenuAdapter, LinearLayoutManager.VERTICAL);
-        getBaseActivity().initRecyclerview(mMenuRecycler2, myMenuAdapter2, LinearLayoutManager.VERTICAL);
         myMenuAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -63,7 +60,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                             case MyMenuBean.MENU_MODIFY_PWD:
                                 ToastUtils.toast(mContext,"修改密码");
                                 break;
-                            case MyMenuBean.MENU_MODIFY_SIGN:
+                            case MyMenuBean.MENU_MODIFY_ABOUT_US:
                                 ToastUtils.toast(mContext,"1");
                                 break;
                             case MyMenuBean.MENU_MODIFY_SUGGESTION:
@@ -80,29 +77,6 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                         break;
                 }
 
-            }
-        });
-        myMenuAdapter2.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                MultipleItem multipleItem = (MultipleItem) adapter.getItem(position);
-                switch (multipleItem.getItemType()) {
-                    case MultipleItem.ITEM_MYCENTER_MENUS:
-                        MyMenuBean item = (MyMenuBean) multipleItem.getObject();
-                        switch (item.getName()) {
-                            case MyMenuBean.MENU_MODIFY_ADVISER:
-                                ToastUtils.toast(mContext,"4");
-                                break;
-                            case MyMenuBean.MENU_MODIFY_CLEAR:
-                                ToastUtils.toast(mContext,"5");
-                                break;
-                            default:
-                                break;
-                        }
-                        break;
-                    default:
-                        break;
-                }
             }
         });
     }
