@@ -11,11 +11,6 @@ import android.text.TextUtils;
 
 import com.juntai.disabled.basecomponent.utils.AppUtils;
 
-/**
- *
- * @aouther ZhangZhenlong
- * @date 2020-5-9
- */
 public class PermissionUtil {
 
     public static void gotoPermission(Context context) {

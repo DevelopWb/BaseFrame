@@ -10,12 +10,6 @@ import com.juntai.wisdom.project.bean.MyMenuBean;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Describe:
- * Create by zhangzhenlong
- * 2020/3/7
- * email:954101549@qq.com
- */
 public class MyCenterPresent extends BasePresenter<IModel, MyCenterContract.ICenterView> implements MyCenterContract.ICenterPresent {
     @Override
     protected IModel createModel() {

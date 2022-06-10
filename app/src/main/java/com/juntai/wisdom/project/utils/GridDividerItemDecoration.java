@@ -10,12 +10,6 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-/**
- * Desc:九宫格分割线   无最右边与最下边线
- * Create by zhangzhenlong
- * 2020-8-24
- * email:954101549@qq.com
- */
 public class GridDividerItemDecoration extends RecyclerView.ItemDecoration {
     private static final int[] ATTRS = new int[]{android.R.attr.listDivider};
     private Drawable mDivider;

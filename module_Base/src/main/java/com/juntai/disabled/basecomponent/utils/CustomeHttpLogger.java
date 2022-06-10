@@ -4,11 +4,6 @@ import com.orhanobut.logger.Logger;
 
 import okhttp3.logging.HttpLoggingInterceptor;
 
-/**
- * http拦截器
- * @aouther ZhangZhenlong
- * @date 2020-3-24
- */
 
 public class CustomeHttpLogger implements HttpLoggingInterceptor.Logger {
 

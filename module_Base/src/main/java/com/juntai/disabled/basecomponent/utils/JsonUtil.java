@@ -5,11 +5,6 @@ import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * 格式化json
- * @aouther ZhangZhenlong
- * @date 2020-3-24
- */
 
 public class JsonUtil {
 

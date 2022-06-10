@@ -8,12 +8,6 @@ import android.widget.EditText;
 
 import java.lang.reflect.Field;
 
-/**
- * Describe:防止出现内存泄漏
- * Create by zhangzhenlong
- * 2020-4-11
- * email:954101549@qq.com
- */
 @SuppressLint("AppCompatCustomView")
 public class BaseEditText extends EditText {
     private static Field mParent;

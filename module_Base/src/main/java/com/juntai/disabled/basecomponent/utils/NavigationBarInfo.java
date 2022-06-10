@@ -14,12 +14,6 @@ import com.orhanobut.logger.Logger;
 
 import java.lang.reflect.Method;
 
-/**
- * Describe:
- * Create by zhangzhenlong
- * 2020-3-17
- * email:954101549@qq.com
- */
 
 public class NavigationBarInfo {
 

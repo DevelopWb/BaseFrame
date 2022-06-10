@@ -25,14 +25,6 @@ import com.king.zxing.util.CodeUtils;
 import com.zhihu.matisse.Matisse;
 
 import java.util.List;
-
-/**
- * 扫码
- *
- * @aouther ZhangZhenlong
- * @date 2020-3-18
- * @update 2020-06-08 tobato
- */
 public class QRScanActivity extends BaseAppActivity implements View.OnClickListener, OnCaptureCallback {
     private SurfaceView mSurfaceView;
     private ViewfinderView mViewfinderView;
@@ -43,7 +35,6 @@ public class QRScanActivity extends BaseAppActivity implements View.OnClickListe
 
     private int SELECT_PIC_RESULT = 1001;
 
-    //    private int pageType;//0扫码，1扫描巡检内容
 
     @Override
     public int getLayoutView() {

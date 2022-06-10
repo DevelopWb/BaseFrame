@@ -6,7 +6,7 @@ import com.juntai.disabled.basecomponent.mvp.IModel;
 
 /**
  * Describe:首页present
- * Create by zhangzhenlong
+ * Create by
  * 2020-8-8
  * email:954101549@qq.com
  */

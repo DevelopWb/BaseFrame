@@ -5,12 +5,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.util.AttributeSet;
 
 
-/**
- * Describe:自定义抽屉布局，自适应高度
- * Create by zhangzhenlong
- * 2021-1-2
- * email:954101549@qq.com
- */
 public class BaseDrawerLayout extends DrawerLayout {
     public BaseDrawerLayout(Context context) {
         super(context);
