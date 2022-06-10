@@ -28,6 +28,9 @@ public class MultipleItem implements MultiItemEntity {
     public static final int ITEM_FRAGMENT = 16;//  fragment
     public static final int ITEM_LOCATION = 17;//  定位
 
+    public static final int ITEM_DIVIDER = 21;//  divider
+    public static final int ITEM_MYCENTER_MENUS = 22;//  菜单
+
     private int itemType;
     private Object object;
 

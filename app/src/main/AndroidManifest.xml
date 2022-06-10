@@ -32,9 +32,6 @@
         <activity
             android:name=".home_page.QRScanActivity"
             android:launchMode="singleTop" />
-        <activity
-            android:name=".mine.setting.MySettingActivity"
-            android:launchMode="singleTop" />
 
         <provider
             android:name=".utils.MyFileProvider"

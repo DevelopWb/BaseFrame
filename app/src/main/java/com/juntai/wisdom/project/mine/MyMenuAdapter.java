@@ -1,52 +1,68 @@
 package com.juntai.wisdom.project.mine;
 
-import android.support.v7.widget.GridLayoutManager;
-import android.view.ViewGroup;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.wisdom.project.R;
+import com.juntai.wisdom.project.bean.MultipleItem;
 import com.juntai.wisdom.project.bean.MyMenuBean;
 
 import java.util.List;
 
 /**
  * Describe:
- * Create by zhangzhenlong
+ * Create by tobato
  * 2020/3/7
  * email:954101549@qq.com
  */
-public class MyMenuAdapter extends BaseQuickAdapter<MyMenuBean, BaseViewHolder> {
-    GridLayoutManager gridLayoutManager;
+public class MyMenuAdapter extends BaseMultiItemQuickAdapter<MultipleItem, BaseViewHolder> {
 
-    public MyMenuAdapter(int layoutResId, List data) {
-        super(layoutResId, data);
+    /**
+     * Same as QuickAdapter#QuickAdapter(Context,int) but with
+     * some initialization data.
+     *
+     * @param data A new list is created out of this one to avoid mutable list
+     */
+    public MyMenuAdapter(List<MultipleItem> data) {
+        super(data);
+        addItemType(MultipleItem.ITEM_DIVIDER, R.layout.memu_divider);
+        addItemType(MultipleItem.ITEM_MYCENTER_MENUS,R.layout.my_center_menu_item);
     }
+
 
     @Override
-    protected void convert(BaseViewHolder helper, MyMenuBean item) {
-        helper.setText(R.id.item_name, item.getName());
-        helper.setImageResource(R.id.item_iv, item.getImageId());
-        if (item.getNumber() > 0) {
-            helper.setVisible(R.id.item_number, true);
-            helper.setText(R.id.item_number, item.getNumber() > 99 ? "99+" : String.valueOf(item.getNumber()));
-        } else {
-            helper.setVisible(R.id.item_number, false);
+    protected void convert(BaseViewHolder helper, MultipleItem multipleItem) {
+        switch (multipleItem.getItemType()) {
+            case MultipleItem.ITEM_DIVIDER:
+                break;
+            case MultipleItem.ITEM_MYCENTER_MENUS:
+                MyMenuBean item = (MyMenuBean) multipleItem.getObject();
+                helper.setText(R.id.item_name, item.getName());
+
+                if (item.getImageId()>0) {
+                    helper.setGone(R.id.item_iv,true);
+                    helper.setImageResource(R.id.item_iv, item.getImageId());
+                }else {
+                    helper.setGone(R.id.item_iv,false);
+                }
+
+                if (item.getNumber() > 0) {
+                    helper.setVisible(R.id.item_number, true);
+                    helper.setText(R.id.item_number, item.getNumber() > 99 ? "99+" : String.valueOf(item.getNumber()));
+                } else {
+                    helper.setVisible(R.id.item_number, false);
+                }
+                if (item.isHasEndLine()) {
+                    helper.setGone(R.id.menu_item_divider_v, true);
+                } else {
+                    helper.setGone(R.id.menu_item_divider_v, false);
+                }
+                break;
+            default:
+                break;
         }
 
-        //设置宽高等比
-        ViewGroup.LayoutParams parm = helper.itemView.getLayoutParams();
-        parm.height =
-                gridLayoutManager.getWidth() / gridLayoutManager.getSpanCount()
-                        - 2 * helper.itemView.getPaddingLeft() - 2 * ((ViewGroup.MarginLayoutParams) parm).leftMargin;
 
     }
 
-    public GridLayoutManager getGridLayoutManager() {
-        return gridLayoutManager;
-    }
-
-    public void setGridLayoutManager(GridLayoutManager gridLayoutManager) {
-        this.gridLayoutManager = gridLayoutManager;
-    }
 }

@@ -19,12 +19,4 @@ public class HomePagePresent extends BasePresenter<IModel, HomePageContract.IHom
     }
 
 
-
-    protected List<HomePageMenuBean> getMenuList(){
-
-        List<HomePageMenuBean> arrays = new ArrayList<>();
-
-
-        return arrays;
-    }
 }

@@ -27,8 +27,6 @@ public interface MyCenterContract {
     }
 
     interface ICenterPresent {
-        void initList();
 
-        List<MyMenuBean> getMenuBeans();
     }
 }

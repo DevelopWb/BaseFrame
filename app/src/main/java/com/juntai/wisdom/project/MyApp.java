@@ -9,6 +9,7 @@ import com.baidu.mapapi.CoordType;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.model.LatLng;
 import com.juntai.disabled.basecomponent.app.BaseApplication;
+import com.juntai.disabled.video.ModuleVideo_Init;
 import com.juntai.wisdom.project.utils.HawkProperty;
 import com.juntai.wisdom.project.utils.UserInfoManager;
 import com.mob.MobSDK;
@@ -73,6 +74,8 @@ public class MyApp extends BaseApplication {
         app = this;
         Hawk.init(this).build();
         MobSDK.init(this);
+        //Video模块初始化
+        ModuleVideo_Init.init();
         //百度地图初始化
         SDKInitializer.initialize(this);
         //        //自4.3.0起，百度地图SDK所有接口均支持百度坐标和国测局坐标，用此方法设置您使用的坐标类型.
