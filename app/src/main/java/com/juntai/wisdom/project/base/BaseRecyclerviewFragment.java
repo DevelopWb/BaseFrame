@@ -2,6 +2,7 @@ package com.juntai.wisdom.project.base;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
@@ -28,7 +29,7 @@ public abstract class BaseRecyclerviewFragment<P extends IPresenter> extends Bas
 
     protected int page = 1; //当前页码
     //每次展示20条数据
-    protected int limit = 10;
+    protected int limit = 100;
 
     @Override
     protected int getLayoutRes() {
@@ -47,6 +48,12 @@ public abstract class BaseRecyclerviewFragment<P extends IPresenter> extends Bas
         baseQuickAdapter = getBaseQuickAdapter();
         linearLayoutManager = getBaseAdapterManager() == null ? new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false) : getBaseAdapterManager();
         if (baseQuickAdapter != null) {
+            if (getAdapterHeadView() != null) {
+                baseQuickAdapter.addHeaderView(getAdapterHeadView());
+            }
+            if (getAdapterFootView() != null) {
+                baseQuickAdapter.addFooterView(getAdapterFootView());
+            }
             mRecyclerview.setLayoutManager(linearLayoutManager);
             mRecyclerview.setAdapter(baseQuickAdapter);
             mSmartrefreshlayout.setOnRefreshListener(new OnRefreshListener() {
@@ -69,9 +76,11 @@ public abstract class BaseRecyclerviewFragment<P extends IPresenter> extends Bas
 
 
     }
+    protected abstract View getAdapterHeadView();
+    protected abstract View getAdapterFootView();
 
     @Override
-    public void initData() {
+    protected void initData() {
 
     }
 
@@ -120,6 +129,7 @@ public abstract class BaseRecyclerviewFragment<P extends IPresenter> extends Bas
         final int size = data == null ? 0 : data.size();
         if (page == 1) {
             baseQuickAdapter.setNewData(data);
+            mRecyclerview.scrollToPosition(0);
         } else {
             if (size > 0) {
                 baseQuickAdapter.addData(data);
