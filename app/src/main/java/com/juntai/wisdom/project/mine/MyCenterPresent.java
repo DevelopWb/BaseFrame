@@ -1,16 +1,18 @@
 package com.juntai.wisdom.project.mine;
 
 
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.bean.MultipleItem;
 import com.juntai.wisdom.project.bean.MyMenuBean;
+import com.juntai.wisdom.project.home_page.HomePageContract;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyCenterPresent extends BasePresenter<IModel, MyCenterContract.ICenterView> implements MyCenterContract.ICenterPresent {
+public class MyCenterPresent extends BasePresenter<IModel, BaseIView> implements MyCenterContract.ICenterPresent {
     @Override
     protected IModel createModel() {
         return null;

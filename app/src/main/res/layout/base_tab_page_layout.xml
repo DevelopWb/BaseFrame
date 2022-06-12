@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     android:orientation="vertical">
 
     <FrameLayout
@@ -19,7 +20,7 @@
         app:tabGravity="fill"
         app:tabIndicatorColor="@color/colorAccent"
         app:tabIndicatorFullWidth="false"
-        app:tabIndicatorHeight="2dp"
+        app:tabIndicatorHeight="0dp"
         app:tabMaxWidth="0dp"
         app:tabMode="fixed"
         app:tabRippleColor="@color/gray_ripple" />
@@ -28,7 +29,7 @@
         android:id="@+id/viewpage_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="10dp" />
+        />
     <FrameLayout
         android:id="@+id/tab_foot_fl"
         android:layout_width="match_parent"

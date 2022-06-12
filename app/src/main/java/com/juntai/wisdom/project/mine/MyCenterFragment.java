@@ -11,13 +11,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.juntai.disabled.basecomponent.utils.DialogUtil;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppFragment;
 import com.juntai.wisdom.project.bean.MultipleItem;
 import com.juntai.wisdom.project.bean.MyMenuBean;
-import com.juntai.wisdom.project.bean.UserBean;
 import com.juntai.wisdom.project.utils.GridDividerItemDecoration;
 import com.juntai.wisdom.project.utils.UserInfoManager;
 
@@ -26,7 +25,7 @@ import com.juntai.wisdom.project.utils.UserInfoManager;
  * @description 描述
  * @date 2021/4/17 16:12
  */
-public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implements MyCenterContract.ICenterView, View.OnClickListener {
+public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implements BaseIView, View.OnClickListener {
 
     MyMenuAdapter myMenuAdapter,myMenuAdapter2;
 

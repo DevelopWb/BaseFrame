@@ -14,7 +14,7 @@ import android.view.View;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.cache.ExternalCacheDiskCacheFactory;
 import com.juntai.disabled.basecomponent.app.BaseApplication;
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -144,7 +144,7 @@ public class FileCacheUtils {
      * @return boolean
      */
 
-    public static void copyFile(IView iView, String oldPath, String newPath, boolean isCatch) {
+    public static void copyFile(BaseIView iView, String oldPath, String newPath, boolean isCatch) {
         RxScheduler.doTask(iView, new RxTask<String>() {
             @Override
             public String doOnIoThread() {
@@ -278,7 +278,7 @@ public class FileCacheUtils {
      *
      * @return
      */
-    public static void saveBitmapByView(IView iView, Context context, View view, String picName) {
+    public static void saveBitmapByView(BaseIView iView, Context context, View view, String picName) {
         RxScheduler.doTask(iView, new RxTask<String>(){
             @Override
             public String doOnIoThread() {

@@ -1,7 +1,7 @@
 package com.juntai.wisdom.project.home_page;
 
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 /**
  * @aouther tobato
@@ -12,11 +12,5 @@ public interface HomePageContract {
 
 
 
-    interface IHomePageView extends IView {
-
-    }
-
-    interface IHomePagePresent extends IPresenter<IHomePageView> {
-    }
 
 }

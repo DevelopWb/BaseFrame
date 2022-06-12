@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppFragment;
@@ -26,7 +27,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
  * @description 描述  homepage
  * @date 2021/4/18 14:59
  */
-public class HomePageFragment extends BaseRecyclerviewFragment<HomePagePresent> implements HomePageContract.IHomePageView,
+public class HomePageFragment extends BaseRecyclerviewFragment<HomePagePresent> implements BaseIView,
         View.OnClickListener {
 
 
