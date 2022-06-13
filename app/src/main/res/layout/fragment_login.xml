@@ -1,6 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:drawableLeft="@mipmap/set_clear"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="dfasdfas"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/company_account_tv"
+        style="@style/edittext_style"
+        android:drawableRight="@mipmap/arrow_down"
+        android:paddingRight="15dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:drawableLeft="@mipmap/set_clear"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="dfasdfas"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/user_name_et"
+        style="@style/edittext_style" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:drawableLeft="@mipmap/set_clear"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:paddingLeft="20dp"
+        android:text="dfasdfas"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/pwd_et"
+        style="@style/edittext_style" />
+
+    <TextView
+        android:id="@+id/confirm_tv"
+        style="@style/bt_style" />
+</LinearLayout>
