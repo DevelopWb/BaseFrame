@@ -1,7 +1,7 @@
 package com.juntai.wisdom.project.base.sendcode;
 
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 /**
  * Author:wang_sir
@@ -23,7 +23,7 @@ public interface SendCodeContract {
         void receivedCheckCodeAndDispose();
 
     }
-    interface ISendCodeView extends IView {
+    interface ISendCodeView extends BaseIView {
         /**
          * 接收到验证码后更改view得状态
          *

@@ -1,6 +1,6 @@
 package com.juntai.wisdom.project.entrance;
 
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 /**
  * @Author: tobato
@@ -15,8 +15,6 @@ public interface EntranceContract {
     String LOGIN_TAG = "login";//登录的标识
     String OTHER_REGIST = "other_regist";//第三方注册
 
-    interface IEntranceView extends IView {
-    }
 
     interface IEntrancePresent {
         void login(String account, String password, String weChatId, String qqId, String tag);

@@ -21,7 +21,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.juntai.disabled.basecomponent.R;
-import com.juntai.disabled.basecomponent.mvp.IView;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 import java.io.File;
 
@@ -88,7 +88,7 @@ public class ImageLoadUtil {
     /**
      * @param url 缓存到本地
      */
-    public static void setGlideDownloadFileToLocal(IView iView, Context context, String url, boolean isCatch) {
+    public static void setGlideDownloadFileToLocal(BaseIView iView, Context context, String url, boolean isCatch) {
         if (TextUtils.isEmpty(url) || !url.contains("/")) {
             return;
         }

@@ -76,6 +76,9 @@
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
 
         </activity>
+        <activity
+            android:name=".entrance.LoginActivity"
+            android:launchMode="singleTop" />
         <!-- 关于 -->
         <activity
             android:name=".mine.AboutActivity"

@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.wisdom.project.R;
@@ -33,7 +34,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
 
     @Override
     public void initView() {
-        setTitleName(gettitleName());
+        setTitleName(getTitleName());
         mTabTb = (TabLayout) findViewById(R.id.tab_tb);
         mTabTb.setTabMode(getTabMode());
         mViewpageVp = (CustomViewPager) findViewById(R.id.viewpage_vp);
@@ -53,7 +54,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
     protected abstract int getTabHeadLayout();
     protected abstract int getTabFootLayout();
 
-    protected abstract String gettitleName();
+    protected abstract String getTitleName();
 
     @Override
     public void initData() {
@@ -96,6 +97,24 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
         }
         /*viewpager切换默认第一个*/
         mViewpageVp.setCurrentItem(0);
+        mTabTb.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+               TextView textView =  tab.getCustomView().findViewById(R.id.tabitem_text);
+                textView.setTextSize(16);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+                TextView textView =  tab.getCustomView().findViewById(R.id.tabitem_text);
+                textView.setTextSize(14);
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
 
     protected abstract SparseArray<Fragment> getFragments();

@@ -137,11 +137,11 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
             mImmersionBar.statusBarColor(R.color.white)
                     .statusBarDarkFont(true)
                     .init();
-        }else{
+        } else {
             getToolbar().setVisibility(View.GONE);
             //状态栏配置
             mBaseRootCol.setFitsSystemWindows(false);
-            mImmersionBar.reset().transparentStatusBar().init();
+            mImmersionBar.reset().transparentStatusBar().statusBarDarkFont(true).init();
         }
 
     }
@@ -184,9 +184,10 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
     /**
      * 展示加载动画
      */
-    public void showLoadingDialog(Context context,boolean canCancel) {
-        LoadingDialog.getInstance().showProgress(context,canCancel);
+    public void showLoadingDialog(Context context, boolean canCancel) {
+        LoadingDialog.getInstance().showProgress(context, canCancel);
     }
+
     /**
      * 获取左控件
      *
@@ -364,7 +365,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
 
     @Override
     public boolean onKeyLongPress(int keyCode, KeyEvent event) {
-        ToastUtils.info(mContext,"长按");
+        ToastUtils.info(mContext, "长按");
         return super.onKeyLongPress(keyCode, event);
     }
 
@@ -394,7 +395,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
      * @return
      */
     public List<String> getTestData() {
-        return Arrays.asList(new String[]{ "test2", "test3", "test4", "test5", "测试很测试很多数据的测试很多数据的多数据的XXXXXXXXXXXXX", "测试很测试很多数据的测试很多数据的多数据的"});
+        return Arrays.asList(new String[]{"test2", "test3", "test4", "test5", "测试很测试很多数据的测试很多数据的多数据的XXXXXXXXXXXXX", "测试很测试很多数据的测试很多数据的多数据的"});
     }
 
     /**
@@ -406,7 +407,6 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
     public String getTextViewValue(TextView textView) {
         return textView.getText().toString().trim();
     }
-
 
 
     /**
@@ -432,6 +432,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         recyclerView.setLayoutManager(managere);
         recyclerView.setAdapter(baseQuickAdapter);
     }
+
     /**
      * 添加分割线
      *
@@ -475,9 +476,9 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         TextView noticeTv = view.findViewById(R.id.none_tv);
         noticeTv.setText(text);
         ImageView imageView = view.findViewById(R.id.none_image);
-        if (-1==imageId) {
+        if (-1 == imageId) {
             imageView.setVisibility(View.GONE);
-        }else {
+        } else {
             imageView.setImageResource(imageId);
         }
         return view;
@@ -493,9 +494,11 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         bm.recycle();
         bm = null;
     }
+
     @Subscribe(threadMode = ThreadMode.MAIN) //在ui线程执行
     public void onEvent(EventBusObject eventBusObject) {
     }
+
     /**
      * 配置view的margin属性
      */
@@ -508,6 +511,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         layoutParams.setMargins(left, top, right, bottom);
         view.setLayoutParams(layoutParams);
     }
+
     /**
      * 隐藏软键盘  view 可以是当前点击的view 没必要全是edittext
      */
@@ -517,14 +521,16 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
             imm.hideSoftInputFromWindow(view.getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
+
     /**
      * view获取焦点
      */
-    public  void getViewFocus(View view) {
+    public void getViewFocus(View view) {
         view.setFocusable(true);
         view.setFocusableInTouchMode(true);
         view.requestFocus();
     }
+
     /**
      * 显示软键盘
      *
@@ -589,11 +595,12 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
      * 图片压缩成功回调
      */
     public interface OnImageCompressedPath {
-        void  compressedImagePath(File file);
+        void compressedImagePath(File file);
     }
 
     /**
      * 设置左边图标
+     *
      * @param textView
      * @param drawableId
      */
@@ -605,6 +612,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
 
     /**
      * 设置顶部图标
+     *
      * @param textView
      * @param drawableId
      */
@@ -625,12 +633,14 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         drawable.setBounds(0, 0, DisplayUtil.dp2px(this, width), DisplayUtil.dp2px(this, height));//第一个 0 是距左边距离，第二个 0 是距上边距离，40 分别是长宽
         textView.setCompoundDrawables(null, null, drawable, null);//只放右边
     }
+
     /**
      * 隐藏控件
+     *
      * @param views
      */
-    public  void  setViewsGone(View... views ){
-        if (views.length>0) {
+    public void setViewsGone(View... views) {
+        if (views.length > 0) {
             for (View view : views) {
                 view.setVisibility(View.GONE);
             }
@@ -639,15 +649,17 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
 
     /**
      * 显示控件
+     *
      * @param views
      */
-    public  void  showViews(View... views ){
-        if (views.length>0) {
+    public void showViews(View... views) {
+        if (views.length > 0) {
             for (View view : views) {
                 view.setVisibility(View.VISIBLE);
             }
         }
     }
+
     /**
      * 设置alertdialog的宽高
      * 这个是为了类似锤子手机 对话框显示不全的问题
@@ -676,6 +688,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         }
         dialog.getWindow().setAttributes(params);
     }
+
     /**
      * 获取屏幕宽度(px)
      *
@@ -707,9 +720,9 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
     /**
      * @return
      */
-    public List<BaseMenuBean>  getBaseBottomDialogMenus(String... names) {
+    public List<BaseMenuBean> getBaseBottomDialogMenus(String... names) {
         List<BaseMenuBean> calls = new ArrayList<>();
-        if (names.length==0) {
+        if (names.length == 0) {
             return null;
         }
         for (String name : names) {
@@ -717,12 +730,13 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
         }
         return calls;
     }
+
     /**
      * @return
      */
-    public List<BaseMenuBean>  getBaseBottomDialogMenus(BaseMenuBean... menus) {
+    public List<BaseMenuBean> getBaseBottomDialogMenus(BaseMenuBean... menus) {
         List<BaseMenuBean> calls = new ArrayList<>();
-        if (menus.length==0) {
+        if (menus.length == 0) {
             return null;
         }
         for (BaseMenuBean menu : menus) {
@@ -735,19 +749,21 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
     /**
      * 所有view可见or 不可见
      */
-    public void  setViewVisibleOrGone(boolean visible,View... views){
-        if (views != null&&views.length>0) {
+    public void setViewVisibleOrGone(boolean visible, View... views) {
+        if (views != null && views.length > 0) {
             for (View view : views) {
                 if (visible) {
                     view.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     view.setVisibility(View.GONE);
                 }
             }
         }
     }
+
     /**
      * 展示对话框
+     *
      * @param msg
      * @param positiveTitle
      * @param negativeTitle
@@ -763,10 +779,12 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
                     }
                 }).show();
 
-        setAlertDialogHeightWidth(alertDialog,-1,0);
+        setAlertDialogHeightWidth(alertDialog, -1, 0);
     }
+
     /**
      * 展示对话框
+     *
      * @param msg
      */
     public void showAlertDialogOfKnown(String msg) {
@@ -779,10 +797,12 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
                     }
                 }).show();
 
-        setAlertDialogHeightWidth(alertDialog,-1,0);
+        setAlertDialogHeightWidth(alertDialog, -1, 0);
     }
+
     /**
      * 展示对话框
+     *
      * @param msg
      * @param positiveTitle
      * @param negativeTitle
@@ -793,7 +813,7 @@ public abstract class BaseActivity extends RxAppCompatActivity implements Toolba
                 .setMessage(msg)
                 .setPositiveButton(positiveTitle, positiveListener).setNegativeButton(negativeTitle, negativeListener).show();
 
-        setAlertDialogHeightWidth(alertDialog,-1,0);
+        setAlertDialogHeightWidth(alertDialog, -1, 0);
     }
 
 }

@@ -1,10 +1,7 @@
 package com.juntai.wisdom.project.mine;
 
 
-import com.juntai.disabled.basecomponent.mvp.IView;
-import com.juntai.wisdom.project.bean.MyMenuBean;
-
-import java.util.List;
+import com.juntai.disabled.basecomponent.mvp.BaseIView;
 
 public interface MyCenterContract {
     String SET_UPDATE_TAG = "setUpdateTag";
@@ -17,7 +14,7 @@ public interface MyCenterContract {
     String SET_ABOUT_TAG ="setAboutTag";
     String CENTER_SETTING_TAG ="centerSettingTag";
 
-    interface ICenterView extends IView {
+    interface ICenterView extends BaseIView {
     }
 
     interface ICenterPresent {

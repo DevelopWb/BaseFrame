@@ -89,58 +89,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     }
 
 
-    /**
-     * 发送更新头像的广播
-     */
-    public void broadcasetRefreshHead() {
-        Intent intent = new Intent();
-        intent.setAction("action.refreshHead");
-        sendBroadcast(intent);
-    }
-
-    /**
-     * 获取builder
-     *
-     * @return
-     */
-    public FormBody.Builder getBaseBuilder() {
-        FormBody.Builder builder = new FormBody.Builder();
-        builder.add("account", UserInfoManager.getUserAccount());
-        builder.add("token", UserInfoManager.getUserToken());
-        builder.add("userId", String.valueOf(UserInfoManager.getUserId()));
-        return builder;
-    }
-
-    /**
-     * 获取requestBody
-     *
-     * @return
-     */
-    public RequestBody getRequestBody(JSONObject jsonObject) {
-        return RequestBody.create(MediaType.parse("application/json;charset=utf-8"), jsonObject.toString());
-    }
-
-    /**
-     * 获取builder
-     *
-     * @return
-     */
-    public MultipartBody.Builder getPublishMultipartBody() {
-        return new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("account", UserInfoManager.getUserAccount())
-                .addFormDataPart("token", UserInfoManager.getUserToken())
-                .addFormDataPart("userId", String.valueOf(UserInfoManager.getUserId()));
-    }
-
-    //    /**
-    //     * 是否是内部账号
-    //     *
-    //     * @return
-    //     */
-    //    public boolean isInnerAccount() {
-    //        return UserInfoManager.isTest();
-    //    }
 
 
     @Override
@@ -148,25 +96,6 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
 
     }
 
-    /**
-     * 将list中的数据转成字符串  并以逗号隔开
-     *
-     * @return
-     */
-    public String getListToString(List<String> arrays) {
-        if (arrays == null || arrays.size() == 0) {
-            return "";
-        }
-        StringBuilder sb = new StringBuilder(arrays.size());
-        for (String selectedServicePeople : arrays) {
-            sb.append(selectedServicePeople + ",");
-        }
-        String people = sb.toString();
-        if (StringTools.isStringValueOk(people)) {
-            people = people.substring(0, people.length() - 1);
-        }
-        return people;
-    }
 
     /**
      * 复制电话号码
@@ -188,64 +117,10 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     }
 
 
-    /**
-     * 加密密码
-     *
-     * @param pwd
-     * @return
-     */
-    protected String encryptPwd(String account, String pwd) {
-        return MD5.md5(String.format("%s#%s", account, pwd));
-    }
-
     @Override
     protected void selectedPicsAndEmpressed(List<String> icons) {
 
     }
 
 
-    public  UserBean getUser() {
-        return Hawk.get(AppUtils.SP_KEY_USER);
-    }
-    /**
-     * 跳转登录
-     */
-    public  void goLogin() {
-       startActivity(new Intent(this, LoginActivity.class));
-    }
-
-    public  boolean isLogin() {
-        if (getUser() == null) {
-            return false;
-        } else {
-            return true;
-        }
-    }
-    /**
-     * 获取签名图片的路径
-     *  必须返回null 要不不能判定有没有签名
-     * @return
-     */
-    protected String getSignPath(String picName) {
-        String picPath = FileCacheUtils.getAppImagePath(true) + picName;
-        File file = new File(picPath);
-        return file.exists()?picPath:null;
-    }
-    /**
-     * 获取图片的路径
-     *
-     * @return
-     */
-    protected String getHeadPath(String picName) {
-        String picPath = FileCacheUtils.getAppImagePath(true) + picName;
-        File file = new File(picPath);
-        if (!file.exists()) {
-            try {
-                file.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return picPath;
-    }
 }

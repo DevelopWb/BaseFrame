@@ -46,7 +46,6 @@ public class QRScanActivity extends BaseAppActivity implements View.OnClickListe
         getToolbar().setVisibility(View.GONE);
         mBaseRootCol.setFitsSystemWindows(false);
         mImmersionBar.reset().statusBarDarkFont(false).init();
-        //        pageType = getIntent().getIntExtra("pageType",0);
         mSurfaceView = (SurfaceView) findViewById(R.id.surfaceView);
         mViewfinderView = (ViewfinderView) findViewById(R.id.viewfinderView);
         mZxingPic = (ImageView) findViewById(R.id.zxing_pic);
