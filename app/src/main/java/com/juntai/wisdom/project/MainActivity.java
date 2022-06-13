@@ -13,6 +13,7 @@ import com.juntai.disabled.basecomponent.utils.ActivityManagerTool;
 import com.juntai.wisdom.project.base.BaseAppActivity;
 import com.juntai.wisdom.project.base.customview.CustomViewPager;
 import com.juntai.wisdom.project.base.customview.MainPagerAdapter;
+import com.juntai.wisdom.project.control.ControlFragment;
 import com.juntai.wisdom.project.home_page.HomePageFragment;
 import com.juntai.wisdom.project.mine.MyCenterFragment;
 
@@ -23,8 +24,8 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
     private CustomViewPager mainViewpager;
 
     private TabLayout mainTablayout;
-    private String[] title = new String[]{"首页","我的"};
-    private int[] tabDrawables = new int[]{R.drawable.home_index,R.drawable.home_msg};
+    private String[] title = new String[]{"首页","工作","我的"};
+    private int[] tabDrawables = new int[]{R.drawable.home_index,R.drawable.home_msg,R.drawable.home_msg};
     private SparseArray<Fragment> mFragments = new SparseArray<>();
 
 
@@ -42,7 +43,8 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         mainLayout = findViewById(R.id.main_layout);
         mainViewpager.setScanScroll(false);
         mFragments.append(0, new HomePageFragment());//
-        mFragments.append(1, new MyCenterFragment());//
+        mFragments.append(1, new ControlFragment());//
+        mFragments.append(2, new MyCenterFragment());//
         mainViewpager.setOffscreenPageLimit(5);
         initTab();
     }

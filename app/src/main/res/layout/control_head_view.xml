@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <com.youth.banner.Banner
+        android:id="@+id/control_banner"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:indicator_drawable_selected="@color/colorAccent"
+        app:indicator_drawable_unselected="@android:color/white"
+        app:indicator_height="4dp"
+        app:indicator_margin="4dp"
+        app:indicator_width="20dp"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/system_notice_ll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/stroke_gray_square_bg"
+        android:padding="5dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="系统公告"
+            android:textColor="@color/colorAccent"></TextView>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@color/colorAccent"></View>
+
+        <com.sunfusheng.marqueeview.MarqueeView
+            android:id="@+id/control_system_notice_mv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:mvAnimDuration="1000"
+            app:mvDirection="left_to_right"
+            app:mvInterval="3000"
+            app:mvSingleLine="true"
+            app:mvTextColor="@color/gray_deeper"
+            app:mvTextSize="12sp" />
+    </LinearLayout>
+</LinearLayout>
