@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
@@ -21,10 +22,11 @@ import com.juntai.wisdom.project.base.customview.MainPagerAdapter;
  */
 public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends BaseAppActivity<P> {
 
-    private TabLayout mTabTb;
+    protected TabLayout mTabTb;
     private CustomViewPager mViewpageVp;
     private FrameLayout mTabHeadFl;
     private FrameLayout mTabFootFl;
+    protected LinearLayout mTabRootLl;
 
 
     @Override
@@ -36,6 +38,7 @@ public abstract class BaseTabViewPageActivity<P extends BasePresenter> extends B
     public void initView() {
         setTitleName(getTitleName());
         mTabTb = (TabLayout) findViewById(R.id.tab_tb);
+        mTabRootLl = (LinearLayout) findViewById(R.id.tab_root_ll);
         mTabTb.setTabMode(getTabMode());
         mViewpageVp = (CustomViewPager) findViewById(R.id.viewpage_vp);
         mTabHeadFl = (FrameLayout) findViewById(R.id.tab_head_fl);

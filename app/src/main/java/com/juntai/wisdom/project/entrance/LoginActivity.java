@@ -67,6 +67,8 @@ public class LoginActivity extends BaseTabViewPageActivity<EntrancePresent> impl
     public void initData() {
         super.initData();
         initToolbarAndStatusBar(false);
+        mTabRootLl.setBackgroundResource(R.mipmap.login_bg);
+        setMargin(mTabTb,20,0,20,0);
     }
 
     @Override

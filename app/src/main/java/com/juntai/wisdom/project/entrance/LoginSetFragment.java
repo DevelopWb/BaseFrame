@@ -8,8 +8,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.utils.PickerManager;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppFragment;
+import com.juntai.wisdom.project.utils.HawkProperty;
+import com.orhanobut.hawk.Hawk;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Author: tobato
@@ -42,6 +49,7 @@ public class LoginSetFragment extends BaseAppFragment<EntrancePresent> implement
     protected void initView() {
 
         mServiceAddrEt = (EditText) getView(R.id.service_addr_et);
+        mServiceAddrEt.setText(Hawk.contains(HawkProperty.CURRENT_SERVICE_ADDRS) ? Hawk.get(HawkProperty.CURRENT_SERVICE_ADDRS) : "http://59.110.154.247:8099/SystemHandler.axd?ClientType=AppAndroid");
         mHisServiceAddrTv = (TextView) getView(R.id.his_service_addr_tv);
         mHisServiceAddrTv.setOnClickListener(this);
         mConfirmTv = (TextView) getView(R.id.confirm_tv);
@@ -65,8 +73,28 @@ public class LoginSetFragment extends BaseAppFragment<EntrancePresent> implement
             default:
                 break;
             case R.id.his_service_addr_tv:
+                if (!Hawk.contains(HawkProperty.HIS_SERVICE_ADDRS)) {
+                    ToastUtils.toast(mContext, "暂无历史记录");
+                    return;
+                }
+                List<String> hisAddrs = Hawk.get(HawkProperty.HIS_SERVICE_ADDRS);
+                PickerManager.getInstance().showOptionPicker(mContext, hisAddrs, new PickerManager.OnOptionPickerSelectedListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                        String addr = hisAddrs.get(options1);
+                        mServiceAddrEt.setText(addr);
+                        mConfirmTv.performClick();
+                    }
+                });
                 break;
             case R.id.confirm_tv:
+                Hawk.put(HawkProperty.CURRENT_SERVICE_ADDRS, getBaseAppActivity().getTextViewValue(mServiceAddrEt));
+                List<String> arrays = Hawk.contains(HawkProperty.HIS_SERVICE_ADDRS) ? Hawk.get(HawkProperty.HIS_SERVICE_ADDRS) : new ArrayList<>();
+                if (!arrays.contains(getBaseAppActivity().getTextViewValue(mServiceAddrEt))) {
+                    arrays.add(getBaseAppActivity().getTextViewValue(mServiceAddrEt));
+                    Hawk.put(HawkProperty.HIS_SERVICE_ADDRS, arrays);
+                }
+                ToastUtils.toast(mContext, "保存成功");
                 break;
         }
     }

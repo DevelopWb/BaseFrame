@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:paddingTop="15dp"
     android:layout_height="match_parent"
-    android:background="@drawable/sp_filled_white_top_corner"
+    android:background="@mipmap/login_child_set_bg"
     android:orientation="vertical">
 
     <TextView
@@ -10,26 +11,29 @@
         android:layout_height="30dp"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
-        android:text="dfasdfas"
+        android:text="服务器地址设置"
         android:textSize="14sp" />
 
     <EditText
         android:id="@+id/service_addr_et"
+        android:hint="请输入服务器地址"
         style="@style/edittext_style" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
-        android:text="dfasdfas"
+        android:text="历史选择"
         android:textSize="14sp" />
 
     <TextView
         android:id="@+id/his_service_addr_tv"
         android:paddingRight="15dp"
+        android:hint="查看历史地址点击可进行使用"
         android:drawableRight="@mipmap/arrow_down"
         style="@style/edittext_style" />
     <TextView
         android:id="@+id/confirm_tv"
+        android:text="确定"
         style="@style/bt_style" />
 </LinearLayout>

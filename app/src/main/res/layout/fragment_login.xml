@@ -1,54 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:background="@mipmap/login_child_bg"
     android:layout_height="match_parent"
+    android:paddingTop="15dp"
     android:orientation="vertical">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:drawableLeft="@mipmap/set_clear"
+        android:drawableLeft="@mipmap/login_company_icon"
         android:drawablePadding="5dp"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
-        android:text="dfasdfas"
+        android:text="公司账套"
         android:textSize="14sp" />
 
     <TextView
         android:id="@+id/company_account_tv"
         style="@style/edittext_style"
+        android:hint="请选择公司帐套名称"
         android:drawableRight="@mipmap/arrow_down"
         android:paddingRight="15dp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:drawableLeft="@mipmap/set_clear"
+        android:drawableLeft="@mipmap/login_account_icon"
         android:drawablePadding="5dp"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
-        android:text="dfasdfas"
+        android:text="用户名"
         android:textSize="14sp" />
 
     <EditText
         android:id="@+id/user_name_et"
+        android:hint="请输入登录用户账号"
         style="@style/edittext_style" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:drawableLeft="@mipmap/set_clear"
+        android:drawableLeft="@mipmap/login_pwd_icon"
         android:drawablePadding="5dp"
         android:gravity="center_vertical"
         android:paddingLeft="20dp"
-        android:text="dfasdfas"
+        android:text="密码"
         android:textSize="14sp" />
 
     <EditText
         android:id="@+id/pwd_et"
+        android:hint="请输入账号密码"
         style="@style/edittext_style" />
 
     <TextView
         android:id="@+id/confirm_tv"
+        android:text="立即登录"
         style="@style/bt_style" />
 </LinearLayout>
