@@ -1,13 +1,17 @@
 package com.juntai.wisdom.project.entrance;
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.disabled.basecomponent.utils.GsonTools;
+import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.AppHttpPath;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppFragment;
+import com.juntai.wisdom.project.bean.RequestBean;
 
 /**
  * @Author: tobato
@@ -65,10 +69,22 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
             default:
                 break;
             case R.id.company_account_tv:
-                mPresenter.getCompanyAccount(getBaseAppActivity().getBaseBuilder(AppHttpPath.GET_COMPANY_ACCOUNT,"GetAccountInfo",null,null).build(), AppHttpPath.GET_COMPANY_ACCOUNT
-                        );
+                mPresenter.getCompanyAccount(GsonTools.createGsonString( new RequestBean(AppHttpPath.GET_COMPANY_ACCOUNT, "GetAccountInfo", "", "{}")), AppHttpPath.GET_COMPANY_ACCOUNT );
                 break;
             case R.id.confirm_tv:
+                String account = getBaseActivity().getTextViewValue(mUserNameEt);
+                String pwd = getBaseActivity().getTextViewValue(mPwdEt);
+                if (TextUtils.isEmpty(account)) {
+                    ToastUtils.toast(mContext, "请输入登录用户账号");
+                    return;
+                }
+                if (TextUtils.isEmpty(pwd)) {
+                    ToastUtils.toast(mContext, "请输入账号密码");
+                    return;
+                }
+                mPresenter.getUserAccount(GsonTools.createGsonString( new RequestBean(AppHttpPath.GET_USER_ACCOUNT, "Login", "", "{}")), AppHttpPath.GET_USER_ACCOUNT );
+
+
                 break;
         }
     }

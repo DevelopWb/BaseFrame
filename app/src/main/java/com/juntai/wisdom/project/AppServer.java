@@ -18,12 +18,19 @@ import retrofit2.http.Url;
  */
 public interface AppServer {
     /**
-     * 登录
+     * 获取公司账套
      *
      * @return
      */
     @POST
-    Observable<UserBean> getCompanyAccount(@Url String url, @Body  RequestBody requestBody);
+    Observable<UserBean> getCompanyAccount(@Url String url, @Query("")  String Json);
+    /**
+     * 获取用户账户
+     *
+     * @return
+     */
+    @POST
+    Observable<UserBean> getUserAccount(@Url String url,  @Query("")  String Json);
 
 
     @POST

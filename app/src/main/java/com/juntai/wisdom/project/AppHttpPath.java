@@ -5,4 +5,8 @@ public class AppHttpPath {
      * 获取公司账户
      */
     public static final String GET_COMPANY_ACCOUNT = "AccountInfoAdapter";
+    /**
+     * 获取公司账户
+     */
+    public static final String GET_USER_ACCOUNT = "LoginHandlerAdapter";
 }

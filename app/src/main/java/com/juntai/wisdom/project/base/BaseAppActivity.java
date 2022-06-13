@@ -45,23 +45,14 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
      *
      * @return
      */
-    public FormBody.Builder getBaseBuilder(String handlerName,String queryType,String sessionId,String parame) {
+    public FormBody.Builder getBaseBuilder(String handlerName, String queryType, String sessionId, String parame) {
         FormBody.Builder builder = new FormBody.Builder();
-        if (!TextUtils.isEmpty(handlerName)) {
-            builder.add("HandlerName",handlerName);
-        }
-        if (!TextUtils.isEmpty(queryType)) {
-            builder.add("QueryType",queryType);
-        }
-        if (!TextUtils.isEmpty(sessionId)) {
-            builder.add("SessionID",sessionId);
-        }
-        if (!TextUtils.isEmpty(parame)) {
-            builder.add("Parameters",parame);
-        }
+        builder.add("HandlerName",TextUtils.isEmpty(handlerName)?"":handlerName);
+        builder.add("QueryType",TextUtils.isEmpty(queryType)?"":queryType);
+        builder.add("SessionID",TextUtils.isEmpty(sessionId)?"":sessionId);
+        builder.add("Parameters",TextUtils.isEmpty(parame)?"{}":parame);
         return builder;
     }
-
 
 
     @Override

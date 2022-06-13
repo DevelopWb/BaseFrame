@@ -36,10 +36,32 @@ public class EntrancePresent extends BasePresenter<IModel, BaseIView>  {
 
 
     @SuppressLint("CheckResult")
-    public void getCompanyAccount(RequestBody requestBody, String tag) {
+    public void getCompanyAccount(String requestBody, String tag) {
         AppNetModule
                 .createrRetrofit()
                 .getCompanyAccount(Hawk.get(HawkProperty.CURRENT_SERVICE_ADDRS),requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
+                .subscribe(new Consumer<UserBean>() {
+                    @Override
+                    public void accept(UserBean userBean) throws Exception {
+                        if (getView() != null) {
+                            getView().onSuccess(tag, userBean);
+                        }
+                    }
+                }, new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        if (getView() != null) {
+                            getView().onError(tag, PubUtil.ERROR_NOTICE);
+                        }
+                    }
+                });
+    }
+    @SuppressLint("CheckResult")
+    public void getUserAccount(String requestBody, String tag) {
+        AppNetModule
+                .createrRetrofit()
+                .getUserAccount(Hawk.get(HawkProperty.CURRENT_SERVICE_ADDRS),requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new Consumer<UserBean>() {
                     @Override

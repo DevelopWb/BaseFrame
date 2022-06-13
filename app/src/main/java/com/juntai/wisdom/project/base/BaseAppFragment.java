@@ -1,8 +1,14 @@
 package com.juntai.wisdom.project.base;
 
 
+import android.text.TextUtils;
+
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
+import com.juntai.disabled.basecomponent.utils.GsonTools;
+import com.juntai.wisdom.project.bean.RequestBean;
+
+import okhttp3.FormBody;
 
 /**
  * @aouther tobato
@@ -20,6 +26,7 @@ public abstract class BaseAppFragment<P extends IPresenter> extends BaseMvpFragm
     public BaseAppActivity getBaseAppActivity() {
         return (BaseAppActivity) getActivity();
     }
+
 
     @Override
     protected boolean canCancelLoadingDialog() {
