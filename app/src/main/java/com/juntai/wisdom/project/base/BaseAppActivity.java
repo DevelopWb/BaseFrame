@@ -6,6 +6,7 @@ import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
@@ -44,8 +45,20 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
      *
      * @return
      */
-    public FormBody.Builder getBaseBuilder() {
+    public FormBody.Builder getBaseBuilder(String handlerName,String queryType,String sessionId,String parame) {
         FormBody.Builder builder = new FormBody.Builder();
+        if (!TextUtils.isEmpty(handlerName)) {
+            builder.add("HandlerName",handlerName);
+        }
+        if (!TextUtils.isEmpty(queryType)) {
+            builder.add("QueryType",queryType);
+        }
+        if (!TextUtils.isEmpty(sessionId)) {
+            builder.add("SessionID",sessionId);
+        }
+        if (!TextUtils.isEmpty(parame)) {
+            builder.add("Parameters",parame);
+        }
         return builder;
     }
 

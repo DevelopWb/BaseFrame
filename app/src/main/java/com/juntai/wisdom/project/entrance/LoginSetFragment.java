@@ -101,7 +101,6 @@ public class LoginSetFragment extends BaseAppFragment<EntrancePresent> implement
                     arrays.add(addr);
                     Hawk.put(HawkProperty.HIS_SERVICE_ADDRS, arrays);
                 }
-                BASE_URL = addr;
                 ToastUtils.toast(mContext, "保存成功");
 
                 break;

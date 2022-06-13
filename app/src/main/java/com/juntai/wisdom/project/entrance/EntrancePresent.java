@@ -3,7 +3,6 @@ package com.juntai.wisdom.project.entrance;
 
 import android.annotation.SuppressLint;
 
-import com.juntai.disabled.basecomponent.base.BaseFragment;
 import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
@@ -11,6 +10,8 @@ import com.juntai.disabled.basecomponent.utils.PubUtil;
 import com.juntai.disabled.basecomponent.utils.RxScheduler;
 import com.juntai.wisdom.project.AppNetModule;
 import com.juntai.wisdom.project.bean.UserBean;
+import com.juntai.wisdom.project.utils.HawkProperty;
+import com.orhanobut.hawk.Hawk;
 
 import io.reactivex.functions.Consumer;
 import okhttp3.RequestBody;
@@ -35,10 +36,10 @@ public class EntrancePresent extends BasePresenter<IModel, BaseIView>  {
 
 
     @SuppressLint("CheckResult")
-    public void login(RequestBody requestBody, String tag) {
+    public void getCompanyAccount(RequestBody requestBody, String tag) {
         AppNetModule
                 .createrRetrofit()
-                .login(BaseFragment.BASE_URL,requestBody)
+                .getCompanyAccount(Hawk.get(HawkProperty.CURRENT_SERVICE_ADDRS),requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new Consumer<UserBean>() {
                     @Override

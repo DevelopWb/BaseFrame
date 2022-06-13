@@ -1,13 +1,11 @@
 package com.juntai.wisdom.project.entrance;
 
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.juntai.disabled.basecomponent.mvp.BaseIView;
+import com.juntai.wisdom.project.AppHttpPath;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppFragment;
 
@@ -67,9 +65,7 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
             default:
                 break;
             case R.id.company_account_tv:
-                mPresenter.login(getBaseAppActivity().getBaseBuilder()
-                                .add("HandlerName", "AccountInfoAdapter")
-                                .add("QueryType", "GetAccountInfo").build(),
+                mPresenter.getCompanyAccount(getBaseAppActivity().getBaseBuilder(AppHttpPath.GET_COMPANY_ACCOUNT,"GetAccountInfo",null,null).build(), AppHttpPath.GET_COMPANY_ACCOUNT
                         );
                 break;
             case R.id.confirm_tv:

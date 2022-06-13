@@ -7,6 +7,7 @@ import com.juntai.wisdom.project.bean.UserBean;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.Url;
@@ -22,7 +23,7 @@ public interface AppServer {
      * @return
      */
     @POST
-    Observable<UserBean> login(@Url String url, RequestBody requestBody);
+    Observable<UserBean> getCompanyAccount(@Url String url, @Body  RequestBody requestBody);
 
 
     @POST
