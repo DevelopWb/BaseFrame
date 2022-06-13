@@ -23,14 +23,14 @@ public interface AppServer {
      * @return
      */
     @POST
-    Observable<UserBean> getCompanyAccount(@Url String url, @Query("")  String Json);
+    Observable<UserBean> getCompanyAccount(@Url String url, @Body  RequestBody requestBody);
     /**
      * 获取用户账户
      *
      * @return
      */
     @POST
-    Observable<UserBean> getUserAccount(@Url String url,  @Query("")  String Json);
+    Observable<UserBean> getUserAccount(@Url String url, @Body  RequestBody requestBody);
 
 
     @POST

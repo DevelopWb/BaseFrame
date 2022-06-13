@@ -13,6 +13,9 @@ import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppFragment;
 import com.juntai.wisdom.project.bean.RequestBean;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+
 /**
  * @Author: tobato
  * @Description: 作用描述
@@ -69,7 +72,8 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
             default:
                 break;
             case R.id.company_account_tv:
-                mPresenter.getCompanyAccount(GsonTools.createGsonString( new RequestBean(AppHttpPath.GET_COMPANY_ACCOUNT, "GetAccountInfo", "", "{}")), AppHttpPath.GET_COMPANY_ACCOUNT );
+                MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+                mPresenter.getCompanyAccount(RequestBody.create(JSON,GsonTools.createGsonString( new RequestBean(AppHttpPath.GET_COMPANY_ACCOUNT, "GetAccountInfo", "", "{}"))), AppHttpPath.GET_COMPANY_ACCOUNT );
                 break;
             case R.id.confirm_tv:
                 String account = getBaseActivity().getTextViewValue(mUserNameEt);
@@ -82,7 +86,7 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
                     ToastUtils.toast(mContext, "请输入账号密码");
                     return;
                 }
-                mPresenter.getUserAccount(GsonTools.createGsonString( new RequestBean(AppHttpPath.GET_USER_ACCOUNT, "Login", "", "{}")), AppHttpPath.GET_USER_ACCOUNT );
+//                mPresenter.getUserAccount(GsonTools.createGsonString( new RequestBean(AppHttpPath.GET_USER_ACCOUNT, "Login", "", "{}")), AppHttpPath.GET_USER_ACCOUNT );
 
 
                 break;

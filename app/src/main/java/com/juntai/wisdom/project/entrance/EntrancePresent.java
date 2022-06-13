@@ -36,7 +36,7 @@ public class EntrancePresent extends BasePresenter<IModel, BaseIView>  {
 
 
     @SuppressLint("CheckResult")
-    public void getCompanyAccount(String requestBody, String tag) {
+    public void getCompanyAccount(RequestBody requestBody, String tag) {
         AppNetModule
                 .createrRetrofit()
                 .getCompanyAccount(Hawk.get(HawkProperty.CURRENT_SERVICE_ADDRS),requestBody)
@@ -58,7 +58,7 @@ public class EntrancePresent extends BasePresenter<IModel, BaseIView>  {
                 });
     }
     @SuppressLint("CheckResult")
-    public void getUserAccount(String requestBody, String tag) {
+    public void getUserAccount(RequestBody requestBody, String tag) {
         AppNetModule
                 .createrRetrofit()
                 .getUserAccount(Hawk.get(HawkProperty.CURRENT_SERVICE_ADDRS),requestBody)
