@@ -67,6 +67,10 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
             default:
                 break;
             case R.id.company_account_tv:
+                mPresenter.login(getBaseAppActivity().getBaseBuilder()
+                                .add("HandlerName", "AccountInfoAdapter")
+                                .add("QueryType", "GetAccountInfo").build(),
+                        );
                 break;
             case R.id.confirm_tv:
                 break;

@@ -16,6 +16,8 @@ import com.juntai.wisdom.project.base.customview.MainPagerAdapter;
 import com.juntai.wisdom.project.control.ControlFragment;
 import com.juntai.wisdom.project.home_page.HomePageFragment;
 import com.juntai.wisdom.project.mine.MyCenterFragment;
+import com.juntai.wisdom.project.utils.HawkProperty;
+import com.orhanobut.hawk.Hawk;
 
 public class MainActivity extends BaseAppActivity<MainPagePresent> implements ViewPager.OnPageChangeListener,
         View.OnClickListener, MainPageContract.IMainPageView {
@@ -24,10 +26,9 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
     private CustomViewPager mainViewpager;
 
     private TabLayout mainTablayout;
-    private String[] title = new String[]{"首页","工作","我的"};
-    private int[] tabDrawables = new int[]{R.drawable.home_index,R.drawable.home_msg,R.drawable.home_msg};
+    private String[] title = new String[]{"首页", "工作", "我的"};
+    private int[] tabDrawables = new int[]{R.drawable.home_index, R.drawable.home_msg, R.drawable.home_msg};
     private SparseArray<Fragment> mFragments = new SparseArray<>();
-
 
 
     @Override
@@ -48,6 +49,7 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         mainViewpager.setOffscreenPageLimit(5);
         initTab();
     }
+
 
     @Override
     public void initData() {
@@ -127,8 +129,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
     }
 
 
-
-
     @Override
     public void onBackPressed() {
         showAlertDialog("请选择退出方式", "退出", "挂起", new DialogInterface.OnClickListener() {
@@ -150,8 +150,6 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
             }
         });
     }
-
-
 
 
 }

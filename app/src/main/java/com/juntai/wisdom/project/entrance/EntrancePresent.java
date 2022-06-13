@@ -3,6 +3,7 @@ package com.juntai.wisdom.project.entrance;
 
 import android.annotation.SuppressLint;
 
+import com.juntai.disabled.basecomponent.base.BaseFragment;
 import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
@@ -12,6 +13,7 @@ import com.juntai.wisdom.project.AppNetModule;
 import com.juntai.wisdom.project.bean.UserBean;
 
 import io.reactivex.functions.Consumer;
+import okhttp3.RequestBody;
 
 /**
  * @Author: tobato
@@ -20,7 +22,7 @@ import io.reactivex.functions.Consumer;
  * @UpdateUser: 更新者
  * @UpdateDate: 2020/3/5 15:55
  */
-public class EntrancePresent extends BasePresenter<IModel, BaseIView> implements EntranceContract.IEntrancePresent {
+public class EntrancePresent extends BasePresenter<IModel, BaseIView>  {
     private BaseIView iView;
     public void  setCallBack(BaseIView iView) {
         this.iView = iView;
@@ -33,37 +35,23 @@ public class EntrancePresent extends BasePresenter<IModel, BaseIView> implements
 
 
     @SuppressLint("CheckResult")
-    @Override
-    public void login(String account, String password, String weChatId, String qqId,String tag) {
-        BaseIView viewCallBack = null;
-        if (getView()==null) {
-            if (iView != null) {
-                viewCallBack = iView;
-                viewCallBack.showLoading();
-            }
-        }else{
-            viewCallBack = getView();
-            viewCallBack.showLoading();
-        }
-        BaseIView finalViewCallBack = viewCallBack;
+    public void login(RequestBody requestBody, String tag) {
         AppNetModule
                 .createrRetrofit()
-                .login(account, password, weChatId, qqId)
-                .compose(RxScheduler.ObsIoMain(viewCallBack))
+                .login(BaseFragment.BASE_URL,requestBody)
+                .compose(RxScheduler.ObsIoMain(getView()))
                 .subscribe(new Consumer<UserBean>() {
                     @Override
                     public void accept(UserBean userBean) throws Exception {
-                        if (finalViewCallBack != null) {
-                            finalViewCallBack.hideLoading();
-                            finalViewCallBack.onSuccess(tag, userBean);
+                        if (getView() != null) {
+                            getView().onSuccess(tag, userBean);
                         }
                     }
                 }, new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        if (finalViewCallBack != null) {
-                            finalViewCallBack.hideLoading();
-                            finalViewCallBack.onError(tag, PubUtil.ERROR_NOTICE);
+                        if (getView() != null) {
+                            getView().onError(tag, PubUtil.ERROR_NOTICE);
                         }
                     }
                 });

@@ -1,6 +1,7 @@
 package com.juntai.wisdom.project.entrance;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.juntai.wisdom.project.base.BaseAppFragment;
 import com.juntai.wisdom.project.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
 
+import java.time.temporal.TemporalUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -88,13 +90,20 @@ public class LoginSetFragment extends BaseAppFragment<EntrancePresent> implement
                 });
                 break;
             case R.id.confirm_tv:
-                Hawk.put(HawkProperty.CURRENT_SERVICE_ADDRS, getBaseAppActivity().getTextViewValue(mServiceAddrEt));
+                String addr = getBaseAppActivity().getTextViewValue(mServiceAddrEt);
+                if (TextUtils.isEmpty(addr)) {
+                    ToastUtils.toast(mContext,"请输入服务器地址");
+                    return;
+                }
+                Hawk.put(HawkProperty.CURRENT_SERVICE_ADDRS, addr);
                 List<String> arrays = Hawk.contains(HawkProperty.HIS_SERVICE_ADDRS) ? Hawk.get(HawkProperty.HIS_SERVICE_ADDRS) : new ArrayList<>();
-                if (!arrays.contains(getBaseAppActivity().getTextViewValue(mServiceAddrEt))) {
-                    arrays.add(getBaseAppActivity().getTextViewValue(mServiceAddrEt));
+                if (!arrays.contains(addr)) {
+                    arrays.add(addr);
                     Hawk.put(HawkProperty.HIS_SERVICE_ADDRS, arrays);
                 }
+                BASE_URL = addr;
                 ToastUtils.toast(mContext, "保存成功");
+
                 break;
         }
     }
