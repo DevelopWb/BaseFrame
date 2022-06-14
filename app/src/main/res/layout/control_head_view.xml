@@ -5,6 +5,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:textColor="@color/black"
+        android:text="北京君则科技发展有限公司"
+        android:textSize="22sp" />
+
     <com.youth.banner.Banner
         android:id="@+id/control_banner"
         android:layout_width="match_parent"
@@ -27,11 +37,12 @@
         android:background="@drawable/stroke_gray_square_bg"
         android:padding="5dp">
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="系统公告"
-            android:textColor="@color/colorAccent"></TextView>
+            android:src="@mipmap/system_notice_icon"
+            android:textColor="@color/colorAccent"></ImageView>
 
         <View
             android:layout_width="1dp"
@@ -43,6 +54,7 @@
             android:id="@+id/control_system_notice_mv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             app:layout_constraintTop_toTopOf="parent"
             app:mvAnimDuration="1000"
             app:mvDirection="left_to_right"
@@ -50,5 +62,10 @@
             app:mvSingleLine="true"
             app:mvTextColor="@color/gray_deeper"
             app:mvTextSize="12sp" />
+
+        <ImageView
+            android:layout_width="15dp"
+            android:src="@mipmap/arrow_right"
+            android:layout_height="15dp" />
     </LinearLayout>
 </LinearLayout>

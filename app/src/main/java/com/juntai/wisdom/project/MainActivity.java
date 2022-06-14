@@ -14,10 +14,10 @@ import com.juntai.wisdom.project.base.BaseAppActivity;
 import com.juntai.wisdom.project.base.customview.CustomViewPager;
 import com.juntai.wisdom.project.base.customview.MainPagerAdapter;
 import com.juntai.wisdom.project.control.ControlFragment;
-import com.juntai.wisdom.project.home_page.HomePageFragment;
+import com.juntai.wisdom.project.home_page.EmailFragment;
+import com.juntai.wisdom.project.kanban.KanBanFragment;
 import com.juntai.wisdom.project.mine.MyCenterFragment;
-import com.juntai.wisdom.project.utils.HawkProperty;
-import com.orhanobut.hawk.Hawk;
+import com.juntai.wisdom.project.xietong.XieTongFragment;
 
 public class MainActivity extends BaseAppActivity<MainPagePresent> implements ViewPager.OnPageChangeListener,
         View.OnClickListener, MainPageContract.IMainPageView {
@@ -26,8 +26,8 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
     private CustomViewPager mainViewpager;
 
     private TabLayout mainTablayout;
-    private String[] title = new String[]{"首页", "工作", "我的"};
-    private int[] tabDrawables = new int[]{R.drawable.home_index, R.drawable.home_msg, R.drawable.home_msg};
+    private String[] title = new String[]{"邮件", "协同", "主控台", "看板", "我的"};
+    private int[] tabDrawables = new int[]{R.drawable.home_email, R.drawable.home_xietong, R.drawable.home_control, R.drawable.home_kanban, R.drawable.home_mine};
     private SparseArray<Fragment> mFragments = new SparseArray<>();
 
 
@@ -43,9 +43,11 @@ public class MainActivity extends BaseAppActivity<MainPagePresent> implements Vi
         mainTablayout = findViewById(R.id.main_tablayout);
         mainLayout = findViewById(R.id.main_layout);
         mainViewpager.setScanScroll(false);
-        mFragments.append(0, new HomePageFragment());//
-        mFragments.append(1, new ControlFragment());//
-        mFragments.append(2, new MyCenterFragment());//
+        mFragments.append(0, new EmailFragment());//
+        mFragments.append(1, new XieTongFragment());//
+        mFragments.append(2, new ControlFragment());//
+        mFragments.append(3, new KanBanFragment());//
+        mFragments.append(4, new MyCenterFragment());//
         mainViewpager.setOffscreenPageLimit(5);
         initTab();
     }

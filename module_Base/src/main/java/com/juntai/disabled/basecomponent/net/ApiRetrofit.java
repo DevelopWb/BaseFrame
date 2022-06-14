@@ -8,6 +8,7 @@ import com.juntai.disabled.basecomponent.net.convert.NullAdapterFactory;
 import com.juntai.disabled.basecomponent.utils.CustomeHttpLogger;
 import com.juntai.disabled.basecomponent.utils.LogUtil;
 
+
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
@@ -49,7 +50,6 @@ public class ApiRetrofit {
             MediaType mediaType = response.body().contentType();
             String content = response.body().string();
             LogUtil.d("| response:" + content);
-//            LogUtil.d("----------Request End:" + duration + "毫秒----------");
             return response.newBuilder()
                     .body(ResponseBody.create(mediaType, content))
                     .build();
@@ -78,7 +78,7 @@ public class ApiRetrofit {
     public <T> T getApiService(Class<T> service) {
         client = new OkHttpClient.Builder()
                 //添加log拦截器
-                .addInterceptor(getLogger())
+                .addInterceptor(interceptor)
                 .connectTimeout(30, TimeUnit.SECONDS)//连接超时
                 .writeTimeout(60, TimeUnit.SECONDS)//写入超时
                 .readTimeout(60, TimeUnit.SECONDS)//读取超时

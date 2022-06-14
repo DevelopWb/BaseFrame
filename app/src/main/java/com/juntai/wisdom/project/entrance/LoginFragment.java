@@ -5,13 +5,23 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
+import com.juntai.disabled.basecomponent.utils.PickerManager;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
 import com.juntai.wisdom.project.AppHttpPath;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppFragment;
+import com.juntai.wisdom.project.bean.CommpanyAccountBean;
 import com.juntai.wisdom.project.bean.RequestBean;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.List;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -62,7 +72,30 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
 
     @Override
     public void onSuccess(String tag, Object o) {
-
+        switch (tag) {
+            case AppHttpPath.GET_COMPANY_ACCOUNT:
+                JsonObject jsonStr = (JsonObject) o;
+                String str =GsonTools.createGsonString(jsonStr);
+                try {
+                    JSONObject jsonObject = new JSONObject(str);
+                    String jsonArray = jsonObject.getString("AccountInfo");
+                    List<CommpanyAccountBean> arrays = GsonTools.changeGsonToList(jsonArray, CommpanyAccountBean.class);
+                    if (arrays.size()>0) {
+                        PickerManager.getInstance().showOptionPicker(mContext, arrays, new PickerManager.OnOptionPickerSelectedListener() {
+                            @Override
+                            public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                                CommpanyAccountBean accountBean = arrays.get(options1);
+                                mCompanyAccountTv.setText(accountBean.getName());
+                            }
+                        });
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                break;
+            default:
+                break;
+        }
     }
 
 
@@ -72,8 +105,7 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
             default:
                 break;
             case R.id.company_account_tv:
-                MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-                mPresenter.getCompanyAccount(RequestBody.create(JSON,GsonTools.createGsonString( new RequestBean(AppHttpPath.GET_COMPANY_ACCOUNT, "GetAccountInfo", "", "{}"))), AppHttpPath.GET_COMPANY_ACCOUNT );
+                mPresenter.getCompanyAccount(getRequestBody(AppHttpPath.GET_COMPANY_ACCOUNT, "GetAccountInfo", null, null), AppHttpPath.GET_COMPANY_ACCOUNT);
                 break;
             case R.id.confirm_tv:
                 String account = getBaseActivity().getTextViewValue(mUserNameEt);

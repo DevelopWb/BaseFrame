@@ -11,13 +11,17 @@ import android.text.TextUtils;
 import com.baidu.location.BDLocation;
 import com.baidu.mapapi.model.LatLng;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
+import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.bdmap.utils.NagivationUtils;
 import com.juntai.wisdom.project.base.selectPics.BaseSelectPicsActivity;
+import com.juntai.wisdom.project.bean.RequestBean;
 import com.juntai.wisdom.project.utils.UserInfoManager;
 
 import java.util.List;
 
 import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 /**
  * @aouther tobato
@@ -40,19 +44,11 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     }
 
 
-    /**
-     * 获取builder
-     *
-     * @return
-     */
-    public FormBody.Builder getBaseBuilder(String handlerName, String queryType, String sessionId, String parame) {
-        FormBody.Builder builder = new FormBody.Builder();
-        builder.add("HandlerName",TextUtils.isEmpty(handlerName)?"":handlerName);
-        builder.add("QueryType",TextUtils.isEmpty(queryType)?"":queryType);
-        builder.add("SessionID",TextUtils.isEmpty(sessionId)?"":sessionId);
-        builder.add("Parameters",TextUtils.isEmpty(parame)?"{}":parame);
-        return builder;
+    public RequestBody getRequestBody(String handlerName, String queryType, String sessionId , String parameters){
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        return RequestBody.create(JSON, GsonTools.createGsonString(new RequestBean(handlerName, queryType, sessionId==null?"":sessionId, parameters==null?"{}":parameters)));
     }
+
 
 
     @Override

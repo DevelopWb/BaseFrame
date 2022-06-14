@@ -27,7 +27,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
  * @description 描述  homepage
  * @date 2021/4/18 14:59
  */
-public class HomePageFragment extends BaseRecyclerviewFragment<HomePagePresent> implements BaseIView,
+public class EmailFragment extends BaseRecyclerviewFragment<HomePagePresent> implements BaseIView,
         View.OnClickListener {
 
 

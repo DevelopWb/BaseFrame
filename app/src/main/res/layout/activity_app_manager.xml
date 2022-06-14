@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".control.appManager.AppManagerActivity">
+
+    <LinearLayout
+        android:id="@+id/app_name_ll"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/bg_white_only_bottom_gray_shape_10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            style="@style/item_title_style"
+            android:gravity="center_vertical"
+            android:text="应用名称"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            android:id="@+id/app_name_tv"
+            style="@style/item_content_text_style_right"
+            android:layout_marginLeft="10dp"
+            android:textSize="12sp"
+            android:layout_marginRight="10dp"
+            android:drawableRight="@mipmap/arrow_right"
+            android:text="常用" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <TextView
+            style="@style/item_title_style"
+            android:gravity="center_vertical"
+            android:text="主控制台应用"
+            android:textColor="@color/black"
+            android:textSize="16dp" />
+
+        <TextView
+            style="@style/item_content_text_style_right"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:textSize="12sp"
+            android:drawableRight="@mipmap/arrow_right"
+            android:text="按住拖动可调整应用位置" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/control_app_rv"
+        android:layout_width="match_parent"
+        android:background="@drawable/bg_white_only_bottom_gray_shape_10dp"
+        android:layout_height="wrap_content" />
+    <TextView
+        style="@style/item_title_style"
+        android:gravity="center_vertical"
+        android:layout_height="40dp"
+        android:paddingLeft="20dp"
+        android:text="应用展示"
+        android:textColor="@color/black"
+        android:textSize="16dp" />
+</LinearLayout>

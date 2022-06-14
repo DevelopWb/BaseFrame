@@ -6,9 +6,12 @@ import android.text.TextUtils;
 import com.juntai.disabled.basecomponent.base.BaseMvpFragment;
 import com.juntai.disabled.basecomponent.mvp.IPresenter;
 import com.juntai.disabled.basecomponent.utils.GsonTools;
+import com.juntai.wisdom.project.AppHttpPath;
 import com.juntai.wisdom.project.bean.RequestBean;
 
 import okhttp3.FormBody;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
 
 /**
  * @aouther tobato
@@ -32,4 +35,11 @@ public abstract class BaseAppFragment<P extends IPresenter> extends BaseMvpFragm
     protected boolean canCancelLoadingDialog() {
         return false;
     }
+
+
+    public RequestBody getRequestBody(String handlerName,String queryType,String sessionId ,String parameters){
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        return RequestBody.create(JSON,GsonTools.createGsonString(new RequestBean(handlerName, queryType, sessionId==null?"":sessionId, parameters==null?"{}":parameters)));
+    }
+
 }

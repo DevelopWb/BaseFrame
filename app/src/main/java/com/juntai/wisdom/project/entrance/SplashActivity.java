@@ -39,7 +39,7 @@ public class SplashActivity extends RxAppCompatActivity {
                     @Override
                     public void accept(Boolean aBoolean) throws Exception {
                         if (aBoolean) {
-                            //所有权限通过
+                            //所有权限通过 看板
                         } else {
                             //有一个权限没通过
                         }

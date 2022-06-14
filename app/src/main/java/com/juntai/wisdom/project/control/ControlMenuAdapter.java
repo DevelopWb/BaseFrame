@@ -9,7 +9,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.bean.MultipleItem;
+import com.juntai.wisdom.project.bean.PicTextBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -33,7 +35,12 @@ public class ControlMenuAdapter extends BaseQuickAdapter<String,BaseViewHolder> 
         GridLayoutManager manager = new GridLayoutManager(mContext, 5);
         recyclerView.setAdapter(menuChildAdapter);
         recyclerView.setLayoutManager(manager);
-        menuChildAdapter.setNewData(null);
+        List<PicTextBean> arrays = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            arrays.add(new PicTextBean(R.mipmap.ic_launcher,"测试"+i));
+        }
+        arrays.add(new PicTextBean(R.mipmap.more_app_icon,"更多"));
+        menuChildAdapter.setNewData(arrays);
         menuChildAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

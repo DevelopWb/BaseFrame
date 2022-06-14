@@ -1,9 +1,12 @@
 package com.juntai.wisdom.project;
 
 
+import com.google.gson.JsonObject;
 import com.juntai.disabled.basecomponent.base.BaseFragment;
 import com.juntai.disabled.basecomponent.base.BaseResult;
 import com.juntai.wisdom.project.bean.UserBean;
+
+import org.json.JSONObject;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -23,7 +26,7 @@ public interface AppServer {
      * @return
      */
     @POST
-    Observable<UserBean> getCompanyAccount(@Url String url, @Body  RequestBody requestBody);
+    Observable<JsonObject> getCompanyAccount(@Url String url, @Body  RequestBody requestBody);
     /**
      * 获取用户账户
      *

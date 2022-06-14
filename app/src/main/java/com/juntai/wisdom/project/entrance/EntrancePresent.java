@@ -3,6 +3,7 @@ package com.juntai.wisdom.project.entrance;
 
 import android.annotation.SuppressLint;
 
+import com.google.gson.JsonObject;
 import com.juntai.disabled.basecomponent.mvp.BaseIView;
 import com.juntai.disabled.basecomponent.mvp.BasePresenter;
 import com.juntai.disabled.basecomponent.mvp.IModel;
@@ -12,6 +13,8 @@ import com.juntai.wisdom.project.AppNetModule;
 import com.juntai.wisdom.project.bean.UserBean;
 import com.juntai.wisdom.project.utils.HawkProperty;
 import com.orhanobut.hawk.Hawk;
+
+import org.json.JSONObject;
 
 import io.reactivex.functions.Consumer;
 import okhttp3.RequestBody;
@@ -41,11 +44,11 @@ public class EntrancePresent extends BasePresenter<IModel, BaseIView>  {
                 .createrRetrofit()
                 .getCompanyAccount(Hawk.get(HawkProperty.CURRENT_SERVICE_ADDRS),requestBody)
                 .compose(RxScheduler.ObsIoMain(getView()))
-                .subscribe(new Consumer<UserBean>() {
+                .subscribe(new Consumer<JsonObject>() {
                     @Override
-                    public void accept(UserBean userBean) throws Exception {
+                    public void accept(JsonObject str) throws Exception {
                         if (getView() != null) {
-                            getView().onSuccess(tag, userBean);
+                            getView().onSuccess(tag, str);
                         }
                     }
                 }, new Consumer<Throwable>() {

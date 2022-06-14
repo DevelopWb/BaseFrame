@@ -20,15 +20,16 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name="com.juntai.wisdom.project.MyApp"
+        android:name=".MyApp"
         android:allowBackup="true"
+        android:appComponentFactory="@string/app_name"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        tools:replace="android:appComponentFactory"
-        android:appComponentFactory="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="GoogleAppIndexingWarning">
+        tools:ignore="GoogleAppIndexingWarning"
+        tools:replace="android:appComponentFactory">
+        <activity android:name=".control.appManager.AppManagerActivity"></activity>
         <activity
             android:name=".home_page.QRScanActivity"
             android:launchMode="singleTop" />
@@ -73,13 +74,10 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"></activity>
         <activity
             android:name=".entrance.LoginActivity"
-            android:launchMode="singleTop" />
-        <!-- 关于 -->
+            android:launchMode="singleTop" /> <!-- 关于 -->
         <activity
             android:name=".mine.AboutActivity"
             android:launchMode="singleTop" /> <!-- 个人信息 -->
