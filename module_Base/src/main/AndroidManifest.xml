@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.juntai.disabled.basecomponent" >
+    package="com.of.disabled.basecomponent" >
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -13,6 +13,6 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application>
-        <activity android:name=".base.BaseWebViewActivity" />
+        <activity android:name="com.of.disabled.basecomponent.base.BaseWebViewActivity" />
     </application>
 </manifest>

@@ -26,7 +26,7 @@
         app:tabMode="fixed"
         app:tabRippleColor="@color/gray_ripple" />
 
-    <com.juntai.wisdom.project.base.customview.CustomViewPager
+    <com.of.com.main.base.customview.CustomViewPager
         android:id="@+id/viewpage_vp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

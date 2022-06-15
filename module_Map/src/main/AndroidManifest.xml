@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.juntai.disabled.bdmap">
+    package="com.of.disabled.bdmap">
 
 
     <!-- 这个权限用于进行网络定位-->
@@ -40,15 +40,15 @@
 
 
         <service
-            android:name="com.juntai.disabled.bdmap.service.LocateAndUpload"
+            android:name="com.of.disabled.bdmap.service.LocateAndUpload"
             android:priority="1000"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name=".act.LocateShowActivity"
+        <activity android:name="com.of.disabled.bdmap.act.LocateShowActivity"
             android:launchMode="singleTop"
             ></activity>
-        <activity android:name=".act.LocateSelectionActivity">
+        <activity android:name="com.of.disabled.bdmap.act.LocateSelectionActivity">
             <intent-filter>
                 <action android:name="${applicationId}.im.location.seltion" />
 

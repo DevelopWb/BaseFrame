@@ -13,7 +13,7 @@ def configs = rootProject.ext.android
 android {
     compileSdkVersion configs.compileSdkVersion
     defaultConfig {
-        applicationId "com.juntai.wisdom.project"
+        applicationId "a3phone.of.com.main"
         minSdkVersion configs.minSdkVersion
         targetSdkVersion configs.targetSdkVersion
         versionCode configs.versionCode
@@ -91,7 +91,7 @@ dependencies {
     implementation 'com.sunfusheng:MarqueeView:1.4.1'//跑马灯
     implementation 'com.oginotihiro:cropview:1.0.0'
     implementation project((':oscvpush'))
-//    implementation project(':jjdxm-ijkplayer')
+//    implementation main(':jjdxm-ijkplayer')
 }
 
 configurations.all {

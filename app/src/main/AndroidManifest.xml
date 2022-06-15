@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.juntai.wisdom.project">
+    package="com.of.com.main">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
@@ -20,7 +20,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
-        android:name=".MyApp"
+        android:name="com.of.com.main.MyApp"
         android:allowBackup="true"
         android:appComponentFactory="@string/app_name"
         android:icon="@mipmap/ic_launcher"
@@ -29,13 +29,13 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".control.appManager.AppManagerActivity"></activity>
+        <activity android:name="com.of.com.main.control.appManager.AppManagerActivity"></activity>
         <activity
-            android:name=".home_page.QRScanActivity"
+            android:name="com.of.com.main.home_page.QRScanActivity"
             android:launchMode="singleTop" />
 
         <provider
-            android:name=".utils.MyFileProvider"
+            android:name="com.of.com.main.utils.MyFileProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
             android:grantUriPermissions="true"
@@ -61,7 +61,7 @@
             android:value="Nb7K5CgYPX5xE8UhppiKirMt0BeoyGEy" /> <!-- 百度地图 -->
         <!--  -->
         <activity
-            android:name=".entrance.SplashActivity"
+            android:name="com.of.com.main.entrance.SplashActivity"
             android:theme="@style/AppTheme.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -70,26 +70,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.of.com.main.MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"></activity>
         <activity
-            android:name=".entrance.LoginActivity"
+            android:name="com.of.com.main.entrance.LoginActivity"
             android:launchMode="singleTop" /> <!-- 关于 -->
         <activity
-            android:name=".mine.AboutActivity"
+            android:name="com.of.com.main.mine.AboutActivity"
             android:launchMode="singleTop" /> <!-- 个人信息 -->
         <!-- 图片裁切 -->
         <activity
-            android:name=".mine.myinfo.ImageCropActivity"
+            android:name="com.of.com.main.mine.myinfo.ImageCropActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".mine.myinfo.HeadCropActivity"
+            android:name="com.of.com.main.mine.myinfo.HeadCropActivity"
             android:launchMode="singleTop" />
         <activity
-            android:name=".mine.UserAgreementActivity"
+            android:name="com.of.com.main.mine.UserAgreementActivity"
             android:launchMode="singleTop" />
     </application>
 

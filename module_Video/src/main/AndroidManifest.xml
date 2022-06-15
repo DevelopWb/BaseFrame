@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.juntai.disabled.video">
+    package="com.of.disabled.video">
 
     <application>
-        <activity android:name="com.juntai.disabled.video.player.DronePlayer"
+        <activity android:name="com.of.disabled.video.player.DronePlayer"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"/>
@@ -11,16 +11,16 @@
         <activity android:name="com.mabeijianxi.smallvideorecord2.MediaRecorderActivity"
             android:theme="@style/MediaStyleTheme"
             android:launchMode="singleTop"/>
-        <activity android:name="com.juntai.disabled.video.record.VideoPreviewActivity"
+        <activity android:name="com.of.disabled.video.record.VideoPreviewActivity"
             android:launchMode="singleTop"/>
         <activity
-            android:name="com.juntai.disabled.video.player.DisplayVideoActivity"
+            android:name="com.of.disabled.video.player.DisplayVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"/>
-        <activity android:name="com.juntai.disabled.video.img.DisplayPicsActivity"
+        <activity android:name="com.of.disabled.video.img.DisplayPicsActivity"
             android:launchMode="singleTop"/>
-        <activity android:name="com.juntai.disabled.video.record.SendSmallVideoActivity2"
+        <activity android:name="com.of.disabled.video.record.SendSmallVideoActivity2"
             android:launchMode="singleTop"/>
 
         <uses-library
