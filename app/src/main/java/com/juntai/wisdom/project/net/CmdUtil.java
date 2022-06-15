@@ -8,9 +8,7 @@ import com.orhanobut.hawk.Hawk;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -86,7 +84,7 @@ public class CmdUtil
             HttpUtil.post(Hawk.get(HawkProperty.CURRENT_SERVICE_ADDRS)+"/SystemHandler.axd?ClientType=Android",jsonStr,cmdCallBack);
         }catch (IOException ex){
             if (cmdCallBack != null) {
-                cmdCallBack.onError("HTTP错误:无法连接服务器！");
+                cmdCallBack.onResponseError("HTTP错误:无法连接服务器！");
             }
         }
     }

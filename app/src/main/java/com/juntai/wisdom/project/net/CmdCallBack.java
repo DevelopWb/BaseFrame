@@ -60,7 +60,7 @@ public abstract class CmdCallBack implements Callback
 
 
     public abstract void onSuccess(String result);
-    public abstract void onError(String result);
+    public abstract void onResponseError(String result);
 
     public void onFail(String retString)
     {
