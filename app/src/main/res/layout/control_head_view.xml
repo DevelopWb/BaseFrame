@@ -15,7 +15,7 @@
         android:text="北京君则科技发展有限公司"
         android:textSize="22sp" />
 
-    <com.youth.banner.Banner
+    <a3phone.youth.banner.Banner
         android:id="@+id/control_banner"
         android:layout_width="match_parent"
         android:layout_height="200dp"

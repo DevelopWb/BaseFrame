@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".player.DronePlayer">
+    tools:context="a3phone.of.disabled.video.player.DronePlayer">
     <com.shuyu.gsyvideoplayer.video.StandardGSYVideoPlayer
         android:id="@+id/video_player"
         android:layout_width="match_parent"

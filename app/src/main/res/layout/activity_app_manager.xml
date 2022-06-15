@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".control.appManager.AppManagerActivity">
+    tools:context="a3phone.of.com.main.control.appManager.AppManagerActivity">
 
     <LinearLayout
         android:id="@+id/app_name_ll"
