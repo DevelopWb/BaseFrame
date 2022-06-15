@@ -1,5 +1,6 @@
 package a3phone.of.com.main.entrance;
 
+import android.content.Intent;
 import android.text.TextUtils;
 import android.util.ArrayMap;
 import android.view.View;
@@ -8,9 +9,14 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.orhanobut.hawk.Hawk;
 
+import a3phone.of.com.main.MainActivity;
 import a3phone.of.com.main.R;
+import a3phone.of.com.main.bean.UserBean;
+import a3phone.of.com.main.utils.HawkProperty;
 import a3phone.of.disabled.basecomponent.mvp.BaseIView;
+import a3phone.of.disabled.basecomponent.utils.GsonTools;
 import a3phone.of.disabled.basecomponent.utils.PickerManager;
 import a3phone.of.disabled.basecomponent.utils.ToastUtils;
 import a3phone.of.com.main.base.BaseAppFragment;
@@ -36,7 +42,7 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
     private EditText mUserNameEt;
     private EditText mPwdEt;
     private TextView mConfirmTv;
-    private String accountCode;
+    private String accountCode = null;
 
     @Override
     protected EntrancePresent createPresenter() {
@@ -85,12 +91,15 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
             default:
                 break;
             case R.id.company_account_tv:
+                if (!Hawk.contains(HawkProperty.CURRENT_SERVICE_ADDRS)) {
+                    ToastUtils.toast(mContext,"请先到设置里面配置服务器地址");
+                    return;
+                }
                 CmdUtil.cmd("AccountInfoAdapter", "GetAccountInfo", (JSONObject) null, new CmdCallBack() {
                     @Override
-                    public void onSuccess(String result) {
+                    public void onSuccess(JSONObject result) {
                         try {
-                            JSONObject jsonObject = new JSONObject(result);
-                            String jsonArray = jsonObject.getString("AccountInfo");
+                            String jsonArray = result.getString("AccountInfo");
                             List<CommpanyAccountBean> arrays = changeGsonToList(jsonArray);
                             if (arrays.size() > 0) {
                                 PickerManager.getInstance().showOptionPicker(mContext, arrays, new PickerManager.OnOptionPickerSelectedListener() {
@@ -107,10 +116,6 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
                         }
                     }
 
-                    @Override
-                    public void onResponseError(String result) {
-                        onError("",result);
-                    }
                 });
                 break;
             case R.id.confirm_tv:
@@ -118,6 +123,10 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
                 String pwd = getBaseActivity().getTextViewValue(mPwdEt);
                 if (TextUtils.isEmpty(account)) {
                     ToastUtils.toast(mContext, "请输入登录用户账号");
+                    return;
+                }
+                if (TextUtils.isEmpty(accountCode)) {
+                    ToastUtils.toast(mContext, "请选择公司账套名称");
                     return;
                 }
                 if (TextUtils.isEmpty(pwd)) {
@@ -130,18 +139,13 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
                 map.put("Pwd",pwd);
                 CmdUtil.cmd("LoginHandlerAdapter", "Login", map, new CmdCallBack() {
                     @Override
-                    public void onSuccess(String result) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(result);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                    public void onSuccess(JSONObject result) {
+                        UserBean userBean = GsonTools.changeGsonToBean(result.toString(),UserBean.class);
+                        Hawk.put(HawkProperty.SP_KEY_USER,userBean);
+                        Hawk.put(HawkProperty.USER_SESSION_ID,userBean.getSessionID());
+                        startActivity(new Intent(mContext, MainActivity.class));
                     }
 
-                    @Override
-                    public void onResponseError(String result) {
-                        onError("",result);
-                    }
                 });
                 break;
         }

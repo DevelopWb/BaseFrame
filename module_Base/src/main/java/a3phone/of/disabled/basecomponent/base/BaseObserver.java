@@ -54,24 +54,7 @@ public abstract class BaseObserver<T> extends DisposableObserver<T> {
     public void onNext(T bean) {
         try {
             BaseResult model = (BaseResult) bean;
-            if (model instanceof BaseStreamBean) {
-                model.success = true;
-                model.status = 200;
-            }
-            if (model.success) {
-                if (model.status == 200) {
-                    onSuccess(bean);
-                }else {
-                    onError(model.message == null? "服务器开小差了" : model.message);
-                }
-            } else {
-                //单点登录   被顶后 服务端的success值为false status没有赋值
-                if (BaseApplication.isReLoadWarn){
-                    BaseApplication.isReLoadWarn = false;
-                    LogUtil.e("resule == false");
-                    BaseApplication.app.sendBroadcast(new Intent().setAction(ActionConfig.BROAD_LOGIN).putExtra("error", model.error));
-                }
-            }
+            onSuccess(bean);
         } catch (ClassCastException ee) {
             LogUtil.e("数据解析失败" + ee.toString());
             onException(PARSE_ERROR);

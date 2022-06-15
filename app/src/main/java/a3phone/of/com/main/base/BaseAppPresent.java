@@ -16,17 +16,6 @@ import okhttp3.MultipartBody;
  */
 public abstract class BaseAppPresent<M extends IModel, V extends BaseIView> extends BasePresenter<M,V>{
 
-    /**
-     * 获取builder
-     * @return
-     */
-    public MultipartBody.Builder getPublishMultipartBody() {
-        return new MultipartBody.Builder()
-                .setType(MultipartBody.FORM)
-                .addFormDataPart("account", UserInfoManager.getUserAccount())
-                .addFormDataPart("userId", String.valueOf(UserInfoManager.getUserId()))
-                .addFormDataPart("token", UserInfoManager.getUserToken());
-    }
 
 
 }

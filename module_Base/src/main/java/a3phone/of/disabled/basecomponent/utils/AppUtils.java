@@ -26,62 +26,10 @@ import java.util.List;
  */
 public class AppUtils {
 
-    public final static String SP_KEY_USER = BaseAppUtils.getAppName() + "login";
-    public final static String SP_KEY_TOKEN = BaseAppUtils.getAppName() + "token";
-    public final static String SP_RONGYUN_TOKEN = BaseAppUtils.getAppName() + "rongYunToken";
-    public final static String SP_FLOAT_PERMISSION = BaseAppUtils.getAppName() + "floatPermission";
-    //资讯草稿
-    public final static String SP_NEWS_SAVE_DRAFTS = BaseAppUtils.getAppName() +"save_drafts";
-    //未读消息
-    public final static String SP_KEY_UNREAD_COUNT = BaseAppUtils.getAppName() + "unread_count";
-    //首页地图菜单
-    public final static String SP_KEY_MAP_MENU = BaseAppUtils.getAppName() + "map_menu";
 
-    public final static int QR_SCAN_NOMAL = 1003;
-    public final static int QR_SCAN_FOR_XUANJIAN = 1004;
     public final static int REQUEST_SYSTEM_DIALOG_PERMISSION = 1005;
-    public final static int PUBLISH_INTERVIEW_BACK = 1006;
-    public final static int PUBLISH_EMPLOYEE_BACK = 1007;
-
-    //修改成功后关闭详情界面
-    public final static String FINISH_UNIT_INFO_ACTIVITY = "finish_unit_info_activity";
-    public final static String ID_KEY = "id";
-
-    public void alertSystem(Context context){
-        if(Build.VERSION.SDK_INT >=23) {
-            if(!Settings.canDrawOverlays(context)) {
-                //有悬浮窗权限开启服务绑定 绑定权限
-                try{
-                    Intent intent3 = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
-                            Uri.parse("package:" + BaseAppUtils.getPackageName(context)));
-                    context.startActivity(intent3);
-                }catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
-    /**
-     * 跳转支付宝
-     * @param context
-     * @param packageName 应用报名
-     */
-    public static void checkIsInstall(Context context, String packageName) {
-
-        if ( !isAvilible( packageName , context) ){
-            //没有安装Apk
-            Toast.makeText(context, "未安装支付宝", Toast.LENGTH_SHORT).show();
-        }else {
-            //已经安装了Apk
-            Intent intent = new Intent();
-            intent.setData(Uri.parse("alipays://platformapi/startapp?appId=20000193"));
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            context.startActivity(intent);
-        }
 
 
-    }
 
     /**
      * 检查是否安装了某应用

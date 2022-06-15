@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.orhanobut.hawk.Hawk;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.trello.rxlifecycle2.android.ActivityEvent;
 import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 
 import java.util.concurrent.TimeUnit;
 
+import a3phone.of.com.main.MainActivity;
+import a3phone.of.com.main.utils.HawkProperty;
 import io.reactivex.functions.Consumer;
 
 /**
@@ -42,7 +45,12 @@ public class SplashActivity extends RxAppCompatActivity {
                         } else {
                             //有一个权限没通过
                         }
-                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+                        if (Hawk.contains(HawkProperty.SP_KEY_USER)) {
+                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                        }else {
+                            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+
+                        }
                         finish();
                     }
                 }, new Consumer<Throwable>() {

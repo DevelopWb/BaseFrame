@@ -20,6 +20,7 @@
         android:id="@+id/company_account_tv"
         style="@style/edittext_style"
         android:hint="请选择公司帐套名称"
+        android:textColor="@color/black"
         android:drawableRight="@mipmap/arrow_down"
         android:paddingRight="15dp" />
 
@@ -35,6 +36,7 @@
 
     <EditText
         android:id="@+id/user_name_et"
+        android:text="Admin"
         android:hint="请输入登录用户账号"
         style="@style/edittext_style" />
 
@@ -50,6 +52,7 @@
 
     <EditText
         android:id="@+id/pwd_et"
+        android:text="jz1001"
         android:hint="请输入账号密码"
         style="@style/edittext_style" />
 

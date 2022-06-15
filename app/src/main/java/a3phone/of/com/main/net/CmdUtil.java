@@ -1,8 +1,11 @@
 package a3phone.of.com.main.net;
 
 
+import a3phone.of.com.main.MyApp;
 import a3phone.of.disabled.basecomponent.utils.GsonTools;
 import a3phone.of.com.main.utils.HawkProperty;
+import a3phone.of.disabled.basecomponent.utils.ToastUtils;
+
 import com.orhanobut.hawk.Hawk;
 
 import org.json.JSONException;
@@ -83,9 +86,7 @@ public class CmdUtil
             String jsonStr = json.toString();
             HttpUtil.post(Hawk.get(HawkProperty.CURRENT_SERVICE_ADDRS)+"/SystemHandler.axd?ClientType=Android",jsonStr,cmdCallBack);
         }catch (IOException ex){
-            if (cmdCallBack != null) {
-                cmdCallBack.onResponseError("HTTP错误:无法连接服务器！");
-            }
+            ToastUtils.error(MyApp.app,"HTTP错误:无法连接服务器！");
         }
     }
 

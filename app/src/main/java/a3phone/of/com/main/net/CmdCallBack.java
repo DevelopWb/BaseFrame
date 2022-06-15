@@ -3,12 +3,17 @@ package a3phone.of.com.main.net;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
+import a3phone.of.com.main.MyApp;
+import a3phone.of.disabled.basecomponent.utils.LogUtil;
+import a3phone.of.disabled.basecomponent.utils.ToastUtils;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -16,17 +21,14 @@ import okhttp3.Response;
 /**
  * Created by tony on 16/3/13.
  */
-public abstract class CmdCallBack implements Callback
-{
+public abstract class CmdCallBack implements Callback {
     public Object _tag = null;
 
-    public void setTag(Object tag)
-    {
+    public void setTag(Object tag) {
         _tag = tag;
     }
 
-    public Object getTag()
-    {
+    public Object getTag() {
         return _tag;
     }
 
@@ -38,32 +40,32 @@ public abstract class CmdCallBack implements Callback
     private CmdCallBack _currInstance;
 
 
-    public void setParameters( JSONObject parameters)
-    {
-        _parameters=parameters;
-    }
-    public void setCurrInstance(CmdCallBack currInstance)
-    {
-        _currInstance=currInstance;
+    public void setParameters(JSONObject parameters) {
+        _parameters = parameters;
     }
 
-    public CmdCallBack()
-    {
+    public void setCurrInstance(CmdCallBack currInstance) {
+        _currInstance = currInstance;
+    }
+
+    public CmdCallBack() {
         mHandler = new Handler(Looper.getMainLooper());
     }
 
 
-    public abstract void onSuccess(String result);
-    public abstract void onResponseError(String result);
+    public abstract void onSuccess(JSONObject result);
 
-    public void onFail(String retString)
-    {
-//        ToastUtil.showToast(A3Application.getInstance(), retString);
+    public void onFail(String retString) {
+        try {
+            JSONObject jsonObject = new JSONObject(retString);
+            ToastUtils.error(MyApp.app, jsonObject.getString("error"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void onFailure(Call call, IOException e)
-    {
+    public void onFailure(Call call, IOException e) {
         Looper.prepare();
         String errorMesage = e.getMessage();
         onFail(errorMesage);
@@ -71,23 +73,17 @@ public abstract class CmdCallBack implements Callback
     }
 
     @Override
-    public void onResponse(Call call, Response response) throws IOException
-    {
+    public void onResponse(Call call, Response response) throws IOException {
         final String value = response.body().string();
-        if (value.toLowerCase().startsWith("error:"))
-        {
-            if (value.toLowerCase().startsWith("error:0:登录超时！"))
-            {
+        Log.d("response",value);
+        if (value.toLowerCase().startsWith("error:")) {
+            if (value.toLowerCase().startsWith("error:0:登录超时！")) {
 //                HandlerExpieredLogin();
                 return;
-            }
-            else
-            {
-                mHandler.post(new Runnable()
-                {
+            } else {
+                mHandler.post(new Runnable() {
                     @Override
-                    public void run()
-                    {
+                    public void run() {
                         onFail(value);
                     }
                 });
@@ -95,12 +91,17 @@ public abstract class CmdCallBack implements Callback
             }
         }
 
-        mHandler.post(new Runnable()
-        {
+        mHandler.post(new Runnable() {
             @Override
-            public void run()
-            {
-                onSuccess(value);
+            public void run() {
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(value);
+                    onSuccess(jsonObject);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
     }

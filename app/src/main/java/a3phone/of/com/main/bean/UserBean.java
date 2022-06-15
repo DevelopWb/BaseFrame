@@ -3,318 +3,385 @@ package a3phone.of.com.main.bean;
 
 import a3phone.of.disabled.basecomponent.base.BaseResult;
 
-import java.io.Serializable;
-
 /**
  * 个人信息
  * Created by Ma
  * on 2019/4/27
  */
 public class UserBean extends BaseResult {
+
+
     /**
-     * error : null
-     * returnValue : null
-     * msg : null
-     * code : null
-     * data : {}
-     * type : null
+     * CurrYear_CARD : 2021
+     * IsAllowPush : 1
+     * UserRole : Table
+     * CurrYear_FUND : 2021
+     * HeadShow : Admin 组织机构一
+     * OrgGuid : 112bde93-979b-47b4-b641-f8c70cf17b12
+     * GlobalCacheSetting :
+     * AppSecret : 1E3DBE1E-9E3E-4AC8-B512-AE38E10E8A7C
+     * OrgCode : 01
+     * GZHAppSecret :
+     * CurrPeriod_CARD : 1
+     * CurrPeriod_RECIVE : 1
+     * FileServerURL : http://59.110.154.247:8088/
+     * WXMessageTemplate : [订单发货|][审核结果|yuIBJq2IOplxE2vlXUhOwXJKVp7jHdOjY8Lc7fwEbB8]
+     * CurrYear : 2021
+     * CurrYear_RECIVE : 2021
+     * UserName : Admin
+     * HEADPHOTO : CMS001.png
+     * CurrPeriod_PAY : 1
+     * SessionID : 6c42a82e-e169-4246-9782-7f3c243d871d
+     * EnterpriseID : 28989a7d-8e00-43d4-b784-99a8dce7c8c5
+     * PORT : 5223
+     * IMURL : http://59.110.154.247/weiyuan
+     * AppKey :
+     * STDCurrency : PRE001
+     * OrgName : 组织机构一
+     * CurrPeriod : 1
+     * DBType : SqlServer
+     * CurrPeriod_FUND : 1
+     * UserGuid : CMS001
+     * CurrYear_SCM : 2021
+     * UserCode : Admin
+     * CurrPeriod_SCM : 1
+     * GZHAppKey :
+     * PushComp : BOXIAN
+     * CurrYear_PAY : 2021
+     * SerialNo : f4f09747-9466-46f1-9d53-d3f50bc74544
      */
 
-    private DataBean data;
+    private String CurrYear_CARD;
+    private String IsAllowPush;
+    private String UserRole;
+    private String CurrYear_FUND;
+    private String HeadShow;
+    private String OrgGuid;
+    private String GlobalCacheSetting;
+    private String AppSecret;
+    private String OrgCode;
+    private String GZHAppSecret;
+    private String CurrPeriod_CARD;
+    private String CurrPeriod_RECIVE;
+    private String FileServerURL;
+    private String WXMessageTemplate;
+    private String CurrYear;
+    private String CurrYear_RECIVE;
+    private String UserName;
+    private String HEADPHOTO;
+    private String CurrPeriod_PAY;
+    private String SessionID;
+    private String EnterpriseID;
+    private String PORT;
+    private String IMURL;
+    private String AppKey;
+    private String STDCurrency;
+    private String OrgName;
+    private String CurrPeriod;
+    private String DBType;
+    private String CurrPeriod_FUND;
+    private String UserGuid;
+    private String CurrYear_SCM;
+    private String UserCode;
+    private String CurrPeriod_SCM;
+    private String GZHAppKey;
+    private String PushComp;
+    private String CurrYear_PAY;
+    private String SerialNo;
 
-    public DataBean getData() {
-        return data;
+    public String getCurrYear_CARD() {
+        return CurrYear_CARD;
     }
 
-    public void setData(DataBean data) {
-        this.data = data;
+    public void setCurrYear_CARD(String CurrYear_CARD) {
+        this.CurrYear_CARD = CurrYear_CARD;
     }
 
-    public static class DataBean implements Serializable {
-        /**
-         * login:
-         * "userId": 101,
-         *         "account": "18669505929",
-         *         "password": null,
-         *         "nickname": "铁人王进喜",
-         *         "headPortrait": "https://www.juntaikeji.com:17002/head_img/ce7066cfd91b47128d20181fd151d97d.jpeg",
-         *         "realNameStatus": 2,
-         *         "settleStatus": 2,
-         *         "rOngYunToken": "XIkOrHqf+lEl0cedQi+OzYM7TTnyliJKDq6gpWZ5q5htQDP7WhUHZA==@thdm.cn.rongnav.com;thdm.cn.rongcfg.com",
-         *         "blacklist": 0,
-         *         "frozenStatus": 0,
-         *         "gmtCreate": "2020-04-20 10:33:21",
-         *         "token": "B2AG55O992-B7AKG3UK5TEX99XNJ57A2-ADNVWFGK-1"
-         */
+    public String getIsAllowPush() {
+        return IsAllowPush;
+    }
 
-        /**
-         * userInfo:
-         *"userId": 101,
-         *         "account": "18669505929",
-         *         "nickname": "铁人王进喜",
-         *         "headPortrait": "https://www.juntaikeji.com:17002/head_img/ce7066cfd91b47128d20181fd151d97d.jpeg",
-         *         "realNameStatus": 2,
-         *         "rOngYunToken": "XIkOrHqf+lEl0cedQi+OzYM7TTnyliJKDq6gpWZ5q5htQDP7WhUHZA==@thdm.cn.rongnav.com;thdm.cn.rongcfg.com",
-         *         "score": 43,
-         *         "blacklist": 0,
-         *         "faceTimeType": 0,
-         *         "gmtCreate": "2020-04-20 10:33:21",
-         *         "qqName": "",
-         *         "weChatName": "bbb",
-         *         "realName": "顾启杭",
-         *         "departmentId": 1,
-         *         "departmentName": "东关街派出所",
-         *         "departmentBranchId": 1,
-         *         "departmentBranchName": "所领导",
-         *         "postId": 1,
-         *         "postName": "单位领导",
-         *         "grid": 6,
-         *         "gridName": "永恒华府",
-         *         "settleStatus": 2
-         */
+    public void setIsAllowPush(String IsAllowPush) {
+        this.IsAllowPush = IsAllowPush;
+    }
 
-        private int userId;//用户id
-        private String account;//账号
-        private String password;//密码
-        private String nickname;//昵称
-        private String phoneNumber;//手机号
-        private String headPortrait;//头像
-        private int realNameStatus;//实名认证状态（0未提交；1提交审核中；2审核通过；3审核失败）
-        private int settleStatus;//信息审核状态（0未提交；1提交审核中；2审核通过；3审核失败）
-        private String rOngYunToken;//融云token rOngYunToken
-        private int blacklist;//黑名单状态
-        private int frozenStatus;//冻结状态
-        private String gmtCreate;//注册时间
-        private String token;//验证token
-        private int score;//积分
-        private int faceTimeType;//用户视频通话状态（0空闲；1忙线）
-        private String qqName;//qq昵称
-        private String weChatName;//微信昵称
-        private String realName;//真实姓名
-        private int departmentId;//部门id
-        private String departmentName;//部门名称
-        private int departmentBranchId;//二级部门id
-        private String departmentBranchName;//二级部门名称
-        private int postId;//职务id
-        private String postName;//职务名称
-        private int grid;//网格id
-        private String gridName;//网格名称
-        private String idNumber;//身份证号
+    public String getUserRole() {
+        return UserRole;
+    }
 
-        public String getPhoneNumber() {
-            return phoneNumber == null ? "未绑定" : phoneNumber;
-        }
+    public void setUserRole(String UserRole) {
+        this.UserRole = UserRole;
+    }
 
-        public void setPhoneNumber(String phoneNumber) {
-            this.phoneNumber = phoneNumber == null ? "" : phoneNumber;
-        }
+    public String getCurrYear_FUND() {
+        return CurrYear_FUND;
+    }
 
-        public String getIdNumber() {
-            return idNumber == null? "" : idNumber;
-        }
+    public void setCurrYear_FUND(String CurrYear_FUND) {
+        this.CurrYear_FUND = CurrYear_FUND;
+    }
 
-        public void setIdNumber(String idNumber) {
-            this.idNumber = idNumber;
-        }
+    public String getHeadShow() {
+        return HeadShow;
+    }
 
-        public int getUserId() {
-            return userId;
-        }
+    public void setHeadShow(String HeadShow) {
+        this.HeadShow = HeadShow;
+    }
 
-        public void setUserId(int userId) {
-            this.userId = userId;
-        }
+    public String getOrgGuid() {
+        return OrgGuid;
+    }
 
-        public String getAccount() {
-            return account == null? "" : account;
-        }
+    public void setOrgGuid(String OrgGuid) {
+        this.OrgGuid = OrgGuid;
+    }
 
-        public void setAccount(String account) {
-            this.account = account;
-        }
+    public String getGlobalCacheSetting() {
+        return GlobalCacheSetting;
+    }
 
-        public String getPassword() {
-            return password == null? "" : password;
-        }
+    public void setGlobalCacheSetting(String GlobalCacheSetting) {
+        this.GlobalCacheSetting = GlobalCacheSetting;
+    }
 
-        public void setPassword(String password) {
-            this.password = password;
-        }
+    public String getAppSecret() {
+        return AppSecret;
+    }
 
-        public String getNickname() {
-            return nickname == null? "" : nickname;
-        }
+    public void setAppSecret(String AppSecret) {
+        this.AppSecret = AppSecret;
+    }
 
-        public void setNickname(String nickname) {
-            this.nickname = nickname;
-        }
+    public String getOrgCode() {
+        return OrgCode;
+    }
 
-        public String getHeadPortrait() {
-            return headPortrait == null? "" : headPortrait;
-        }
+    public void setOrgCode(String OrgCode) {
+        this.OrgCode = OrgCode;
+    }
 
-        public void setHeadPortrait(String headPortrait) {
-            this.headPortrait = headPortrait;
-        }
+    public String getGZHAppSecret() {
+        return GZHAppSecret;
+    }
 
-        public int getRealNameStatus() {
-            return realNameStatus;
-        }
+    public void setGZHAppSecret(String GZHAppSecret) {
+        this.GZHAppSecret = GZHAppSecret;
+    }
 
-        public void setRealNameStatus(int realNameStatus) {
-            this.realNameStatus = realNameStatus;
-        }
+    public String getCurrPeriod_CARD() {
+        return CurrPeriod_CARD;
+    }
 
-        public int getSettleStatus() {
-            return settleStatus;
-        }
+    public void setCurrPeriod_CARD(String CurrPeriod_CARD) {
+        this.CurrPeriod_CARD = CurrPeriod_CARD;
+    }
 
-        public void setSettleStatus(int settleStatus) {
-            this.settleStatus = settleStatus;
-        }
+    public String getCurrPeriod_RECIVE() {
+        return CurrPeriod_RECIVE;
+    }
 
-        public String getrOngYunToken() {
-            return rOngYunToken == null? "" : rOngYunToken;
-        }
+    public void setCurrPeriod_RECIVE(String CurrPeriod_RECIVE) {
+        this.CurrPeriod_RECIVE = CurrPeriod_RECIVE;
+    }
 
-        public void setrOngYunToken(String rOngYunToken) {
-            this.rOngYunToken = rOngYunToken;
-        }
+    public String getFileServerURL() {
+        return FileServerURL;
+    }
 
-        public int getBlacklist() {
-            return blacklist;
-        }
+    public void setFileServerURL(String FileServerURL) {
+        this.FileServerURL = FileServerURL;
+    }
 
-        public void setBlacklist(int blacklist) {
-            this.blacklist = blacklist;
-        }
+    public String getWXMessageTemplate() {
+        return WXMessageTemplate;
+    }
 
-        public int getFrozenStatus() {
-            return frozenStatus;
-        }
+    public void setWXMessageTemplate(String WXMessageTemplate) {
+        this.WXMessageTemplate = WXMessageTemplate;
+    }
 
-        public void setFrozenStatus(int frozenStatus) {
-            this.frozenStatus = frozenStatus;
-        }
+    public String getCurrYear() {
+        return CurrYear;
+    }
 
-        public String getGmtCreate() {
-            return gmtCreate == null? "" : gmtCreate;
-        }
+    public void setCurrYear(String CurrYear) {
+        this.CurrYear = CurrYear;
+    }
 
-        public void setGmtCreate(String gmtCreate) {
-            this.gmtCreate = gmtCreate;
-        }
+    public String getCurrYear_RECIVE() {
+        return CurrYear_RECIVE;
+    }
 
-        public String getToken() {
-            return token == null? "" : token;
-        }
+    public void setCurrYear_RECIVE(String CurrYear_RECIVE) {
+        this.CurrYear_RECIVE = CurrYear_RECIVE;
+    }
 
-        public void setToken(String token) {
-            this.token = token;
-        }
+    public String getUserName() {
+        return UserName;
+    }
 
-        public int getScore() {
-            return score;
-        }
+    public void setUserName(String UserName) {
+        this.UserName = UserName;
+    }
 
-        public void setScore(int score) {
-            this.score = score;
-        }
+    public String getHEADPHOTO() {
+        return HEADPHOTO;
+    }
 
-        public int getFaceTimeType() {
-            return faceTimeType;
-        }
+    public void setHEADPHOTO(String HEADPHOTO) {
+        this.HEADPHOTO = HEADPHOTO;
+    }
 
-        public void setFaceTimeType(int faceTimeType) {
-            this.faceTimeType = faceTimeType;
-        }
+    public String getCurrPeriod_PAY() {
+        return CurrPeriod_PAY;
+    }
 
-        public String getQqName() {
-            return qqName == null? "" : qqName;
-        }
+    public void setCurrPeriod_PAY(String CurrPeriod_PAY) {
+        this.CurrPeriod_PAY = CurrPeriod_PAY;
+    }
 
-        public void setQqName(String qqName) {
-            this.qqName = qqName;
-        }
+    public String getSessionID() {
+        return SessionID;
+    }
 
-        public String getWeChatName() {
-            return weChatName == null? "" : weChatName;
-        }
+    public void setSessionID(String SessionID) {
+        this.SessionID = SessionID;
+    }
 
-        public void setWeChatName(String weChatName) {
-            this.weChatName = weChatName;
-        }
+    public String getEnterpriseID() {
+        return EnterpriseID;
+    }
 
-        public String getRealName() {
-            return realName == null? "" : realName;
-        }
+    public void setEnterpriseID(String EnterpriseID) {
+        this.EnterpriseID = EnterpriseID;
+    }
 
-        public void setRealName(String realName) {
-            this.realName = realName;
-        }
+    public String getPORT() {
+        return PORT;
+    }
 
-        public int getDepartmentId() {
-            return departmentId;
-        }
+    public void setPORT(String PORT) {
+        this.PORT = PORT;
+    }
 
-        public void setDepartmentId(int departmentId) {
-            this.departmentId = departmentId;
-        }
+    public String getIMURL() {
+        return IMURL;
+    }
 
-        public String getDepartmentName() {
-            return departmentName == null? "" : departmentName;
-        }
+    public void setIMURL(String IMURL) {
+        this.IMURL = IMURL;
+    }
 
-        public void setDepartmentName(String departmentName) {
-            this.departmentName = departmentName;
-        }
+    public String getAppKey() {
+        return AppKey;
+    }
 
-        public int getDepartmentBranchId() {
-            return departmentBranchId;
-        }
+    public void setAppKey(String AppKey) {
+        this.AppKey = AppKey;
+    }
 
-        public void setDepartmentBranchId(int departmentBranchId) {
-            this.departmentBranchId = departmentBranchId;
-        }
+    public String getSTDCurrency() {
+        return STDCurrency;
+    }
 
-        public String getDepartmentBranchName() {
-            return departmentBranchName == null? "" : departmentBranchName;
-        }
+    public void setSTDCurrency(String STDCurrency) {
+        this.STDCurrency = STDCurrency;
+    }
 
-        public void setDepartmentBranchName(String departmentBranchName) {
-            this.departmentBranchName = departmentBranchName;
-        }
+    public String getOrgName() {
+        return OrgName;
+    }
 
-        public int getPostId() {
-            return postId;
-        }
+    public void setOrgName(String OrgName) {
+        this.OrgName = OrgName;
+    }
 
-        public void setPostId(int postId) {
-            this.postId = postId;
-        }
+    public String getCurrPeriod() {
+        return CurrPeriod;
+    }
 
-        public String getPostName() {
-            return postName == null? "" : postName;
-        }
+    public void setCurrPeriod(String CurrPeriod) {
+        this.CurrPeriod = CurrPeriod;
+    }
 
-        public void setPostName(String postName) {
-            this.postName = postName;
-        }
+    public String getDBType() {
+        return DBType;
+    }
 
-        public int getGrid() {
-            return grid;
-        }
+    public void setDBType(String DBType) {
+        this.DBType = DBType;
+    }
 
-        public void setGrid(int grid) {
-            this.grid = grid;
-        }
+    public String getCurrPeriod_FUND() {
+        return CurrPeriod_FUND;
+    }
 
-        public String getGridName() {
-            return gridName  == null? "" : gridName;
-        }
+    public void setCurrPeriod_FUND(String CurrPeriod_FUND) {
+        this.CurrPeriod_FUND = CurrPeriod_FUND;
+    }
 
-        public void setGridName(String gridName) {
-            this.gridName = gridName;
-        }
+    public String getUserGuid() {
+        return UserGuid;
+    }
+
+    public void setUserGuid(String UserGuid) {
+        this.UserGuid = UserGuid;
+    }
+
+    public String getCurrYear_SCM() {
+        return CurrYear_SCM;
+    }
+
+    public void setCurrYear_SCM(String CurrYear_SCM) {
+        this.CurrYear_SCM = CurrYear_SCM;
+    }
+
+    public String getUserCode() {
+        return UserCode;
+    }
+
+    public void setUserCode(String UserCode) {
+        this.UserCode = UserCode;
+    }
+
+    public String getCurrPeriod_SCM() {
+        return CurrPeriod_SCM;
+    }
+
+    public void setCurrPeriod_SCM(String CurrPeriod_SCM) {
+        this.CurrPeriod_SCM = CurrPeriod_SCM;
+    }
+
+    public String getGZHAppKey() {
+        return GZHAppKey;
+    }
+
+    public void setGZHAppKey(String GZHAppKey) {
+        this.GZHAppKey = GZHAppKey;
+    }
+
+    public String getPushComp() {
+        return PushComp;
+    }
+
+    public void setPushComp(String PushComp) {
+        this.PushComp = PushComp;
+    }
+
+    public String getCurrYear_PAY() {
+        return CurrYear_PAY;
+    }
+
+    public void setCurrYear_PAY(String CurrYear_PAY) {
+        this.CurrYear_PAY = CurrYear_PAY;
+    }
+
+    public String getSerialNo() {
+        return SerialNo;
+    }
+
+    public void setSerialNo(String SerialNo) {
+        this.SerialNo = SerialNo;
     }
 }
