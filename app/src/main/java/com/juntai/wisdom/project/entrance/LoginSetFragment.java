@@ -51,7 +51,7 @@ public class LoginSetFragment extends BaseAppFragment<EntrancePresent> implement
     protected void initView() {
 
         mServiceAddrEt = (EditText) getView(R.id.service_addr_et);
-        mServiceAddrEt.setText(Hawk.contains(HawkProperty.CURRENT_SERVICE_ADDRS) ? Hawk.get(HawkProperty.CURRENT_SERVICE_ADDRS) : "http://59.110.154.247:8099/SystemHandler.axd?ClientType=AppAndroid");
+        mServiceAddrEt.setText(Hawk.contains(HawkProperty.CURRENT_SERVICE_ADDRS) ? Hawk.get(HawkProperty.CURRENT_SERVICE_ADDRS) : "http://59.110.154.247:8088");
         mHisServiceAddrTv = (TextView) getView(R.id.his_service_addr_tv);
         mHisServiceAddrTv.setOnClickListener(this);
         mConfirmTv = (TextView) getView(R.id.confirm_tv);

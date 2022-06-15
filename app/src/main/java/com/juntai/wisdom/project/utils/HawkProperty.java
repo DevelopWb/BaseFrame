@@ -18,4 +18,9 @@ public class HawkProperty {
      */
     public static String   CURRENT_SERVICE_ADDRS = "CURRENT_SERVICE_ADDRS";
 
+    /**
+     * 会话
+     */
+    public static String   USER_SESSION_ID = "USER_SESSION_ID";
+
 }

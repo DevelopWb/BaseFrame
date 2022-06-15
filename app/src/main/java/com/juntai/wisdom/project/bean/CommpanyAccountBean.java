@@ -12,6 +12,11 @@ import com.contrarywind.interfaces.IPickerViewData;
 public class CommpanyAccountBean implements IPickerViewData {
 
 
+    public CommpanyAccountBean(String code, String name) {
+        Code = code;
+        Name = name;
+    }
+
     /**
      * OrgCode : 1001
      * Code : 001
