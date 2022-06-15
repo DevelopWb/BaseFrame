@@ -20,20 +20,6 @@ import retrofit2.http.Url;
  * responseBody里的数据只能调用(取出)一次，第二次为空。可赋值给新的变量使用
  */
 public interface AppServer {
-    /**
-     * 获取公司账套
-     *
-     * @return
-     */
-    @POST
-    Observable<JsonObject> getCompanyAccount(@Url String url, @Body  RequestBody requestBody);
-    /**
-     * 获取用户账户
-     *
-     * @return
-     */
-    @POST
-    Observable<UserBean> getUserAccount(@Url String url, @Body  RequestBody requestBody);
 
 
     @POST

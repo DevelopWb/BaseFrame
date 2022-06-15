@@ -1,6 +1,7 @@
 package com.juntai.wisdom.project.entrance;
 
 import android.text.TextUtils;
+import android.util.ArrayMap;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -8,10 +9,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.juntai.disabled.basecomponent.mvp.BaseIView;
-import com.juntai.disabled.basecomponent.utils.GsonTools;
 import com.juntai.disabled.basecomponent.utils.PickerManager;
 import com.juntai.disabled.basecomponent.utils.ToastUtils;
-import com.juntai.wisdom.project.AppHttpPath;
 import com.juntai.wisdom.project.R;
 import com.juntai.wisdom.project.base.BaseAppFragment;
 import com.juntai.wisdom.project.bean.CommpanyAccountBean;
@@ -21,7 +20,9 @@ import com.juntai.wisdom.project.net.CmdUtil;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: tobato
@@ -35,6 +36,7 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
     private EditText mUserNameEt;
     private EditText mPwdEt;
     private TextView mConfirmTv;
+    private String accountCode;
 
     @Override
     protected EntrancePresent createPresenter() {
@@ -83,7 +85,7 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
             default:
                 break;
             case R.id.company_account_tv:
-                CmdUtil.cmd(AppHttpPath.GET_COMPANY_ACCOUNT, "GetAccountInfo", (JSONObject) null, new CmdCallBack() {
+                CmdUtil.cmd("AccountInfoAdapter", "GetAccountInfo", (JSONObject) null, new CmdCallBack() {
                     @Override
                     public void onSuccess(String result) {
                         try {
@@ -96,6 +98,7 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
                                     public void onOptionsSelect(int options1, int option2, int options3, View v) {
                                         CommpanyAccountBean accountBean = arrays.get(options1);
                                         mCompanyAccountTv.setText(accountBean.getName());
+                                        accountCode = accountBean.getCode();
                                     }
                                 });
                             }
@@ -109,8 +112,6 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
                         onError("",result);
                     }
                 });
-
-//                mPresenter.getCompanyAccount(getRequestBody(AppHttpPath.GET_COMPANY_ACCOUNT, "GetAccountInfo", null, null), AppHttpPath.GET_COMPANY_ACCOUNT);
                 break;
             case R.id.confirm_tv:
                 String account = getBaseActivity().getTextViewValue(mUserNameEt);
@@ -123,9 +124,25 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
                     ToastUtils.toast(mContext, "请输入账号密码");
                     return;
                 }
-//                mPresenter.getUserAccount(GsonTools.createGsonString( new RequestBean(AppHttpPath.GET_USER_ACCOUNT, "Login", "", "{}")), AppHttpPath.GET_USER_ACCOUNT );
+                Map<String,Object>  map = new ArrayMap<>();
+                map.put("AccountCode",accountCode);
+                map.put("UserName",account);
+                map.put("Pwd",pwd);
+                CmdUtil.cmd("LoginHandlerAdapter", "Login", map, new CmdCallBack() {
+                    @Override
+                    public void onSuccess(String result) {
+                        try {
+                            JSONObject jsonObject = new JSONObject(result);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
 
-
+                    @Override
+                    public void onResponseError(String result) {
+                        onError("",result);
+                    }
+                });
                 break;
         }
     }
