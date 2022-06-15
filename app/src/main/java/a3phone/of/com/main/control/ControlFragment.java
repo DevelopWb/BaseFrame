@@ -7,13 +7,21 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import a3phone.of.com.main.R;
+import a3phone.of.com.main.bean.CommpanyAccountBean;
+import a3phone.of.com.main.net.CmdCallBack;
+import a3phone.of.com.main.net.CmdUtil;
 import a3phone.of.disabled.basecomponent.mvp.BaseIView;
 import a3phone.of.com.main.base.BaseRecyclerviewFragment;
 import a3phone.of.com.main.control.appManager.AppManagerActivity;
+import a3phone.of.disabled.basecomponent.utils.PickerManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author: tobato
@@ -44,6 +52,18 @@ public class ControlFragment extends BaseRecyclerviewFragment<ControlPresent> im
         arrays.add("全部");
         arrays.add("拓展");
         baseQuickAdapter.setNewData(arrays);
+
+        /**
+         * 获取主控台信息
+         */
+
+        CmdUtil.cmd("A3OFAppAdapter", "LoadMainDefine", (Map<String, Object>) null, new CmdCallBack() {
+            @Override
+            public void onSuccess(JSONObject result) {
+            }
+
+        });
+
     }
 
     @Override
