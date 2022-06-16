@@ -53,16 +53,16 @@ public class ControlFragment extends BaseRecyclerviewFragment<ControlPresent> im
         arrays.add("拓展");
         baseQuickAdapter.setNewData(arrays);
 
-        /**
-         * 获取主控台信息
-         */
-
-        CmdUtil.cmd("A3OFAppAdapter", "LoadMainDefine", (Map<String, Object>) null, new CmdCallBack() {
-            @Override
-            public void onSuccess(JSONObject result) {
-            }
-
-        });
+//        /**
+//         * 获取主控台信息
+//         */
+//
+//        CmdUtil.cmd("A3OFAppAdapter", "LoadMainDefine", (Map<String, Object>) null, new CmdCallBack() {
+//            @Override
+//            public void onSuccess(JSONObject result) {
+//            }
+//
+//        });
 
     }
 

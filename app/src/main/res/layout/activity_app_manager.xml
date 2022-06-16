@@ -54,13 +54,13 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:textSize="12sp"
-            android:drawableRight="@mipmap/arrow_right"
             android:text="按住拖动可调整应用位置" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/control_app_rv"
         android:layout_width="match_parent"
+        android:paddingBottom="20dp"
         android:background="@drawable/bg_white_only_bottom_gray_shape_10dp"
         android:layout_height="wrap_content" />
     <TextView
