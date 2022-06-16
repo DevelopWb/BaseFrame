@@ -60,7 +60,7 @@ public class MainPagerAdapter extends FragmentPagerAdapter {
         TextView title = v.findViewById(R.id.tabitem_text);
         title.setText(titles[position]);
         if (isMsg){
-            msgUnReadCountTv = v.findViewById(R.id.tabitem_count);
+            msgUnReadCountTv = v.findViewById(R.id.edit_item_iv);
         }
         return v;
     }

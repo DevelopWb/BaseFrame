@@ -28,7 +28,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tabitem_image"/>
 
     <TextView
-        android:id="@+id/tabitem_count"
+        android:id="@+id/edit_item_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="4dp"

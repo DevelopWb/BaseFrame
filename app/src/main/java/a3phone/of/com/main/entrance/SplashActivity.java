@@ -46,14 +46,15 @@ public class SplashActivity extends RxAppCompatActivity {
                         } else {
                             //有一个权限没通过
                         }
-                        startActivity(new Intent(SplashActivity.this, TestActivity.class));
+//                        startActivity(new Intent(SplashActivity.this, TestActivity.class));
+//                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
 
-//                        if (Hawk.contains(HawkProperty.SP_KEY_USER)) {
-//                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
-//                        }else {
-//                            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-//
-//                        }
+                        if (Hawk.contains(HawkProperty.SP_KEY_USER)) {
+                            startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                        }else {
+                            startActivity(new Intent(SplashActivity.this, LoginActivity.class));
+
+                        }
                         finish();
                     }
                 }, new Consumer<Throwable>() {

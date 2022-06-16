@@ -31,7 +31,7 @@
             android:textSize="12sp"
             android:layout_marginRight="10dp"
             android:drawableRight="@mipmap/arrow_right"
-            android:text="常用" />
+             />
     </LinearLayout>
 
     <LinearLayout

@@ -29,25 +29,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tabitem_image"/>
 
-    <TextView
-        android:id="@+id/tabitem_count"
+    <ImageView
+        android:id="@+id/edit_item_iv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="4dp"
-        android:paddingRight="4dp"
+        android:src="@mipmap/delete_red_bg"
         app:layout_constraintTop_toTopOf="@+id/tabitem_image"
         app:layout_constraintBottom_toTopOf="@+id/tabitem_image"
         app:layout_constraintLeft_toRightOf="@+id/tabitem_image"
         app:layout_constraintRight_toRightOf="@+id/tabitem_image"
-        android:minWidth="15dp"
-        android:visibility="gone"
-        android:singleLine="true"
-        android:maxLines="1"
-        android:textColor="@android:color/white"
-        android:background="@drawable/bg_red_border"
-        android:text="1"
-        android:textSize="11sp"
-        android:gravity="center"
-        android:layout_marginLeft="25dp"
         />
 </android.support.constraint.ConstraintLayout>
