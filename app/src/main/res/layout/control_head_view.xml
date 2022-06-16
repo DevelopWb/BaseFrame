@@ -11,6 +11,7 @@
         android:layout_marginTop="30dp"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
+        android:visibility="gone"
         android:textColor="@color/black"
         android:text="北京君则科技发展有限公司"
         android:textSize="22sp" />
@@ -30,6 +31,7 @@
         android:id="@+id/system_notice_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"

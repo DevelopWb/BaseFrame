@@ -76,6 +76,10 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden|adjustPan"></activity>
         <activity
+            android:name=".TestActivity"
+            android:exported="true"
+            ></activity>
+        <activity
             android:name=".entrance.LoginActivity"
             android:launchMode="singleTop" /> <!-- 关于 -->
         <activity
