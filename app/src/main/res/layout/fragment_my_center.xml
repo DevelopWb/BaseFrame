@@ -7,122 +7,203 @@
     android:background="@color/gray_light"
     android:orientation="vertical">
 
-
-    <android.support.constraint.ConstraintLayout
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginTop="60dp">
+        android:layout_height="match_parent">
 
-        <ImageView
-            android:id="@+id/headImage"
-            android:layout_width="55dp"
-            android:layout_height="55dp"
-            android:layout_marginLeft="12dp"
-            android:src="@mipmap/default_user_head_icon"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/nickname_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="14dp"
-            android:gravity="center"
-            android:text="点击头像登录"
-            android:textColor="@color/black"
-            android:textSize="15dp"
-            app:layout_constraintBottom_toTopOf="@+id/company_name_tv"
-            app:layout_constraintLeft_toRightOf="@+id/headImage"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_chainStyle="packed" />
-
-
-        <TextView
-            android:id="@+id/company_name_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="14dp"
-            android:layout_marginTop="5dp"
-            android:gravity="center"
-            android:text="企业名称"
-            android:textColor="@color/black"
-            android:textSize="13dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/headImage"
-            app:layout_constraintTop_toBottomOf="@+id/nickname_tv" />
-
-        <TextView
-            android:id="@+id/company_departname_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:gravity="center"
-            android:text="企业名称"
-            android:textColor="@color/black"
-            android:textSize="13dp"
-            app:layout_constraintBottom_toBottomOf="@+id/company_name_tv"
-            app:layout_constraintLeft_toRightOf="@+id/company_name_tv"
-            app:layout_constraintTop_toTopOf="@+id/company_name_tv" />
-
-
-    </android.support.constraint.ConstraintLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <android.support.constraint.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <TextView
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_width="wrap_content"
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginTop="50dp">
+
+                <ImageView
+                    android:id="@+id/headImage"
+                    android:layout_width="55dp"
+                    android:layout_height="55dp"
+                    android:layout_marginLeft="12dp"
+                    android:src="@mipmap/default_user_head_icon"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/nickname_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:gravity="center"
+                    android:text="点击头像登录"
+                    android:textColor="@color/black"
+                    android:textSize="15dp"
+                    app:layout_constraintBottom_toTopOf="@+id/company_name_tv"
+                    app:layout_constraintLeft_toRightOf="@+id/headImage"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+
+                <TextView
+                    android:id="@+id/company_name_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:text="企业名称"
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/headImage"
+                    app:layout_constraintTop_toBottomOf="@+id/nickname_tv" />
+
+                <TextView
+                    android:id="@+id/company_departname_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:gravity="center"
+                    android:text="企业名称"
+                    android:textColor="@color/black"
+                    android:textSize="13dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/company_name_tv"
+                    app:layout_constraintLeft_toRightOf="@+id/company_name_tv"
+                    app:layout_constraintTop_toTopOf="@+id/company_name_tv" />
+
+
+            </android.support.constraint.ConstraintLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:drawableRight="@mipmap/arrow_right"
-                android:text="我的待办"></TextView>
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp">
+
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/todo_cl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sp_filled_white"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:id="@+id/todo_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@mipmap/arrow_right"
+                        android:text="我的待办"
+                        app:layout_constraintEnd_toStartOf="@+id/to_do_iv"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/todo_amount_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="我的待办"
+                        android:textSize="12sp"
+                        app:layout_constraintLeft_toLeftOf="@+id/todo_tv"
+                        app:layout_constraintTop_toBottomOf="@+id/todo_tv" />
+
+                    <ImageView
+                        android:id="@+id/to_do_iv"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/todo_tv"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
-        </android.support.constraint.ConstraintLayout>
+                </android.support.constraint.ConstraintLayout>
 
-    </LinearLayout>
+                <android.support.constraint.ConstraintLayout
+                    android:id="@+id/my_apply_cl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/sp_filled_white"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:id="@+id/my_apply_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableRight="@mipmap/arrow_right"
+                        android:text="我的申请"
+                        app:layout_constraintEnd_toStartOf="@+id/my_apply_iv"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="查询申请历史"
+                        android:textSize="12sp"
+                        app:layout_constraintLeft_toLeftOf="@+id/my_apply_tv"
+                        app:layout_constraintTop_toBottomOf="@+id/my_apply_tv" />
+
+                    <ImageView
+                        android:id="@+id/my_apply_iv"
+                        android:layout_width="45dp"
+                        android:layout_height="45dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.5"
+                        app:layout_constraintStart_toEndOf="@+id/my_apply_tv"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="15dp"
-        android:layout_marginRight="15dp"
-        card_view:cardBackgroundColor="@color/white"
-        card_view:cardCornerRadius="10dp"
-        card_view:cardElevation="1dp">
+                </android.support.constraint.ConstraintLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/menu_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            </LinearLayout>
 
-    </android.support.v7.widget.CardView>
 
-    <android.support.v7.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="15dp"
-        card_view:cardBackgroundColor="@color/white"
-        card_view:cardCornerRadius="10dp"
-        card_view:cardElevation="1dp">
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                card_view:cardBackgroundColor="@color/white"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="1dp">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/menu_recycler_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/menu_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
-    </android.support.v7.widget.CardView>
+            </android.support.v7.widget.CardView>
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginBottom="20dp"
+                card_view:cardBackgroundColor="@color/white"
+                card_view:cardCornerRadius="10dp"
+                card_view:cardElevation="1dp">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/menu_recycler_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </android.support.v4.widget.NestedScrollView>
 </LinearLayout>

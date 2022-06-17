@@ -27,7 +27,7 @@ public class CmdUtil
             json.put("HandlerName",handlerName);
             json.put("QueryType",queryType);
             if(parameters==null){
-                json.put("Parameters","");
+                json.put("Parameters","{}");
             }else{
                 json.put("Parameters", GsonTools.createGsonString(parameters));
             }

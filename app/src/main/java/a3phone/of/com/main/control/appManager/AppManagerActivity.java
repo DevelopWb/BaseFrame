@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
+import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -71,10 +72,15 @@ public class AppManagerActivity extends BaseRecyclerviewActivity<ControlPresent>
                 /**
                  * 保存主控台APP编辑信息
                  */
-
-                CmdUtil.cmd("A3OFAppAdapter", "LoadMainEditResult", (Map<String, Object>) null, new CmdCallBack() {
+                List<ControlMenuBean> controlMenuBeans = operateDragAdapter.getData();
+                Map<String,Object>  map = new ArrayMap<>();
+                map.put("GROUPAPPLIST",GsonTools.createGsonString(controlMenuBeans));
+                map.put("GROUPGUID",currentGroupGuid);
+                CmdUtil.cmd("A3OFAppAdapter", "LoadMainEditResult", map, new CmdCallBack() {
                     @Override
                     public void onSuccess(JSONObject result) {
+                        initAdapterData(result);
+
                     }
 
                 });
@@ -190,32 +196,36 @@ public class AppManagerActivity extends BaseRecyclerviewActivity<ControlPresent>
         CmdUtil.cmd("A3OFAppAdapter", "LoadMainEditDefine", (Map<String, Object>) null, new CmdCallBack() {
             @Override
             public void onSuccess(JSONObject result) {
-                try {
-                    ControlMenuEditListBean.GROUPLISTBean grouplistBean = GsonTools.changeGsonToBean(result.getString("GROUPLIST"), ControlMenuEditListBean.GROUPLISTBean.class);
-                    applistBean = GsonTools.changeGsonToBean(result.getString("APPLIST"), ControlMenuEditListBean.APPLISTBean.class);
-                    groupapplistBean = GsonTools.changeGsonToBean(result.getString("GROUPAPPLIST"), ControlMenuEditListBean.GROUPAPPLISTBean.class);
-                    if (grouplistBean != null) {
-                        groupList = grouplistBean.getRows();
-                        if (groupList != null && groupList.size() > 0) {
-                            if (TextUtils.isEmpty(currentGroupGuid)) {
-                                mGroupNameTv.setText(groupList.get(0).getNAME());
-                                currentGroupGuid = groupList.get(0).getGUID();
-                                initAdapterData(groupList.get(0).getGUID());
-                            } else {
-                                initAdapterData(currentGroupGuid);
-
-                            }
-
-                        }
-                    }
-
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                initAdapterData(result);
             }
 
         });
+    }
+
+    private void initAdapterData(JSONObject result) {
+        try {
+            ControlMenuEditListBean.GROUPLISTBean grouplistBean = GsonTools.changeGsonToBean(result.getString("GROUPLIST"), ControlMenuEditListBean.GROUPLISTBean.class);
+            applistBean = GsonTools.changeGsonToBean(result.getString("APPLIST"), ControlMenuEditListBean.APPLISTBean.class);
+            groupapplistBean = GsonTools.changeGsonToBean(result.getString("GROUPAPPLIST"), ControlMenuEditListBean.GROUPAPPLISTBean.class);
+            if (grouplistBean != null) {
+                groupList = grouplistBean.getRows();
+                if (groupList != null && groupList.size() > 0) {
+                    if (TextUtils.isEmpty(currentGroupGuid)) {
+                        mGroupNameTv.setText(groupList.get(0).getNAME());
+                        currentGroupGuid = groupList.get(0).getGUID();
+                        initAdapterData(groupList.get(0).getGUID());
+                    } else {
+                        initAdapterData(currentGroupGuid);
+
+                    }
+
+                }
+            }
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

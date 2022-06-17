@@ -1,20 +1,24 @@
 package a3phone.of.com.main.mine;
 
 
+import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
 import a3phone.of.com.main.R;
-import a3phone.of.disabled.basecomponent.utils.ToastUtils;
 import a3phone.of.com.main.base.BaseAppFragment;
 import a3phone.of.com.main.bean.MultipleItem;
 import a3phone.of.com.main.bean.MyMenuBean;
 import a3phone.of.com.main.utils.UserInfoManager;
+import a3phone.of.disabled.basecomponent.utils.ToastUtils;
 
 /**
  * @aouther tobato
@@ -23,12 +27,19 @@ import a3phone.of.com.main.utils.UserInfoManager;
  */
 public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implements MyCenterContract.ICenterView, View.OnClickListener {
 
-    MyMenuAdapter myMenuAdapter,myMenuAdapter2;
+    MyMenuAdapter myMenuAdapter, myMenuAdapter2;
 
     private ImageView mHeadImage;
     private TextView mNickname;
     private TextView mTelNumber;
-    private RecyclerView mMenuRecycler,mMenuRecycler2;
+    private RecyclerView mMenuRecycler, mMenuRecycler2;
+    private View view;
+    /**
+     * 我的待办
+     */
+    private TextView mTodoAmountTv;
+    private ConstraintLayout mTodoCl;
+    private ConstraintLayout mMyApplyCl;
 
     @Override
     protected int getLayoutRes() {
@@ -41,6 +52,11 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         mHeadImage.setOnClickListener(this);
         mNickname = getView(R.id.nickname_tv);
         mTelNumber = getView(R.id.company_name_tv);
+        mTodoAmountTv = (TextView) getView(R.id.todo_amount_tv);
+        mTodoCl = (ConstraintLayout) getView(R.id.todo_cl);
+        mTodoCl.setOnClickListener(this);
+        mMyApplyCl = (ConstraintLayout) getView(R.id.my_apply_cl);
+        mMyApplyCl.setOnClickListener(this);
         mMenuRecycler = getView(R.id.menu_recycler);
         mMenuRecycler2 = getView(R.id.menu_recycler_2);
         myMenuAdapter = new MyMenuAdapter(mPresenter.getMenuBeans());
@@ -56,16 +72,16 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                         MyMenuBean item = (MyMenuBean) multipleItem.getObject();
                         switch (item.getName()) {
                             case MyMenuBean.MENU_MODIFY_PWD:
-                                ToastUtils.toast(mContext,"修改密码");
+                                ToastUtils.toast(mContext, "修改密码");
                                 break;
                             case MyMenuBean.MENU_MODIFY_SIGN:
-                                ToastUtils.toast(mContext,"1");
+                                ToastUtils.toast(mContext, "1");
                                 break;
                             case MyMenuBean.MENU_MODIFY_SUGGESTION:
-                                ToastUtils.toast(mContext,"2");
+                                ToastUtils.toast(mContext, "2");
                                 break;
                             case MyMenuBean.MENU_MODIFY_CLEAR:
-                                ToastUtils.toast(mContext,"3");
+                                ToastUtils.toast(mContext, "3");
                                 break;
                             default:
                                 break;
@@ -86,10 +102,10 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                         MyMenuBean item = (MyMenuBean) multipleItem.getObject();
                         switch (item.getName()) {
                             case MyMenuBean.MENU_MODIFY_ADVISER:
-                                ToastUtils.toast(mContext,"4");
+                                ToastUtils.toast(mContext, "4");
                                 break;
                             case MyMenuBean.MENU_MODIFY_CLEAR:
-                                ToastUtils.toast(mContext,"5");
+                                ToastUtils.toast(mContext, "5");
                                 break;
                             default:
                                 break;
@@ -100,6 +116,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                 }
             }
         });
+        
     }
 
     @Override
@@ -132,12 +149,18 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
     @Override
     public void onClick(View v) {
-        if (!UserInfoManager.isLogin()){
+        if (!UserInfoManager.isLogin()) {
             return;
         }
         switch (v.getId()) {
             case R.id.headImage:
                 //用户信息设置
+                break;
+            case R.id.todo_cl:
+                // TODO: 2022/6/17 待处理
+                break;
+            case R.id.my_apply_cl:
+                // TODO: 2022/6/17 申请历史
                 break;
         }
     }
@@ -147,9 +170,9 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     }
 
 
-
     @Override
     public void onDestroyView() {
         super.onDestroyView();
     }
+
 }
