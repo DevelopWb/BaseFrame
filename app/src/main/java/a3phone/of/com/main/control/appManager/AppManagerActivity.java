@@ -24,6 +24,7 @@ import java.util.Map;
 
 import a3phone.of.com.main.R;
 import a3phone.of.com.main.base.BaseRecyclerviewActivity;
+import a3phone.of.com.main.bean.ControlGroupBean;
 import a3phone.of.com.main.bean.ControlMenuBean;
 import a3phone.of.com.main.bean.ControlMenuEditListBean;
 import a3phone.of.com.main.control.ControlMenuChildAdapter;
@@ -48,7 +49,7 @@ public class AppManagerActivity extends BaseRecyclerviewActivity<ControlPresent>
     private LinearLayout mAppNameLl;
     private RecyclerView mControlAppRv;
     private ControlMenuDragAdapter operateDragAdapter;
-    private List<ControlMenuEditListBean.GROUPLISTBean.RowsBean> groupList;
+    private List<ControlGroupBean> groupList;
     private ControlMenuEditListBean.APPLISTBean applistBean;
     private ControlMenuEditListBean.GROUPAPPLISTBean groupapplistBean;
     /**
@@ -253,7 +254,7 @@ public class AppManagerActivity extends BaseRecyclerviewActivity<ControlPresent>
                 PickerManager.getInstance().showOptionPicker(mContext, groupList, new PickerManager.OnOptionPickerSelectedListener() {
                     @Override
                     public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                        ControlMenuEditListBean.GROUPLISTBean.RowsBean groupRowBean = groupList.get(options1);
+                        ControlGroupBean groupRowBean = groupList.get(options1);
                         currentGroupGuid = groupRowBean.getGUID();
                         mGroupNameTv.setText(groupRowBean.getNAME());
                         initAdapterData(groupRowBean.getGUID());

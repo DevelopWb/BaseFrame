@@ -20,7 +20,7 @@
         <TextView
             style="@style/item_title_style"
             android:gravity="center_vertical"
-            android:text="应用名称"
+            android:text="分组名称"
             android:textColor="@color/black"
             android:textSize="16dp" />
 

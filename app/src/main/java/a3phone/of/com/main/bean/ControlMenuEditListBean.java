@@ -57,65 +57,17 @@ public class ControlMenuEditListBean extends BaseResult {
     }
 
     public static class GROUPLISTBean {
-        private List<RowsBean> Rows;
+        private List<ControlGroupBean> Rows;
 
-        public List<RowsBean> getRows() {
+        public List<ControlGroupBean> getRows() {
+            if (Rows == null) {
+                return new ArrayList<>();
+            }
             return Rows;
         }
 
-        public void setRows(List<RowsBean> Rows) {
-            this.Rows = Rows;
-        }
-
-        public static class RowsBean implements IPickerViewData {
-            /**
-             * RowState : Unchanged
-             * GUID : 0dddd497-ed4c-40d5-a451-87db6f78b390
-             * CODE : 001
-             * NAME : 常用
-             */
-
-            private String RowState;
-            private String GUID;
-            private String CODE;
-            private String NAME;
-
-            public String getRowState() {
-                return RowState;
-            }
-
-            public void setRowState(String RowState) {
-                this.RowState = RowState;
-            }
-
-            public String getGUID() {
-                return GUID;
-            }
-
-            public void setGUID(String GUID) {
-                this.GUID = GUID;
-            }
-
-            public String getCODE() {
-                return CODE;
-            }
-
-            public void setCODE(String CODE) {
-                this.CODE = CODE;
-            }
-
-            public String getNAME() {
-                return NAME;
-            }
-
-            public void setNAME(String NAME) {
-                this.NAME = NAME;
-            }
-
-            @Override
-            public String getPickerViewText() {
-                return NAME;
-            }
+        public void setRows(List<ControlGroupBean> rows) {
+            Rows = rows;
         }
     }
 

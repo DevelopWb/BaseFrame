@@ -5,7 +5,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import a3phone.of.com.main.R;
 import a3phone.of.com.main.bean.ControlMenuBean;
-import a3phone.of.com.main.bean.ControlMenuEditListBean;
 import a3phone.of.disabled.basecomponent.utils.ImageLoadUtil;
 
 /**
@@ -20,8 +19,13 @@ public class ControlMenuChildAdapter extends BaseQuickAdapter<ControlMenuBean,Ba
 
     @Override
     protected void convert(BaseViewHolder helper, ControlMenuBean item) {
-        ImageLoadUtil.loadImage(mContext,item.getIMG(),helper.getView(R.id.tabitem_image));
         helper.setText(R.id.tabitem_text,item.getNAME());
         helper.setGone(R.id.edit_item_iv,false);
+        if ("-1".equals(item.getNAME())) {
+            helper.setImageResource(R.id.tabitem_image,R.mipmap.more_app_icon);
+        }else {
+            ImageLoadUtil.loadImage(mContext,item.getIMG(),helper.getView(R.id.tabitem_image));
+
+        }
     }
 }

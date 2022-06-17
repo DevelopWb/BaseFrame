@@ -7,8 +7,9 @@
 
     <ImageView
         android:id="@+id/item_iv"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:padding="3dp"
         android:layout_marginLeft="15dp"
         android:src="@mipmap/my_hint_head"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,7 +20,7 @@
         android:id="@+id/item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="10dp"
         android:text="我的收藏"
         android:textColor="@color/black"
         android:textSize="14dp"

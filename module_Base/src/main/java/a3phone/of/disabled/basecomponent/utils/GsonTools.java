@@ -34,12 +34,14 @@ public class GsonTools {
             return null;
         }
     }
-
-    public static <T> List<T> changeGsonToList(String gsonString, Class<T> cls) {
+    /**
+     * @param json list的序列化字符串
+     * @param <T>  T类型
+     * @return List<T>
+     */
+    public static <T> List<T> changeGsonToList(String json, Class<T> clazz) {
         Gson gson = new Gson();
-        List<T> list = gson.fromJson(gsonString, new TypeToken<List<T>>() {
-        }.getType());
-        return list;
+        return gson.fromJson(json, TypeToken.getParameterized(List.class, clazz).getType());
     }
 
     public static <T> List<Map<String, T>> changeGsonToListMaps(
