@@ -142,7 +142,8 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
                     public void onSuccess(JSONObject result) {
                         UserBean userBean = GsonTools.changeGsonToBean(result.toString(),UserBean.class);
                         Hawk.put(HawkProperty.SP_KEY_USER,userBean);
-                        Hawk.put(HawkProperty.USER_SESSION_ID,userBean.getSessionID());
+                        Hawk.put(HawkProperty.USER_ACCOUNT_CODE,accountCode);
+                        Hawk.put(HawkProperty.USER_PWD,pwd);
                         startActivity(new Intent(mContext, MainActivity.class));
                     }
 

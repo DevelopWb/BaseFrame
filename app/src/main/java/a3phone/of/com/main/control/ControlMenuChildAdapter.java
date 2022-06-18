@@ -5,6 +5,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import a3phone.of.com.main.R;
 import a3phone.of.com.main.bean.ControlMenuBean;
+import a3phone.of.com.main.utils.UserInfoManager;
 import a3phone.of.disabled.basecomponent.utils.ImageLoadUtil;
 
 /**
@@ -24,7 +25,7 @@ public class ControlMenuChildAdapter extends BaseQuickAdapter<ControlMenuBean,Ba
         if ("-1".equals(item.getNAME())) {
             helper.setImageResource(R.id.tabitem_image,R.mipmap.more_app_icon);
         }else {
-            ImageLoadUtil.loadImage(mContext,item.getIMG(),helper.getView(R.id.tabitem_image));
+            ImageLoadUtil.loadImage(mContext, UserInfoManager.getAppImageAbPath(item.getIMG()),helper.getView(R.id.tabitem_image));
 
         }
     }

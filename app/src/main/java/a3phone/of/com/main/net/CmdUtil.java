@@ -2,8 +2,10 @@ package a3phone.of.com.main.net;
 
 
 import a3phone.of.com.main.MyApp;
+import a3phone.of.com.main.utils.UserInfoManager;
 import a3phone.of.disabled.basecomponent.utils.GsonTools;
 import a3phone.of.com.main.utils.HawkProperty;
+import a3phone.of.disabled.basecomponent.utils.LogUtil;
 import a3phone.of.disabled.basecomponent.utils.ToastUtils;
 
 import com.orhanobut.hawk.Hawk;
@@ -69,22 +71,16 @@ public class CmdUtil
 
     public static  void exeCmd(JSONObject json,CmdCallBack cmdCallBack)
     {
-        if (Hawk.contains(HawkProperty.USER_SESSION_ID)) {
-            try {
-                json.put("SessionID", Hawk.get(HawkProperty.USER_SESSION_ID));
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }else {
-            try {
-                json.put("SessionID", "");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        try {
+            json.put("SessionID", UserInfoManager.getSessionId());
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         try{
+
             String jsonStr = json.toString();
-            HttpUtil.post(Hawk.get(HawkProperty.CURRENT_SERVICE_ADDRS)+"/SystemHandler.axd?ClientType=Android",jsonStr,cmdCallBack);
+            LogUtil.e(jsonStr);
+            HttpUtil.post(UserInfoManager.getServerAddr()+"/SystemHandler.axd?ClientType=Android",jsonStr,cmdCallBack);
         }catch (IOException ex){
             ToastUtils.error(MyApp.app,"HTTP错误:无法连接服务器！");
         }

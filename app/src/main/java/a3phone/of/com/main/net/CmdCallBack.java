@@ -1,21 +1,25 @@
 package a3phone.of.com.main.net;
 
 
-import android.content.Intent;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.Parcelable;
+import android.util.ArrayMap;
 import android.util.Log;
 
+
+import com.orhanobut.hawk.Hawk;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Map;
 
 import a3phone.of.com.main.MyApp;
-import a3phone.of.com.main.entrance.LoginActivity;
+import a3phone.of.com.main.bean.UserBean;
+import a3phone.of.com.main.utils.HawkProperty;
+import a3phone.of.com.main.utils.UserInfoManager;
+import a3phone.of.disabled.basecomponent.utils.GsonTools;
 import a3phone.of.disabled.basecomponent.utils.LogUtil;
 import a3phone.of.disabled.basecomponent.utils.ToastUtils;
 import okhttp3.Call;
@@ -79,10 +83,10 @@ public abstract class CmdCallBack implements Callback {
     @Override
     public void onResponse(Call call, Response response) throws IOException {
         final String value = response.body().string();
-        Log.d("response", value);
+        LogUtil.e(value);
         if (value.toLowerCase().startsWith("error:")) {
-            if (value.toLowerCase().startsWith("error:0:登录超时！")) {
-//                HandlerExpieredLogin();
+            if (value.toLowerCase().startsWith("error:未登录的用户信息")) {
+                HandlerExpieredLogin();
                 return;
             } else {
                 mHandler.post(new Runnable() {
@@ -110,27 +114,21 @@ public abstract class CmdCallBack implements Callback {
         });
     }
 
-//    private void HandlerExpieredLogin() //会话超时处理
-//    {
-//        LoginHandler loginHandler = new LoginHandler(A3Application.getInstance().getBaseContext()) {
-//            @Override
-//            public void AfterLoginSucessHandler() {
-//                CmdUtil.exeCmd(_parameters, _currInstance);
-//            }
-//        };
-//        if (loginHandler.HasPreLoginInfo()) {
-//            loginHandler.ExePreLogin();
-//        } else {
-//            AccountHandler accountHandler = new AccountHandler(A3Application.getInstance().getBaseContext()) {
-//                @Override
-//                public void HandlerAccount(List<BookModel> accountList) {
-//                    Intent mainIntent = new Intent(A3Application.getInstance().getBaseContext(), LoginActivity.class);
-//                    mainIntent.putParcelableArrayListExtra("AccountList", (ArrayList<? extends Parcelable>) accountList);
-//                    A3Application.getInstance().getBaseContext().startActivity(mainIntent);
-//                }
-//            };
-//            accountHandler.LoadAccount();
-//        }
-//    }
+    //会话超时处理
+    private void HandlerExpieredLogin () {
+        Map<String, Object> map = new ArrayMap<>();
+        map.put("AccountCode", UserInfoManager.getAccountCode());
+        map.put("UserName", UserInfoManager.getUserName());
+        map.put("Pwd", UserInfoManager.getUserPwd());
+        CmdUtil.cmd("LoginHandlerAdapter", "Login", map, new CmdCallBack() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                UserBean userBean = GsonTools.changeGsonToBean(result.toString(), UserBean.class);
+                Hawk.put(HawkProperty.SP_KEY_USER, userBean);
+                CmdUtil.exeCmd(_parameters, _currInstance);
+            }
 
+        });
+
+    }
 }

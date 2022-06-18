@@ -20,8 +20,13 @@ public class HawkProperty {
     public static String   CURRENT_SERVICE_ADDRS = "CURRENT_SERVICE_ADDRS";
 
     /**
-     * 会话
+     * 账属
      */
-    public static String   USER_SESSION_ID = "USER_SESSION_ID";
+    public static String USER_ACCOUNT_CODE = "USER_ACCOUNT_CODE";
+
+    /**
+     * 登录密码
+     */
+    public static String   USER_PWD = "USER_PWD";
 
 }

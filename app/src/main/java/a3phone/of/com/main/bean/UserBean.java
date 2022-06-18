@@ -90,298 +90,298 @@ public class UserBean extends BaseResult {
     private String SerialNo;
 
     public String getCurrYear_CARD() {
-        return CurrYear_CARD;
+        return CurrYear_CARD == null ? "" : CurrYear_CARD;
     }
 
-    public void setCurrYear_CARD(String CurrYear_CARD) {
-        this.CurrYear_CARD = CurrYear_CARD;
+    public void setCurrYear_CARD(String currYear_CARD) {
+        CurrYear_CARD = currYear_CARD == null ? "" : currYear_CARD;
     }
 
     public String getIsAllowPush() {
-        return IsAllowPush;
+        return IsAllowPush == null ? "" : IsAllowPush;
     }
 
-    public void setIsAllowPush(String IsAllowPush) {
-        this.IsAllowPush = IsAllowPush;
+    public void setIsAllowPush(String isAllowPush) {
+        IsAllowPush = isAllowPush == null ? "" : isAllowPush;
     }
 
     public String getUserRole() {
-        return UserRole;
+        return UserRole == null ? "" : UserRole;
     }
 
-    public void setUserRole(String UserRole) {
-        this.UserRole = UserRole;
+    public void setUserRole(String userRole) {
+        UserRole = userRole == null ? "" : userRole;
     }
 
     public String getCurrYear_FUND() {
-        return CurrYear_FUND;
+        return CurrYear_FUND == null ? "" : CurrYear_FUND;
     }
 
-    public void setCurrYear_FUND(String CurrYear_FUND) {
-        this.CurrYear_FUND = CurrYear_FUND;
+    public void setCurrYear_FUND(String currYear_FUND) {
+        CurrYear_FUND = currYear_FUND == null ? "" : currYear_FUND;
     }
 
     public String getHeadShow() {
-        return HeadShow;
+        return HeadShow == null ? "" : HeadShow;
     }
 
-    public void setHeadShow(String HeadShow) {
-        this.HeadShow = HeadShow;
+    public void setHeadShow(String headShow) {
+        HeadShow = headShow == null ? "" : headShow;
     }
 
     public String getOrgGuid() {
-        return OrgGuid;
+        return OrgGuid == null ? "" : OrgGuid;
     }
 
-    public void setOrgGuid(String OrgGuid) {
-        this.OrgGuid = OrgGuid;
+    public void setOrgGuid(String orgGuid) {
+        OrgGuid = orgGuid == null ? "" : orgGuid;
     }
 
     public String getGlobalCacheSetting() {
-        return GlobalCacheSetting;
+        return GlobalCacheSetting == null ? "" : GlobalCacheSetting;
     }
 
-    public void setGlobalCacheSetting(String GlobalCacheSetting) {
-        this.GlobalCacheSetting = GlobalCacheSetting;
+    public void setGlobalCacheSetting(String globalCacheSetting) {
+        GlobalCacheSetting = globalCacheSetting == null ? "" : globalCacheSetting;
     }
 
     public String getAppSecret() {
-        return AppSecret;
+        return AppSecret == null ? "" : AppSecret;
     }
 
-    public void setAppSecret(String AppSecret) {
-        this.AppSecret = AppSecret;
+    public void setAppSecret(String appSecret) {
+        AppSecret = appSecret == null ? "" : appSecret;
     }
 
     public String getOrgCode() {
-        return OrgCode;
+        return OrgCode == null ? "" : OrgCode;
     }
 
-    public void setOrgCode(String OrgCode) {
-        this.OrgCode = OrgCode;
+    public void setOrgCode(String orgCode) {
+        OrgCode = orgCode == null ? "" : orgCode;
     }
 
     public String getGZHAppSecret() {
-        return GZHAppSecret;
+        return GZHAppSecret == null ? "" : GZHAppSecret;
     }
 
     public void setGZHAppSecret(String GZHAppSecret) {
-        this.GZHAppSecret = GZHAppSecret;
+        this.GZHAppSecret = GZHAppSecret == null ? "" : GZHAppSecret;
     }
 
     public String getCurrPeriod_CARD() {
-        return CurrPeriod_CARD;
+        return CurrPeriod_CARD == null ? "" : CurrPeriod_CARD;
     }
 
-    public void setCurrPeriod_CARD(String CurrPeriod_CARD) {
-        this.CurrPeriod_CARD = CurrPeriod_CARD;
+    public void setCurrPeriod_CARD(String currPeriod_CARD) {
+        CurrPeriod_CARD = currPeriod_CARD == null ? "" : currPeriod_CARD;
     }
 
     public String getCurrPeriod_RECIVE() {
-        return CurrPeriod_RECIVE;
+        return CurrPeriod_RECIVE == null ? "" : CurrPeriod_RECIVE;
     }
 
-    public void setCurrPeriod_RECIVE(String CurrPeriod_RECIVE) {
-        this.CurrPeriod_RECIVE = CurrPeriod_RECIVE;
+    public void setCurrPeriod_RECIVE(String currPeriod_RECIVE) {
+        CurrPeriod_RECIVE = currPeriod_RECIVE == null ? "" : currPeriod_RECIVE;
     }
 
     public String getFileServerURL() {
-        return FileServerURL;
+        return FileServerURL == null ? "" : FileServerURL;
     }
 
-    public void setFileServerURL(String FileServerURL) {
-        this.FileServerURL = FileServerURL;
+    public void setFileServerURL(String fileServerURL) {
+        FileServerURL = fileServerURL == null ? "" : fileServerURL;
     }
 
     public String getWXMessageTemplate() {
-        return WXMessageTemplate;
+        return WXMessageTemplate == null ? "" : WXMessageTemplate;
     }
 
     public void setWXMessageTemplate(String WXMessageTemplate) {
-        this.WXMessageTemplate = WXMessageTemplate;
+        this.WXMessageTemplate = WXMessageTemplate == null ? "" : WXMessageTemplate;
     }
 
     public String getCurrYear() {
-        return CurrYear;
+        return CurrYear == null ? "" : CurrYear;
     }
 
-    public void setCurrYear(String CurrYear) {
-        this.CurrYear = CurrYear;
+    public void setCurrYear(String currYear) {
+        CurrYear = currYear == null ? "" : currYear;
     }
 
     public String getCurrYear_RECIVE() {
-        return CurrYear_RECIVE;
+        return CurrYear_RECIVE == null ? "" : CurrYear_RECIVE;
     }
 
-    public void setCurrYear_RECIVE(String CurrYear_RECIVE) {
-        this.CurrYear_RECIVE = CurrYear_RECIVE;
+    public void setCurrYear_RECIVE(String currYear_RECIVE) {
+        CurrYear_RECIVE = currYear_RECIVE == null ? "" : currYear_RECIVE;
     }
 
     public String getUserName() {
-        return UserName;
+        return UserName == null ? "" : UserName;
     }
 
-    public void setUserName(String UserName) {
-        this.UserName = UserName;
+    public void setUserName(String userName) {
+        UserName = userName == null ? "" : userName;
     }
 
     public String getHEADPHOTO() {
-        return HEADPHOTO;
+        return HEADPHOTO == null ? "" : HEADPHOTO;
     }
 
     public void setHEADPHOTO(String HEADPHOTO) {
-        this.HEADPHOTO = HEADPHOTO;
+        this.HEADPHOTO = HEADPHOTO == null ? "" : HEADPHOTO;
     }
 
     public String getCurrPeriod_PAY() {
-        return CurrPeriod_PAY;
+        return CurrPeriod_PAY == null ? "" : CurrPeriod_PAY;
     }
 
-    public void setCurrPeriod_PAY(String CurrPeriod_PAY) {
-        this.CurrPeriod_PAY = CurrPeriod_PAY;
+    public void setCurrPeriod_PAY(String currPeriod_PAY) {
+        CurrPeriod_PAY = currPeriod_PAY == null ? "" : currPeriod_PAY;
     }
 
     public String getSessionID() {
-        return SessionID;
+        return SessionID == null ? "" : SessionID;
     }
 
-    public void setSessionID(String SessionID) {
-        this.SessionID = SessionID;
+    public void setSessionID(String sessionID) {
+        SessionID = sessionID == null ? "" : sessionID;
     }
 
     public String getEnterpriseID() {
-        return EnterpriseID;
+        return EnterpriseID == null ? "" : EnterpriseID;
     }
 
-    public void setEnterpriseID(String EnterpriseID) {
-        this.EnterpriseID = EnterpriseID;
+    public void setEnterpriseID(String enterpriseID) {
+        EnterpriseID = enterpriseID == null ? "" : enterpriseID;
     }
 
     public String getPORT() {
-        return PORT;
+        return PORT == null ? "" : PORT;
     }
 
     public void setPORT(String PORT) {
-        this.PORT = PORT;
+        this.PORT = PORT == null ? "" : PORT;
     }
 
     public String getIMURL() {
-        return IMURL;
+        return IMURL == null ? "" : IMURL;
     }
 
     public void setIMURL(String IMURL) {
-        this.IMURL = IMURL;
+        this.IMURL = IMURL == null ? "" : IMURL;
     }
 
     public String getAppKey() {
-        return AppKey;
+        return AppKey == null ? "" : AppKey;
     }
 
-    public void setAppKey(String AppKey) {
-        this.AppKey = AppKey;
+    public void setAppKey(String appKey) {
+        AppKey = appKey == null ? "" : appKey;
     }
 
     public String getSTDCurrency() {
-        return STDCurrency;
+        return STDCurrency == null ? "" : STDCurrency;
     }
 
     public void setSTDCurrency(String STDCurrency) {
-        this.STDCurrency = STDCurrency;
+        this.STDCurrency = STDCurrency == null ? "" : STDCurrency;
     }
 
     public String getOrgName() {
-        return OrgName;
+        return OrgName == null ? "" : OrgName;
     }
 
-    public void setOrgName(String OrgName) {
-        this.OrgName = OrgName;
+    public void setOrgName(String orgName) {
+        OrgName = orgName == null ? "" : orgName;
     }
 
     public String getCurrPeriod() {
-        return CurrPeriod;
+        return CurrPeriod == null ? "" : CurrPeriod;
     }
 
-    public void setCurrPeriod(String CurrPeriod) {
-        this.CurrPeriod = CurrPeriod;
+    public void setCurrPeriod(String currPeriod) {
+        CurrPeriod = currPeriod == null ? "" : currPeriod;
     }
 
     public String getDBType() {
-        return DBType;
+        return DBType == null ? "" : DBType;
     }
 
     public void setDBType(String DBType) {
-        this.DBType = DBType;
+        this.DBType = DBType == null ? "" : DBType;
     }
 
     public String getCurrPeriod_FUND() {
-        return CurrPeriod_FUND;
+        return CurrPeriod_FUND == null ? "" : CurrPeriod_FUND;
     }
 
-    public void setCurrPeriod_FUND(String CurrPeriod_FUND) {
-        this.CurrPeriod_FUND = CurrPeriod_FUND;
+    public void setCurrPeriod_FUND(String currPeriod_FUND) {
+        CurrPeriod_FUND = currPeriod_FUND == null ? "" : currPeriod_FUND;
     }
 
     public String getUserGuid() {
-        return UserGuid;
+        return UserGuid == null ? "" : UserGuid;
     }
 
-    public void setUserGuid(String UserGuid) {
-        this.UserGuid = UserGuid;
+    public void setUserGuid(String userGuid) {
+        UserGuid = userGuid == null ? "" : userGuid;
     }
 
     public String getCurrYear_SCM() {
-        return CurrYear_SCM;
+        return CurrYear_SCM == null ? "" : CurrYear_SCM;
     }
 
-    public void setCurrYear_SCM(String CurrYear_SCM) {
-        this.CurrYear_SCM = CurrYear_SCM;
+    public void setCurrYear_SCM(String currYear_SCM) {
+        CurrYear_SCM = currYear_SCM == null ? "" : currYear_SCM;
     }
 
     public String getUserCode() {
-        return UserCode;
+        return UserCode == null ? "" : UserCode;
     }
 
-    public void setUserCode(String UserCode) {
-        this.UserCode = UserCode;
+    public void setUserCode(String userCode) {
+        UserCode = userCode == null ? "" : userCode;
     }
 
     public String getCurrPeriod_SCM() {
-        return CurrPeriod_SCM;
+        return CurrPeriod_SCM == null ? "" : CurrPeriod_SCM;
     }
 
-    public void setCurrPeriod_SCM(String CurrPeriod_SCM) {
-        this.CurrPeriod_SCM = CurrPeriod_SCM;
+    public void setCurrPeriod_SCM(String currPeriod_SCM) {
+        CurrPeriod_SCM = currPeriod_SCM == null ? "" : currPeriod_SCM;
     }
 
     public String getGZHAppKey() {
-        return GZHAppKey;
+        return GZHAppKey == null ? "" : GZHAppKey;
     }
 
     public void setGZHAppKey(String GZHAppKey) {
-        this.GZHAppKey = GZHAppKey;
+        this.GZHAppKey = GZHAppKey == null ? "" : GZHAppKey;
     }
 
     public String getPushComp() {
-        return PushComp;
+        return PushComp == null ? "" : PushComp;
     }
 
-    public void setPushComp(String PushComp) {
-        this.PushComp = PushComp;
+    public void setPushComp(String pushComp) {
+        PushComp = pushComp == null ? "" : pushComp;
     }
 
     public String getCurrYear_PAY() {
-        return CurrYear_PAY;
+        return CurrYear_PAY == null ? "" : CurrYear_PAY;
     }
 
-    public void setCurrYear_PAY(String CurrYear_PAY) {
-        this.CurrYear_PAY = CurrYear_PAY;
+    public void setCurrYear_PAY(String currYear_PAY) {
+        CurrYear_PAY = currYear_PAY == null ? "" : currYear_PAY;
     }
 
     public String getSerialNo() {
-        return SerialNo;
+        return SerialNo == null ? "" : SerialNo;
     }
 
-    public void setSerialNo(String SerialNo) {
-        this.SerialNo = SerialNo;
+    public void setSerialNo(String serialNo) {
+        SerialNo = serialNo == null ? "" : serialNo;
     }
 }

@@ -34,6 +34,7 @@ import a3phone.of.com.main.net.CmdUtil;
 import a3phone.of.disabled.basecomponent.mvp.BaseIView;
 import a3phone.of.disabled.basecomponent.utils.GsonTools;
 import a3phone.of.disabled.basecomponent.utils.PickerManager;
+import a3phone.of.disabled.basecomponent.utils.ToastUtils;
 
 /**
  * @aouther tobato
@@ -74,12 +75,13 @@ public class AppManagerActivity extends BaseRecyclerviewActivity<ControlPresent>
                  * 保存主控台APP编辑信息
                  */
                 List<ControlMenuBean> controlMenuBeans = operateDragAdapter.getData();
-                Map<String,Object>  map = new ArrayMap<>();
-                map.put("GROUPAPPLIST",GsonTools.createGsonString(controlMenuBeans));
-                map.put("GROUPGUID",currentGroupGuid);
+                Map<String, Object> map = new ArrayMap<>();
+                map.put("GROUPAPPLIST", GsonTools.createGsonString(controlMenuBeans));
+                map.put("GROUPGUID", currentGroupGuid);
                 CmdUtil.cmd("A3OFAppAdapter", "LoadMainEditResult", map, new CmdCallBack() {
                     @Override
                     public void onSuccess(JSONObject result) {
+                        ToastUtils.toast(mContext, "配置成功");
                         initAdapterData(result);
 
                     }
@@ -160,7 +162,7 @@ public class AppManagerActivity extends BaseRecyclerviewActivity<ControlPresent>
 
             @Override
             public void onItemDragEnd(RecyclerView.ViewHolder viewHolder, int pos) {
-
+                operateDragAdapter.notifyDataSetChanged();
             }
         });
 
@@ -251,15 +253,18 @@ public class AppManagerActivity extends BaseRecyclerviewActivity<ControlPresent>
             default:
                 break;
             case R.id.app_name_ll:
-                PickerManager.getInstance().showOptionPicker(mContext, groupList, new PickerManager.OnOptionPickerSelectedListener() {
-                    @Override
-                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
-                        ControlGroupBean groupRowBean = groupList.get(options1);
-                        currentGroupGuid = groupRowBean.getGUID();
-                        mGroupNameTv.setText(groupRowBean.getNAME());
-                        initAdapterData(groupRowBean.getGUID());
-                    }
-                });
+                if (groupList != null) {
+                    PickerManager.getInstance().showOptionPicker(mContext, groupList, new PickerManager.OnOptionPickerSelectedListener() {
+                        @Override
+                        public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                            ControlGroupBean groupRowBean = groupList.get(options1);
+                            currentGroupGuid = groupRowBean.getGUID();
+                            mGroupNameTv.setText(groupRowBean.getNAME());
+                            initAdapterData(groupRowBean.getGUID());
+                        }
+                    });
+                }
+
                 break;
         }
     }

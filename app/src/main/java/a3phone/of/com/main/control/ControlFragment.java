@@ -20,6 +20,7 @@ import a3phone.of.com.main.bean.ControlMenuBean;
 import a3phone.of.com.main.bean.SystemNoticeBean;
 import a3phone.of.com.main.net.CmdCallBack;
 import a3phone.of.com.main.net.CmdUtil;
+import a3phone.of.disabled.basecomponent.base.BaseActivity;
 import a3phone.of.disabled.basecomponent.mvp.BaseIView;
 import a3phone.of.com.main.base.BaseRecyclerviewFragment;
 import a3phone.of.com.main.control.appManager.AppManagerActivity;
@@ -142,6 +143,13 @@ public class ControlFragment extends BaseRecyclerviewFragment<ControlPresent> im
 
     @Override
     public void onMenuClick() {
-        startActivity(new Intent(mContext, AppManagerActivity.class));
+        startActivityForResult(new Intent(mContext, AppManagerActivity.class), BaseActivity.BASE_REQUEST_RESULT);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode== BaseActivity.BASE_REQUEST_RESULT) {
+            getRvAdapterData();
+        }
     }
 }
