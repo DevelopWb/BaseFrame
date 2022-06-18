@@ -1,5 +1,7 @@
 package a3phone.of.com.main.bean;
 
+import com.sunfusheng.marqueeview.IMarqueeItem;
+
 /**
  * @Author: tobato
  * @Description: 作用描述 系统公告
@@ -7,7 +9,7 @@ package a3phone.of.com.main.bean;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/6/17 21:10
  */
-public class SystemNoticeBean {
+public class SystemNoticeBean implements IMarqueeItem {
 
 
     /**
@@ -52,5 +54,10 @@ public class SystemNoticeBean {
 
     public void setTITLE(String TITLE) {
         this.TITLE = TITLE;
+    }
+
+    @Override
+    public CharSequence marqueeMessage() {
+        return TITLE;
     }
 }

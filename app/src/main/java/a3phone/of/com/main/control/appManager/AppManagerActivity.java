@@ -57,6 +57,10 @@ public class AppManagerActivity extends BaseRecyclerviewActivity<ControlPresent>
      * 当前群组的ID
      */
     private String currentGroupGuid = null;
+    /**
+     * 用户所拥有的所有APP
+     */
+    private List<ControlMenuBean> userOwnedApps;
 
     @Override
     protected ControlPresent createPresenter() {
@@ -95,13 +99,15 @@ public class AppManagerActivity extends BaseRecyclerviewActivity<ControlPresent>
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 ControlMenuBean controlMenuBean = (ControlMenuBean) adapter.getItem(position);
-                // TODO: 2022/6/16 添加到对应的群组中
-                adapter.remove(position);
-                // TODO: 2022/6/17 更改菜单的状态
-                controlMenuBean.setHANDLERTYPE(ControlMenuBean.ADD);
+                // TODO: 2022/6/16 如果所有的分组没有这个APP  添加到对应的群组中  APP不能存在多个分组中
+
+                for (ControlMenuBean userOwnedApp : userOwnedApps) {
+                    if (controlMenuBean.getAPPGUID().equals(userOwnedApp.getAPPGUID())) {
+                        ToastUtils.toast(mContext, "您已经拥有此APP了");
+                        return;
+                    }
+                }
                 operateDragAdapter.addData(controlMenuBean);
-
-
             }
         });
 
@@ -120,9 +126,9 @@ public class AppManagerActivity extends BaseRecyclerviewActivity<ControlPresent>
         }
         if (groupapplistBean != null) {
             List<ControlMenuBean> operateApps = new ArrayList<>();
-            List<ControlMenuBean> rowsBeanXXList = groupapplistBean.getRows();
-            if (rowsBeanXXList != null) {
-                for (ControlMenuBean rowsBeanX : rowsBeanXXList) {
+            userOwnedApps = groupapplistBean.getRows();
+            if (userOwnedApps != null) {
+                for (ControlMenuBean rowsBeanX : userOwnedApps) {
                     if (guid.equals(rowsBeanX.getGROUPGUID())) {
                         operateApps.add(rowsBeanX);
                     }
