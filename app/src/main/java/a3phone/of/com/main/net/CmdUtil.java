@@ -13,24 +13,24 @@ import com.orhanobut.hawk.Hawk;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by tony on 16/3/13.
  */
-public class CmdUtil
-{
+public class CmdUtil {
     //多参数上传
-    public static void cmd(String handlerName,String queryType,Map<String,Object> parameters,CmdCallBack cmdCallBack)
-    {
+    public static void cmd(String handlerName, String queryType, Map<String, Object> parameters, CmdCallBack cmdCallBack) {
         JSONObject json = new JSONObject();
         try {
-            json.put("HandlerName",handlerName);
-            json.put("QueryType",queryType);
-            if(parameters==null){
-                json.put("Parameters","{}");
-            }else{
+            json.put("HandlerName", handlerName);
+            json.put("QueryType", queryType);
+            if (parameters == null) {
+                json.put("Parameters", "{}");
+            } else {
                 json.put("Parameters", GsonTools.createGsonString(parameters));
             }
 
@@ -42,20 +42,19 @@ public class CmdUtil
         cmdCallBack.setCurrInstance(cmdCallBack);
 
 
-        exeCmd(json,cmdCallBack);
+        exeCmd(json, cmdCallBack);
     }
 
 
     //json参数上传
-    public static void cmd(String handlerName, String queryType, JSONObject parameters, CmdCallBack cmdCallBack)
-    {
+    public static void cmd(String handlerName, String queryType, JSONObject parameters, CmdCallBack cmdCallBack) {
         JSONObject json = new JSONObject();
         try {
-            json.put("HandlerName",handlerName);
-            json.put("QueryType",queryType);
-            if(parameters==null){
-                json.put("Parameters","");
-            }else{
+            json.put("HandlerName", handlerName);
+            json.put("QueryType", queryType);
+            if (parameters == null) {
+                json.put("Parameters", "");
+            } else {
                 json.put("Parameters", parameters.toString());
             }
         } catch (JSONException e) {
@@ -66,27 +65,26 @@ public class CmdUtil
         cmdCallBack.setParameters(json);
         cmdCallBack.setCurrInstance(cmdCallBack);
 
-        exeCmd(json,cmdCallBack);
+        exeCmd(json, cmdCallBack);
     }
 
-    public static  void exeCmd(JSONObject json,CmdCallBack cmdCallBack)
-    {
+    public static void exeCmd(JSONObject json, CmdCallBack cmdCallBack) {
         try {
             json.put("SessionID", UserInfoManager.getSessionId());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        try{
+        try {
 
             String jsonStr = json.toString();
             LogUtil.e(jsonStr);
-            HttpUtil.post(UserInfoManager.getServerAddr()+"/SystemHandler.axd?ClientType=Android",jsonStr,cmdCallBack);
-        }catch (IOException ex){
-            ToastUtils.error(MyApp.app,"HTTP错误:无法连接服务器！");
+            HttpUtil.post(UserInfoManager.getServerAddr() + "/SystemHandler.axd?ClientType=Android", jsonStr, cmdCallBack);
+        } catch (IOException ex) {
+            ToastUtils.error(MyApp.app, "HTTP错误:无法连接服务器！");
         }
     }
 
-//    public static  void exeCmdShortRequest(JSONObject json,CmdCallBack cmdCallBack)
+    //    public static  void exeCmdShortRequest(JSONObject json,CmdCallBack cmdCallBack)
 //    {
 //        if(A3Application.getCurSession().getSessionID()==null || A3Application.getCurSession().getSessionID().equals("")){
 //            json.put("SessionID", "");
@@ -131,13 +129,28 @@ public class CmdUtil
 //
 //    //多图片加参数上传
 //    //文件上传
-//    public static void cmd(String folderName, List<File> imageFiles,CmdCallBack cmdCallBack)
-//    {
-//        try{
-//            String URL = Constant.BASEURL+"ImageUpload.axd";
-//            HttpUtil.post(URL, folderName, imageFiles,cmdCallBack);
-//        }catch (IOException ex){
-//            ToastUtil.showToast(A3Application.getInstance(),"HTTP错误:无法连接服务器！");
+//    public static void uploadFiles(List<File> imageFiles, CmdCallBack cmdCallBack) {
+//        try {
+//            String URL = UserInfoManager.getServerAddr() + "/UpLoad.axd";
+//            HttpUtil.post(URL, imageFiles, cmdCallBack);
+//        } catch (IOException ex) {
+//            ToastUtils.error(MyApp.app, "HTTP错误:无法连接服务器！");
+//
 //        }
 //    }
+
+    //单文件上传
+    public static void uploadFile(String filePath, CmdCallBack cmdCallBack) {
+        File file = new File(filePath);
+        if (!file.exists()) {
+            ToastUtils.error(MyApp.app, "文件不存在");
+            return;
+        }
+        try {
+            HttpUtil.postImage(file, cmdCallBack);
+        } catch (IOException ex) {
+            ToastUtils.error(MyApp.app, "HTTP错误:无法连接服务器！");
+
+        }
+    }
 }

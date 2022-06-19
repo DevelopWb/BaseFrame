@@ -2,6 +2,8 @@ package a3phone.of.com.main.mine;
 
 
 import a3phone.of.com.main.R;
+import a3phone.of.com.main.base.BaseAppPresent;
+import a3phone.of.disabled.basecomponent.mvp.BaseIView;
 import a3phone.of.disabled.basecomponent.mvp.BasePresenter;
 import a3phone.of.disabled.basecomponent.mvp.IModel;
 import a3phone.of.com.main.bean.MultipleItem;
@@ -14,7 +16,9 @@ import java.util.List;
  * Describe:
  * 2020/3/7
  */
-public class MyCenterPresent extends BasePresenter<IModel, MyCenterContract.ICenterView> implements MyCenterContract.ICenterPresent {
+public class MyCenterPresent extends BaseAppPresent<IModel, BaseIView>  {
+
+
     @Override
     protected IModel createModel() {
         return null;

@@ -70,7 +70,7 @@
         <!-- 自定义小米BroadcastReceiver -->
         <receiver
             android:exported="true"
-            android:name="com.siyee.oscvpush.a3phone.siyee.oscvpush.mi.MiPushMessageReceiverImpl">
+            android:name="a3phone.siyee.oscvpush.mi.MiPushMessageReceiverImpl">
             <!--这里com.xiaomi.mipushdemo.DemoMessageRreceiver改成app中定义的完整类名-->
             <intent-filter>
                 <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
@@ -86,7 +86,7 @@
 
         <!-- OPPO推送服务注册开始 -->
         <service
-            android:name="com.siyee.oscvpush.a3phone.siyee.oscvpush.oppo.CompatibleDataMessageCallbackServiceImpl"
+            android:name="a3phone.siyee.oscvpush.oppo.CompatibleDataMessageCallbackServiceImpl"
             android:permission="com.coloros.mcs.permission.SEND_MCS_MESSAGE">
             <intent-filter>
                 <action android:name="com.coloros.mcs.action.RECEIVE_MCS_MESSAGE"/>
@@ -94,7 +94,7 @@
         </service>
 
         <service
-            android:name="com.siyee.oscvpush.a3phone.siyee.oscvpush.oppo.DataMessageCallbackServiceImpl"
+            android:name="a3phone.siyee.oscvpush.oppo.DataMessageCallbackServiceImpl"
             android:permission="com.heytap.mcs.permission.SEND_MCS_MESSAGE">
             <intent-filter>
                 <action android:name="com.heytap.mcs.action.RECEIVE_MCS_MESSAGE"/>
@@ -110,7 +110,7 @@
             android:exported="true"/>
 
         <!-- push应用定义消息receiver声明 -->
-        <receiver   android:name="com.siyee.oscvpush.a3phone.siyee.oscvpush.vivo.VivoPushMessageReceiverImpl" >
+        <receiver   android:name="a3phone.siyee.oscvpush.vivo.VivoPushMessageReceiverImpl" >
             <intent-filter>
                 <!-- 接收push消息 -->
                 <action android:name="com.vivo.pushclient.action.RECEIVE" />
@@ -135,7 +135,7 @@
 
         <!-- 魅族推送服务注册开始 -->
         <!-- push 应用定义消息 receiver 声明 -->
-        <receiver android:name="com.siyee.oscvpush.a3phone.siyee.oscvpush.meizu.MzPushMessageReceiverImpl">
+        <receiver android:name="a3phone.siyee.oscvpush.meizu.MzPushMessageReceiverImpl">
             <intent-filter>
                 <!-- 接收 push 消息 -->
                 <action android:name="com.meizu.flyme.push.intent.MESSAGE" />

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.orhanobut.hawk.Hawk;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Map;
@@ -29,11 +30,14 @@ import a3phone.of.com.main.bean.MultipleItem;
 import a3phone.of.com.main.bean.MyMenuBean;
 import a3phone.of.com.main.bean.UserBean;
 import a3phone.of.com.main.entrance.LoginActivity;
+import a3phone.of.com.main.mine.sign.SignActivity;
 import a3phone.of.com.main.net.CmdCallBack;
 import a3phone.of.com.main.net.CmdUtil;
 import a3phone.of.com.main.utils.HawkProperty;
 import a3phone.of.com.main.utils.UserInfoManager;
+import a3phone.of.disabled.basecomponent.mvp.BaseIView;
 import a3phone.of.disabled.basecomponent.utils.GsonTools;
+import a3phone.of.disabled.basecomponent.utils.ImageLoadUtil;
 import a3phone.of.disabled.basecomponent.utils.ToastUtils;
 
 /**
@@ -41,7 +45,7 @@ import a3phone.of.disabled.basecomponent.utils.ToastUtils;
  * @description 描述
  * @date 2021/4/17 16:12
  */
-public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implements MyCenterContract.ICenterView, View.OnClickListener {
+public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implements BaseIView, View.OnClickListener {
 
     MyMenuAdapter myMenuAdapter, myMenuAdapter2;
 
@@ -88,11 +92,11 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                         MyMenuBean item = (MyMenuBean) multipleItem.getObject();
                         switch (item.getName()) {
                             case MyMenuBean.MENU_MODIFY_PWD:
-                                View  modifyPwdView = LayoutInflater.from(mContext).inflate(R.layout.modify_pwd_v,null);
-                                AlertDialog alertDialog = new AlertDialog.Builder(mContext,R.style.CustomDialog)
+                                View modifyPwdView = LayoutInflater.from(mContext).inflate(R.layout.modify_pwd_v, null);
+                                AlertDialog alertDialog = new AlertDialog.Builder(mContext, R.style.CustomDialog)
                                         .setCancelable(false)
                                         .setView(modifyPwdView).show();
-                                getBaseAppActivity().setAlertDialogHeightWidth(alertDialog,0,0);
+                                getBaseAppActivity().setAlertDialogHeightWidth(alertDialog, 0, 0);
                                 EditText oldEt = modifyPwdView.findViewById(R.id.old_pwd_et);
                                 EditText newEt = modifyPwdView.findViewById(R.id.new_pwd_et);
                                 EditText reNewEt = modifyPwdView.findViewById(R.id.re_new_pwd_et);
@@ -111,35 +115,35 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                                         String reNewPwd = getBaseAppActivity().getTextViewValue(reNewEt);
 
                                         if (TextUtils.isEmpty(oldPwd)) {
-                                            ToastUtils.toast(mContext,"请输入旧密码");
+                                            ToastUtils.toast(mContext, "请输入旧密码");
                                             return;
                                         }
                                         if (TextUtils.isEmpty(newPwd)) {
-                                            ToastUtils.toast(mContext,"请输入新密码");
+                                            ToastUtils.toast(mContext, "请输入新密码");
                                             return;
                                         }
                                         if (TextUtils.isEmpty(reNewPwd)) {
-                                            ToastUtils.toast(mContext,"请再次输入新密码");
+                                            ToastUtils.toast(mContext, "请再次输入新密码");
                                             return;
                                         }
                                         if (!UserInfoManager.getUserPwd().equals(oldPwd)) {
-                                            ToastUtils.toast(mContext,"旧密码输入错误,请重新输入");
+                                            ToastUtils.toast(mContext, "旧密码输入错误,请重新输入");
                                             return;
                                         }
                                         if (!newPwd.equals(reNewPwd)) {
-                                            ToastUtils.toast(mContext,"两次输入的新密码不一致,请重新输入");
+                                            ToastUtils.toast(mContext, "两次输入的新密码不一致,请重新输入");
                                             return;
                                         }
                                         // : 2022/6/19 调用修改密码的接口
-                                        Map<String,Object> map = new ArrayMap<>();
-                                        map.put("SessionID:",UserInfoManager.getSessionId());
-                                        map.put("OldPassWord::",oldPwd);
-                                        map.put("NewPassWord::",newPwd);
+                                        Map<String, Object> map = new ArrayMap<>();
+                                        map.put("SessionID:", UserInfoManager.getSessionId());
+                                        map.put("OldPassWord::", oldPwd);
+                                        map.put("NewPassWord::", newPwd);
                                         CmdUtil.cmd("LoginHandlerAdapter", "UpdatePassword", map, new CmdCallBack() {
                                             @Override
                                             public void onSuccess(JSONObject result) {
                                                 alertDialog.dismiss();
-                                                startActivity(new Intent(mContext,LoginActivity.class));
+                                                startActivity(new Intent(mContext, LoginActivity.class));
 
                                             }
 
@@ -150,13 +154,14 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
 
                                 break;
                             case MyMenuBean.MENU_MODIFY_SIGN:
-                                ToastUtils.toast(mContext, "1");
+                                // : 2022/6/19 签名设置
+                                startActivity(new Intent(mContext, SignActivity.class));
                                 break;
                             case MyMenuBean.MENU_MODIFY_SUGGESTION:
-                                ToastUtils.toast(mContext, "2");
+                                // TODO: 2022/6/19 投诉建议
                                 break;
-                            case MyMenuBean.MENU_MODIFY_CLEAR:
-                                ToastUtils.toast(mContext, "3");
+                            case MyMenuBean.MENU_MODIFY_ABOUT_US:
+                                // TODO: 2022/6/19 关于我们
                                 break;
                             default:
                                 break;
@@ -177,21 +182,21 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                         MyMenuBean item = (MyMenuBean) multipleItem.getObject();
                         switch (item.getName()) {
                             case MyMenuBean.MENU_QUIT_CURRENT_ACCOUNT:
-                             getBaseAppActivity().showAlertDialog("是否退出当前账户？", "确定", "取消", new DialogInterface.OnClickListener() {
-                                 @Override
-                                 public void onClick(DialogInterface dialog, int which) {
-                                     Map<String,Object> map = new ArrayMap<>();
-                                     map.put("SessionID:",UserInfoManager.getSessionId());
-                                     CmdUtil.cmd("LoginHandlerAdapter", "UnLogin", map, new CmdCallBack() {
-                                         @Override
-                                         public void onSuccess(JSONObject result) {
-                                            UserInfoManager.clearUserData();
-                                             startActivity(new Intent(mContext, LoginActivity.class));
-                                         }
+                                getBaseAppActivity().showAlertDialog("是否退出当前账户？", "确定", "取消", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        Map<String, Object> map = new ArrayMap<>();
+                                        map.put("SessionID:", UserInfoManager.getSessionId());
+                                        CmdUtil.cmd("LoginHandlerAdapter", "UnLogin", map, new CmdCallBack() {
+                                            @Override
+                                            public void onSuccess(JSONObject result) {
+                                                UserInfoManager.clearUserData();
+                                                startActivity(new Intent(mContext, LoginActivity.class));
+                                            }
 
-                                     });
-                                 }
-                             });
+                                        });
+                                    }
+                                });
                                 break;
                             default:
                                 break;
@@ -202,7 +207,7 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                 }
             }
         });
-        
+
     }
 
     @Override
@@ -225,6 +230,27 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
         getBaseAppActivity().mImmersionBar.statusBarColor(R.color.gray_light)
                 .statusBarDarkFont(true)
                 .init();
+
+        Map<String, Object> map = new ArrayMap<>();
+        map.put("UserGuid:", UserInfoManager.getUserGuid());
+        CmdUtil.cmd("A3OFAppAdapter", "UserCenter", map, new CmdCallBack() {
+            @Override
+            public void onSuccess(JSONObject result) {
+                try {
+                    String headPic = result.getString("HEADIMG");
+                    String userName = result.getString("USERNAME");
+                    String taskcount = result.getString("TASKCOUNT");
+                    ImageLoadUtil.loadHeadCirclePic(mContext, UserInfoManager.getAppImageAbPath(headPic), mHeadImage);
+                    mNickname.setText(userName);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        });
+
     }
 
     @Override

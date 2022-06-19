@@ -70,6 +70,16 @@ public class CalendarUtil {
         String currentTime = sdf.format(date);
         return currentTime;
     }
+    /**
+     *
+     * @return
+     */
+    public static String getServerFolderName() {
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.getDefault());
+        String currentTime = sdf.format(date);
+        return currentTime;
+    }
 
     /**
      * 获取0点的时间

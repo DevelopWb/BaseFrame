@@ -2,6 +2,7 @@ package a3phone.of.com.main.control;
 
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -27,6 +28,7 @@ import a3phone.of.com.main.bean.OrgBean;
 import a3phone.of.com.main.bean.SystemNoticeBean;
 import a3phone.of.com.main.bean.UserBean;
 import a3phone.of.com.main.control.appManager.AppManagerActivity;
+import a3phone.of.com.main.entrance.LoginActivity;
 import a3phone.of.com.main.net.CmdCallBack;
 import a3phone.of.com.main.net.CmdUtil;
 import a3phone.of.com.main.utils.HawkProperty;
@@ -84,7 +86,7 @@ public class ControlFragment extends BaseRecyclerviewFragment<ControlPresent> im
 
     @Override
     protected void getRvAdapterData() {
-
+        mOrgNameTv.setText(UserInfoManager.getOrgName());
         /**
          * 获取主控台信息
          */
@@ -247,11 +249,20 @@ public class ControlFragment extends BaseRecyclerviewFragment<ControlPresent> im
                     public void onOptionsSelect(int options1, int option2, int options3, View v) {
                         OrgBean orgBean = orgBeanList.get(options1);
                         mOrgNameTv.setText(orgBean.getNAME());
-                        UserBean userBean = UserInfoManager.getUser();
-                        userBean.setOrgCode(orgBean.getCODE());
-                        userBean.setOrgGuid(orgBean.getGUID());
-                        userBean.setOrgName(orgBean.getNAME());
-                        Hawk.put(HawkProperty.USER_BEAN_KEY,userBean);
+
+                        Map<String,Object> map = new ArrayMap<>();
+                        map.put("CurrOrgGuid:",orgBean.getCODE());
+                        CmdUtil.cmd("AppMainMenuAdapter", "ChangeCurrOrginfo", map, new CmdCallBack() {
+                            @Override
+                            public void onSuccess(JSONObject result) {
+                                UserBean userBean = UserInfoManager.getUser();
+                                userBean.setOrgCode(orgBean.getCODE());
+                                userBean.setOrgGuid(orgBean.getGUID());
+                                userBean.setOrgName(orgBean.getNAME());
+                                Hawk.put(HawkProperty.USER_BEAN_KEY,userBean);
+                            }
+
+                        });
                     }
                 });
                 break;

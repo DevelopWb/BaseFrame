@@ -1,10 +1,14 @@
 package a3phone.of.com.main.net;
 
+import android.text.TextUtils;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import a3phone.of.com.main.utils.CalendarUtil;
+import a3phone.of.com.main.utils.UserInfoManager;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -31,8 +35,7 @@ public class HttpUtil {
             .writeTimeout(10, TimeUnit.SECONDS)
             .build();
 
-    public static void post(String url, String json, CmdCallBack callback) throws IOException
-    {
+    public static void post(String url, String json, CmdCallBack callback) throws IOException {
         RequestBody body = RequestBody.create(MEDIA_TYPE, json);
         Request request = new Request.Builder()
                 .url(url)
@@ -41,8 +44,7 @@ public class HttpUtil {
         client.newCall(request).enqueue(callback);
     }
 
-    public static void postShortRequest(String url, String json, CmdCallBack callback) throws IOException
-    {
+    public static void postShortRequest(String url, String json, CmdCallBack callback) throws IOException {
         RequestBody body = RequestBody.create(MEDIA_TYPE, json);
         Request request = new Request.Builder()
                 .url(url)
@@ -61,22 +63,41 @@ public class HttpUtil {
         client.newCall(request).enqueue(callback);
     }
 
-    //多图片上传，加参数
-    public static void post(String url, String folderName, List<File> imageFiles, CmdCallBack callback) throws IOException {
+//    //多图片上传，加参数
+//    public static void post(String url, List<String> imageFiles, CmdCallBack callback) throws IOException {
+//        MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder();
+//        multipartBodyBuilder.setType(MultipartBody.FORM);
+//        multipartBodyBuilder.addFormDataPart("ServerFolderName", folderName);
+//        //遍历imageFiles中所有图片绝对路径到builder，并约定key如“file”作为后台接受多张图片的key
+//        if (imageFiles != null) {
+//            for (String imageFile : imageFiles) {
+//                multipartBodyBuilder.addFormDataPart("ServerFileName", file.getName(), RequestBody.create(MediaType.parse("application/octet-stream"), new File(imageFile)));
+//
+//            }
+//        }
+//        //构建请求体
+//        RequestBody requestBody = multipartBodyBuilder.build();
+//
+//        Request request = new Request.Builder()
+//                .url(url)
+//                .post(requestBody)
+//                .build();
+//        client.newCall(request).enqueue(callback);
+//    }
+
+    //单图片上传，加参数
+    public static void postImage(File file, CmdCallBack callback) throws IOException {
         MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder();
         multipartBodyBuilder.setType(MultipartBody.FORM);
-        multipartBodyBuilder.addFormDataPart("ServerFolderName", folderName);
+        multipartBodyBuilder.addFormDataPart("HandlerType","Add");
+        multipartBodyBuilder.addFormDataPart("ServerFolderName", CalendarUtil.getServerFolderName());
         //遍历imageFiles中所有图片绝对路径到builder，并约定key如“file”作为后台接受多张图片的key
-        if (imageFiles != null){
-            for (File file : imageFiles) {
-                multipartBodyBuilder.addFormDataPart("file", file.getName(), RequestBody.create(MediaType.parse("application/octet-stream"), file));
-            }
-        }
+        multipartBodyBuilder.addFormDataPart("ServerFileName", file.getName(), RequestBody.create(MediaType.parse("application/octet-stream"), file));
         //构建请求体
         RequestBody requestBody = multipartBodyBuilder.build();
 
         Request request = new Request.Builder()
-                .url(url)
+                .url(UserInfoManager.getServerAddr()+"/UpLoad.axd?")
                 .post(requestBody)
                 .build();
         client.newCall(request).enqueue(callback);

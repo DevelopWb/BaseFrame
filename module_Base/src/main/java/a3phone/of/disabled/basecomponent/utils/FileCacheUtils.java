@@ -44,6 +44,7 @@ public class FileCacheUtils {
     public static String STREAM_THUMBNAIL = "thum.png";//头像
     public static String HEAD_PIC = "headpic.png";//头像
     public static long fileMaxLength = 500 * 1024 * 1024;//文件最大长度
+    public static String SIGN_PIC_NAME = "signature.png";//签名文件
 
 
     public static boolean isFileExists(String filePath) {

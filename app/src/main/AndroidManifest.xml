@@ -29,7 +29,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".control.appManager.AppManagerActivity"></activity>
+        <activity android:name=".mine.sign.SignActivity"></activity>
+        <activity android:name=".control.appManager.AppManagerActivity" />
         <activity
             android:name=".home_page.QRScanActivity"
             android:launchMode="singleTop" />
@@ -74,11 +75,10 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden|adjustPan"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden|adjustPan" />
         <activity
             android:name=".TestActivity"
-            android:exported="true"
-            ></activity>
+            android:exported="true" />
         <activity
             android:name=".entrance.LoginActivity"
             android:launchMode="singleTop" /> <!-- 关于 -->

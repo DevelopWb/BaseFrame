@@ -79,6 +79,13 @@ public class UserInfoManager {
      * getUserName
      * @return
      */
+    public static String getUserGuid() {
+       return getUser()==null?"":getUser().getUserGuid();
+    }
+    /**
+     * getUserName
+     * @return
+     */
     public static String getUserHeadImage() {
        return getUser()==null?"":getUser().getHEADPHOTO();
     }

@@ -40,15 +40,15 @@
 
 
         <service
-            android:name="com.of.disabled.bdmap.a3phone.of.disabled.bdmap.service.LocateAndUpload"
+            android:name="a3phone.of.disabled.bdmap.service.LocateAndUpload"
             android:priority="1000"
             android:enabled="true"
             android:exported="true" />
 
-        <activity android:name="com.of.disabled.bdmap.a3phone.of.disabled.bdmap.act.LocateShowActivity"
+        <activity android:name="a3phone.of.disabled.bdmap.act.LocateShowActivity"
             android:launchMode="singleTop"
             ></activity>
-        <activity android:name="com.of.disabled.bdmap.a3phone.of.disabled.bdmap.act.LocateSelectionActivity">
+        <activity android:name="a3phone.of.disabled.bdmap.act.LocateSelectionActivity">
             <intent-filter>
                 <action android:name="${applicationId}.im.location.seltion" />
 
