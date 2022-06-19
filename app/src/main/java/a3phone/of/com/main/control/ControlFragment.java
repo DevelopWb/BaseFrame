@@ -1,14 +1,13 @@
 package a3phone.of.com.main.control;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orhanobut.hawk.Hawk;
 import com.sunfusheng.marqueeview.MarqueeView;
 
 import org.json.JSONException;
@@ -20,17 +19,26 @@ import java.util.Map;
 
 import a3phone.of.com.main.R;
 import a3phone.of.com.main.base.BaseRecyclerviewFragment;
+import a3phone.of.com.main.bean.BannerBean;
 import a3phone.of.com.main.bean.ControlGroupBean;
 import a3phone.of.com.main.bean.ControlGroupMenuBean;
 import a3phone.of.com.main.bean.ControlMenuBean;
+import a3phone.of.com.main.bean.OrgBean;
 import a3phone.of.com.main.bean.SystemNoticeBean;
+import a3phone.of.com.main.bean.UserBean;
 import a3phone.of.com.main.control.appManager.AppManagerActivity;
 import a3phone.of.com.main.net.CmdCallBack;
 import a3phone.of.com.main.net.CmdUtil;
+import a3phone.of.com.main.utils.HawkProperty;
+import a3phone.of.com.main.utils.UserInfoManager;
+import a3phone.of.com.main.utils.bannerImageLoader.BannerObject;
+import a3phone.of.com.main.utils.bannerImageLoader.GlideImageLoader;
 import a3phone.of.disabled.basecomponent.base.BaseActivity;
 import a3phone.of.disabled.basecomponent.mvp.BaseIView;
 import a3phone.of.disabled.basecomponent.utils.GsonTools;
+import a3phone.of.disabled.basecomponent.utils.PickerManager;
 import a3phone.youth.banner.Banner;
+import a3phone.youth.banner.listener.OnBannerListener;
 
 /**
  * @Author: tobato
@@ -44,13 +52,16 @@ public class ControlFragment extends BaseRecyclerviewFragment<ControlPresent> im
     private TextView mOrgNameTv;
     private Banner mControlBanner;
     private MarqueeView mControlSystemNoticeMv;
+    private List<OrgBean> orgBeanList;
 
     @Override
     protected View getAdapterHeadView() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.control_head_view, null);
         mOrgNameTv = (TextView) view.findViewById(R.id.org_name_tv);
+        mOrgNameTv.setText(UserInfoManager.getOrgName());
         mOrgNameTv.setOnClickListener(this);
         mControlBanner = (Banner) view.findViewById(R.id.control_banner);
+        mControlBanner.setDelayTime(3000);
         mControlSystemNoticeMv = (MarqueeView) view.findViewById(R.id.control_system_notice_mv);
         mControlSystemNoticeMv.setOnItemClickListener(new MarqueeView.OnItemClickListener() {
             @Override
@@ -82,7 +93,9 @@ public class ControlFragment extends BaseRecyclerviewFragment<ControlPresent> im
             @Override
             public void onSuccess(JSONObject result) {
                 try {
+                    initOrgData(result);
                     initAdapterData(result);
+                    initBannerData(result);
                     initSystemNoticeData(result);
 
                 } catch (JSONException e) {
@@ -93,6 +106,51 @@ public class ControlFragment extends BaseRecyclerviewFragment<ControlPresent> im
 
         });
 
+
+    }
+
+    /**
+     * 组织机构
+     * @param result
+     */
+    private void initOrgData(JSONObject result) {
+        try {
+            String orgStr = result.getString("ORGLIST");
+            JSONObject orgJb = new JSONObject(orgStr);
+            orgBeanList = GsonTools.changeGsonToList(orgJb.getString("Rows"), OrgBean.class);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    /**
+     * 轮播图
+     * @param result
+     */
+    private void initBannerData(JSONObject result) {
+        try {
+            String bannerStr = result.getString("POOLLIST");
+            JSONObject bannerJb = new JSONObject(bannerStr);
+            List<BannerObject> bannerObjects = new ArrayList<>();
+            List<BannerBean> controlGroupBeans = GsonTools.changeGsonToList(bannerJb.getString("Rows"), BannerBean.class);
+            if (controlGroupBeans != null) {
+                for (BannerBean controlGroupBean : controlGroupBeans) {
+                    bannerObjects.add(new BannerObject(BannerObject.BANNER_TYPE_IMAGE, UserInfoManager.getImageAbPath(controlGroupBean.getIMG())));
+                }
+            }
+            mControlBanner.setImages(bannerObjects).setImageLoader(new GlideImageLoader()).start();
+            mControlBanner.setOnBannerListener(new OnBannerListener() {
+                @Override
+                public void OnBannerClick(int position) {
+                    // TODO: 2022/6/19 轮播图点击事件
+                }
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -184,6 +242,18 @@ public class ControlFragment extends BaseRecyclerviewFragment<ControlPresent> im
             default:
                 break;
             case R.id.org_name_tv:
+                PickerManager.getInstance().showOptionPicker(mContext, orgBeanList, new PickerManager.OnOptionPickerSelectedListener() {
+                    @Override
+                    public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                        OrgBean orgBean = orgBeanList.get(options1);
+                        mOrgNameTv.setText(orgBean.getNAME());
+                        UserBean userBean = UserInfoManager.getUser();
+                        userBean.setOrgCode(orgBean.getCODE());
+                        userBean.setOrgGuid(orgBean.getGUID());
+                        userBean.setOrgName(orgBean.getNAME());
+                        Hawk.put(HawkProperty.USER_BEAN_KEY,userBean);
+                    }
+                });
                 break;
         }
     }

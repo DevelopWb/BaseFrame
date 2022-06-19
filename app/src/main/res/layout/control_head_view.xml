@@ -7,20 +7,25 @@
 
     <TextView
         android:id="@+id/org_name_tv"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
+        android:paddingTop="10dp"
+        android:drawablePadding="10dp"
+        android:paddingBottom="10dp"
         android:paddingLeft="20dp"
+        android:drawableRight="@mipmap/arrow_down_normal"
         android:paddingRight="20dp"
-        android:visibility="gone"
         android:textColor="@color/black"
         android:text="北京君则科技发展有限公司"
-        android:textSize="22sp" />
+        android:textSize="18sp" />
 
     <a3phone.youth.banner.Banner
         android:id="@+id/control_banner"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         app:indicator_drawable_selected="@color/colorAccent"
         app:indicator_drawable_unselected="@android:color/white"
         app:indicator_height="4dp"
@@ -34,7 +39,6 @@
         android:layout_marginLeft="15dp"
         android:layout_marginTop="10dp"
         android:layout_marginRight="15dp"
-        android:layout_marginBottom="10dp"
         android:background="@drawable/stroke_gray_square_bg"
         android:padding="5dp">
 

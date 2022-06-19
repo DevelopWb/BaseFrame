@@ -1,6 +1,5 @@
 package a3phone.of.com.main.utils;
 
-import a3phone.of.disabled.basecomponent.utils.AppUtils;
 import a3phone.of.com.main.bean.UserBean;
 
 import com.orhanobut.hawk.Hawk;
@@ -28,7 +27,7 @@ public class UserInfoManager {
      * @return
      */
     public static UserBean getUser() {
-        return Hawk.get(HawkProperty.SP_KEY_USER);
+        return Hawk.get(HawkProperty.USER_BEAN_KEY);
     }
 
     /**
@@ -68,6 +67,13 @@ public class UserInfoManager {
      */
     public static String getUserName() {
        return getUser()==null?"":getUser().getUserName();
+    }
+    /**
+     * getUserName
+     * @return
+     */
+    public static String getOrgName() {
+       return getUser()==null?"":getUser().getOrgName();
     }
     /**
      * getUserName

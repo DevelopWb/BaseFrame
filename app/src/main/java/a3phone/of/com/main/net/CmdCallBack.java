@@ -4,7 +4,6 @@ package a3phone.of.com.main.net;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.ArrayMap;
-import android.util.Log;
 
 
 import com.orhanobut.hawk.Hawk;
@@ -124,7 +123,7 @@ public abstract class CmdCallBack implements Callback {
             @Override
             public void onSuccess(JSONObject result) {
                 UserBean userBean = GsonTools.changeGsonToBean(result.toString(), UserBean.class);
-                Hawk.put(HawkProperty.SP_KEY_USER, userBean);
+                Hawk.put(HawkProperty.USER_BEAN_KEY, userBean);
                 CmdUtil.exeCmd(_parameters, _currInstance);
             }
 

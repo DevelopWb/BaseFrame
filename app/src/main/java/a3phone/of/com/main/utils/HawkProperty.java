@@ -9,7 +9,7 @@ package a3phone.of.com.main.utils;
  */
 public class HawkProperty {
     public static String   DEV_REGID = "dev_regid";
-    public static String   SP_KEY_USER = "SP_KEY_USER";
+    public static String USER_BEAN_KEY = "SP_KEY_USER";
     /**
      * 保存本地的服务器地址
      */

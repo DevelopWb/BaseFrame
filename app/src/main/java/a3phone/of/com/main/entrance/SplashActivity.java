@@ -14,7 +14,6 @@ import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
 import java.util.concurrent.TimeUnit;
 
 import a3phone.of.com.main.MainActivity;
-import a3phone.of.com.main.TestActivity;
 import a3phone.of.com.main.utils.HawkProperty;
 import io.reactivex.functions.Consumer;
 
@@ -49,7 +48,7 @@ public class SplashActivity extends RxAppCompatActivity {
 //                        startActivity(new Intent(SplashActivity.this, TestActivity.class));
 //                        startActivity(new Intent(SplashActivity.this, LoginActivity.class));
 
-                        if (Hawk.contains(HawkProperty.SP_KEY_USER)) {
+                        if (Hawk.contains(HawkProperty.USER_BEAN_KEY)) {
                             startActivity(new Intent(SplashActivity.this, MainActivity.class));
                         }else {
                             startActivity(new Intent(SplashActivity.this, LoginActivity.class));
