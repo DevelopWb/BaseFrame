@@ -1,23 +1,39 @@
 package a3phone.of.com.main.mine;
 
 
-import android.os.Bundle;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.ArrayMap;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.orhanobut.hawk.Hawk;
 
+import org.json.JSONObject;
+
+import java.util.Map;
+
+import a3phone.of.com.main.MainActivity;
 import a3phone.of.com.main.R;
 import a3phone.of.com.main.base.BaseAppFragment;
 import a3phone.of.com.main.bean.MultipleItem;
 import a3phone.of.com.main.bean.MyMenuBean;
+import a3phone.of.com.main.bean.UserBean;
+import a3phone.of.com.main.entrance.LoginActivity;
+import a3phone.of.com.main.net.CmdCallBack;
+import a3phone.of.com.main.net.CmdUtil;
+import a3phone.of.com.main.utils.HawkProperty;
 import a3phone.of.com.main.utils.UserInfoManager;
+import a3phone.of.disabled.basecomponent.utils.GsonTools;
 import a3phone.of.disabled.basecomponent.utils.ToastUtils;
 
 /**
@@ -72,7 +88,66 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                         MyMenuBean item = (MyMenuBean) multipleItem.getObject();
                         switch (item.getName()) {
                             case MyMenuBean.MENU_MODIFY_PWD:
-                                ToastUtils.toast(mContext, "修改密码");
+                                View  modifyPwdView = LayoutInflater.from(mContext).inflate(R.layout.modify_pwd_v,null);
+                                AlertDialog alertDialog = new AlertDialog.Builder(mContext,R.style.CustomDialog)
+                                        .setCancelable(false)
+                                        .setView(modifyPwdView).show();
+                                getBaseAppActivity().setAlertDialogHeightWidth(alertDialog,0,0);
+                                EditText oldEt = modifyPwdView.findViewById(R.id.old_pwd_et);
+                                EditText newEt = modifyPwdView.findViewById(R.id.new_pwd_et);
+                                EditText reNewEt = modifyPwdView.findViewById(R.id.re_new_pwd_et);
+
+                                modifyPwdView.findViewById(R.id.close_dialog_iv).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        alertDialog.dismiss();
+                                    }
+                                });
+                                modifyPwdView.findViewById(R.id.commit_modify_tv).setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View v) {
+                                        String oldPwd = getBaseAppActivity().getTextViewValue(oldEt);
+                                        String newPwd = getBaseAppActivity().getTextViewValue(newEt);
+                                        String reNewPwd = getBaseAppActivity().getTextViewValue(reNewEt);
+
+                                        if (TextUtils.isEmpty(oldPwd)) {
+                                            ToastUtils.toast(mContext,"请输入旧密码");
+                                            return;
+                                        }
+                                        if (TextUtils.isEmpty(newPwd)) {
+                                            ToastUtils.toast(mContext,"请输入新密码");
+                                            return;
+                                        }
+                                        if (TextUtils.isEmpty(reNewPwd)) {
+                                            ToastUtils.toast(mContext,"请再次输入新密码");
+                                            return;
+                                        }
+                                        if (!UserInfoManager.getUserPwd().equals(oldPwd)) {
+                                            ToastUtils.toast(mContext,"旧密码输入错误,请重新输入");
+                                            return;
+                                        }
+                                        if (!newPwd.equals(reNewPwd)) {
+                                            ToastUtils.toast(mContext,"两次输入的新密码不一致,请重新输入");
+                                            return;
+                                        }
+                                        // : 2022/6/19 调用修改密码的接口
+                                        Map<String,Object> map = new ArrayMap<>();
+                                        map.put("SessionID:",UserInfoManager.getSessionId());
+                                        map.put("OldPassWord::",oldPwd);
+                                        map.put("NewPassWord::",newPwd);
+                                        CmdUtil.cmd("LoginHandlerAdapter", "UpdatePassword", map, new CmdCallBack() {
+                                            @Override
+                                            public void onSuccess(JSONObject result) {
+                                                alertDialog.dismiss();
+                                                startActivity(new Intent(mContext,LoginActivity.class));
+
+                                            }
+
+                                        });
+                                    }
+                                });
+
+
                                 break;
                             case MyMenuBean.MENU_MODIFY_SIGN:
                                 ToastUtils.toast(mContext, "1");
@@ -101,11 +176,22 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                     case MultipleItem.ITEM_MYCENTER_MENUS:
                         MyMenuBean item = (MyMenuBean) multipleItem.getObject();
                         switch (item.getName()) {
-                            case MyMenuBean.MENU_MODIFY_ADVISER:
-                                ToastUtils.toast(mContext, "4");
-                                break;
-                            case MyMenuBean.MENU_MODIFY_CLEAR:
-                                ToastUtils.toast(mContext, "5");
+                            case MyMenuBean.MENU_QUIT_CURRENT_ACCOUNT:
+                             getBaseAppActivity().showAlertDialog("是否退出当前账户？", "确定", "取消", new DialogInterface.OnClickListener() {
+                                 @Override
+                                 public void onClick(DialogInterface dialog, int which) {
+                                     Map<String,Object> map = new ArrayMap<>();
+                                     map.put("SessionID:",UserInfoManager.getSessionId());
+                                     CmdUtil.cmd("LoginHandlerAdapter", "UnLogin", map, new CmdCallBack() {
+                                         @Override
+                                         public void onSuccess(JSONObject result) {
+                                            UserInfoManager.clearUserData();
+                                             startActivity(new Intent(mContext, LoginActivity.class));
+                                         }
+
+                                     });
+                                 }
+                             });
                                 break;
                             default:
                                 break;

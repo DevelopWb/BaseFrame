@@ -120,7 +120,12 @@
         <item name="android:layout_height">0.1px</item>
         <item name="android:background">@color/divider_color</item>
     </style>
-
+    <style name="CustomDialog" parent="Theme.AppCompat.Dialog">
+        <!-- dialog  宽度与屏幕比例-->
+        <!-- dialog 背景颜色，默认是白色-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackground">@android:color/transparent</item>
+    </style>
     <style name="item_title_style">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

@@ -15,6 +15,7 @@ import a3phone.of.com.main.MainActivity;
 import a3phone.of.com.main.R;
 import a3phone.of.com.main.bean.UserBean;
 import a3phone.of.com.main.utils.HawkProperty;
+import a3phone.of.com.main.utils.UserInfoManager;
 import a3phone.of.disabled.basecomponent.mvp.BaseIView;
 import a3phone.of.disabled.basecomponent.utils.GsonTools;
 import a3phone.of.disabled.basecomponent.utils.PickerManager;
@@ -38,7 +39,7 @@ import java.util.Map;
  * @UpdateDate: 2022/6/12 22:10
  */
 public class LoginFragment extends BaseAppFragment<EntrancePresent> implements BaseIView, View.OnClickListener {
-    private TextView mCompanyAccountTv;
+    private TextView mOrgAccountTv;
     private EditText mUserNameEt;
     private EditText mPwdEt;
     private TextView mConfirmTv;
@@ -62,8 +63,8 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
     @Override
     protected void initView() {
 
-        mCompanyAccountTv = (TextView) getView(R.id.company_account_tv);
-        mCompanyAccountTv.setOnClickListener(this);
+        mOrgAccountTv = (TextView) getView(R.id.company_account_tv);
+        mOrgAccountTv.setOnClickListener(this);
         mUserNameEt = (EditText) getView(R.id.user_name_et);
         mPwdEt = (EditText) getView(R.id.pwd_et);
         mConfirmTv = (TextView) getView(R.id.confirm_tv);
@@ -106,7 +107,7 @@ public class LoginFragment extends BaseAppFragment<EntrancePresent> implements B
                                     @Override
                                     public void onOptionsSelect(int options1, int option2, int options3, View v) {
                                         CommpanyAccountBean accountBean = arrays.get(options1);
-                                        mCompanyAccountTv.setText(accountBean.getName());
+                                        mOrgAccountTv.setText(accountBean.getName());
                                         accountCode = accountBean.getCode();
                                     }
                                 });

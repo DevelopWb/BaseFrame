@@ -16,9 +16,9 @@ public class UserInfoManager {
      * 退出登录清理缓存配置
      */
     public static void clearUserData() {
-//        Hawk.delete(HawkProperty.SP_KEY_USER);
-//        Hawk.delete(HawkProperty.SP_KEY_TOKEN);
-//        Hawk.delete(HawkProperty.SP_KEY_UNREAD_COUNT);
+        Hawk.delete(HawkProperty.USER_BEAN_KEY);
+        Hawk.delete(HawkProperty.USER_ACCOUNT_CODE);
+        Hawk.delete(HawkProperty.USER_PWD);
     }
 
     /**
