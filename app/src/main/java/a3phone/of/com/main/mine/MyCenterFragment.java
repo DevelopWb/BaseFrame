@@ -53,7 +53,6 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
     private TextView mNickname;
     private TextView mTelNumber;
     private RecyclerView mMenuRecycler, mMenuRecycler2;
-    private View view;
     /**
      * 我的待办
      */
@@ -158,7 +157,8 @@ public class MyCenterFragment extends BaseAppFragment<MyCenterPresent> implement
                                 startActivity(new Intent(mContext, SignActivity.class));
                                 break;
                             case MyMenuBean.MENU_MODIFY_SUGGESTION:
-                                // TODO: 2022/6/19 投诉建议
+                                // : 2022/6/19 投诉建议
+                                startActivity(new Intent(mContext, SuggestionActivity.class));
                                 break;
                             case MyMenuBean.MENU_MODIFY_ABOUT_US:
                                 // TODO: 2022/6/19 关于我们

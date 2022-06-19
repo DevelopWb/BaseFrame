@@ -4,7 +4,10 @@ import android.text.TextUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 import a3phone.of.com.main.utils.CalendarUtil;
@@ -89,15 +92,15 @@ public class HttpUtil {
     public static void postImage(File file, CmdCallBack callback) throws IOException {
         MultipartBody.Builder multipartBodyBuilder = new MultipartBody.Builder();
         multipartBodyBuilder.setType(MultipartBody.FORM);
-        multipartBodyBuilder.addFormDataPart("HandlerType","Add");
+        multipartBodyBuilder.addFormDataPart("HandlerType", "Add");
         multipartBodyBuilder.addFormDataPart("ServerFolderName", CalendarUtil.getServerFolderName());
         //遍历imageFiles中所有图片绝对路径到builder，并约定key如“file”作为后台接受多张图片的key
-        multipartBodyBuilder.addFormDataPart("ServerFileName", file.getName(), RequestBody.create(MediaType.parse("application/octet-stream"), file));
+        multipartBodyBuilder.addFormDataPart("ServerFileName", String.format("%s.jpg", UUID.randomUUID().toString()), RequestBody.create(MediaType.parse("file"), file));
         //构建请求体
         RequestBody requestBody = multipartBodyBuilder.build();
 
         Request request = new Request.Builder()
-                .url(UserInfoManager.getServerAddr()+"/UpLoad.axd?")
+                .url(UserInfoManager.getServerAddr() + "/ImageUpload.axd?")
                 .post(requestBody)
                 .build();
         client.newCall(request).enqueue(callback);

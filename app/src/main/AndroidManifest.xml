@@ -29,7 +29,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".mine.sign.SignActivity"></activity>
+        <activity android:name=".mine.SuggestionActivity"></activity>
+        <activity android:name=".mine.sign.SignActivity" />
         <activity android:name=".control.appManager.AppManagerActivity" />
         <activity
             android:name=".home_page.QRScanActivity"
