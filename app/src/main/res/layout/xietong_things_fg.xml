@@ -6,12 +6,8 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:visibility="gone"
-        android:layout_marginLeft="15dp"
-        android:layout_marginBottom="50dp"
-        android:gravity="center_vertical"
-        android:layout_marginRight="15dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
         android:orientation="horizontal">
 
         <a3phone.of.com.main.base.customview.a3levelcombo.A3LevelCombo
@@ -22,11 +18,14 @@
 
         <ImageView
             android:id="@+id/edit_item_iv"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="bottom"
             android:padding="5dp"
+            android:layout_marginBottom="3dp"
             android:src="@mipmap/edit_menu_icon" />
     </LinearLayout>
 
-    <include layout="@layout/recycleview_layout" />
+    <include
+        layout="@layout/recycleview_layout" />
 </LinearLayout>

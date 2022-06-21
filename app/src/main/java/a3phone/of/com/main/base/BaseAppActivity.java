@@ -3,6 +3,8 @@ package a3phone.of.com.main.base;
 import android.os.Bundle;
 
 import com.baidu.location.BDLocation;
+
+import a3phone.of.com.main.R;
 import a3phone.of.disabled.basecomponent.mvp.BasePresenter;
 import a3phone.of.disabled.basecomponent.utils.GsonTools;
 import a3phone.of.com.main.base.selectPics.BaseSelectPicsActivity;
@@ -27,6 +29,11 @@ public abstract class BaseAppActivity<P extends BasePresenter> extends BaseSelec
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+    }
+
+    public void  setTitleBg(int res){
+        mBaseRootCol.setBackgroundResource(res);
     }
     @Override
     protected boolean canCancelLoadingDialog() {

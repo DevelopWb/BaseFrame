@@ -43,18 +43,20 @@ public class XieTongFragment extends BaseAppFragment<XieTongPresent> implements 
 
     @Override
     protected void initView() {
-
-        mXietongTablayout = (TabLayout)getView(R.id.xietong_tablayout);
-        mMoreMenuBtn = (ImageView)getView(R.id.search_btn);
+        getBaseAppActivity().setTitleBg(R.drawable.sp_filled_white);
+        mXietongTablayout = (TabLayout) getView(R.id.xietong_tablayout);
+        mMoreMenuBtn = (ImageView) getView(R.id.search_btn);
         mMoreMenuBtn.setOnClickListener(this);
-        mViewpager = (CustomViewPager)getView(R.id.viewpager);
+        mViewpager = (CustomViewPager) getView(R.id.viewpager);
         initTab();
         initTabData();
     }
+
     private void initTab() {
         adapter = new XieTongPagerAdapter(getChildFragmentManager(), mContext,
                 getLabels());
         mViewpager.setAdapter(adapter);
+        mViewpager.setScanScroll(false);
         /*viewpager切换监听，包含滑动点击两种*/
         mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -98,6 +100,7 @@ public class XieTongFragment extends BaseAppFragment<XieTongPresent> implements 
         /*viewpager切换默认第一个*/
         mViewpager.setCurrentItem(0);
     }
+
     @Override
     protected void initData() {
 

@@ -71,12 +71,13 @@ public class AllThingsFragment extends BaseRecyclerviewFragment<XieTongPresent> 
     }
 
 
-    public void initView(View view) {
+    public void initView() {
         super.initView();
         mAllThingsItemLc = (A3LevelCombo) getView(R.id.all_things_item_lc);
         mAllThingsItemLc.setData(getBaseAppActivity().getTestData());
         mEditItemIv = (ImageView) getView(R.id.edit_item_iv);
         mEditItemIv.setOnClickListener(this);
+        mRecyclerview.setBackgroundResource(R.drawable.sp_filled_gray_lighter);
     }
 
     @Override

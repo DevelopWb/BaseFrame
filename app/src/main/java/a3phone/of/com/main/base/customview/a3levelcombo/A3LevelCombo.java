@@ -55,7 +55,7 @@ public class A3LevelCombo extends SmartRefreshLayout {
 
     private void initView(Context context) {
         View view = LayoutInflater.from(context).inflate(R.layout.recycleview_layout_merge, this,true);
-        mRecyclerview = view.findViewById(R.id.recyclerview);
+        mRecyclerview = view.findViewById(R.id.a3_level_combo_rv);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false);
         a3LevelComboAdapter = new A3LevelComboAdapter(R.layout.a3_level_combo_item);
         mRecyclerview.setLayoutManager(linearLayoutManager);
