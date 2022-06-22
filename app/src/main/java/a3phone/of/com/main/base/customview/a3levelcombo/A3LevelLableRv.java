@@ -4,11 +4,9 @@ import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import java.util.List;
 
@@ -21,11 +19,10 @@ import a3phone.of.com.main.R;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/6/12 16:30
  */
-public class A3LevelCombo extends SmartRefreshLayout {
+public class A3LevelLableRv extends RecyclerView {
 
-    private RecyclerView mRecyclerview;
     private LinearLayoutManager linearLayoutManager;
-    private A3LevelComboAdapter a3LevelComboAdapter;
+    private A3LevelLableAdapter a3LevelLableAdapter;
 
     private OnItemClickCallBack onItemClickCallBack;
 
@@ -34,18 +31,18 @@ public class A3LevelCombo extends SmartRefreshLayout {
         this.onItemClickCallBack = onItemClickCallBack;
     }
 
-    public A3LevelCombo(Context context) {
+    public A3LevelLableRv(Context context) {
         super(context);
         initView(context);
     }
 
-    public A3LevelCombo(Context context, AttributeSet attrs) {
+    public A3LevelLableRv(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context);
 
     }
 
-    public A3LevelCombo(Context context, AttributeSet attrs, int defStyleAttr) {
+    public A3LevelLableRv(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
 
@@ -54,15 +51,11 @@ public class A3LevelCombo extends SmartRefreshLayout {
 
 
     private void initView(Context context) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recycleview_layout_merge, this,true);
-        mRecyclerview = view.findViewById(R.id.a3_level_combo_rv);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false);
-        a3LevelComboAdapter = new A3LevelComboAdapter(R.layout.a3_level_combo_item);
-        mRecyclerview.setLayoutManager(linearLayoutManager);
-        mRecyclerview.setAdapter(a3LevelComboAdapter);
-        setEnableRefresh(false);
-        setEnableLoadMore(false);
-        a3LevelComboAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        a3LevelLableAdapter = new A3LevelLableAdapter(R.layout.a3_level_combo_item);
+        setLayoutManager(linearLayoutManager);
+        setAdapter(a3LevelLableAdapter);
+        a3LevelLableAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 if (onItemClickCallBack != null) {
@@ -73,9 +66,10 @@ public class A3LevelCombo extends SmartRefreshLayout {
     }
 
     public void  setData(List<String> arrays){
-        if (a3LevelComboAdapter != null) {
-            a3LevelComboAdapter.setNewData(arrays);
+        if (a3LevelLableAdapter != null) {
+            a3LevelLableAdapter.setNewData(arrays);
         }
     }
+
 
 }

@@ -21,9 +21,8 @@ import a3phone.of.com.main.R;
  * @UpdateUser: 更新者
  * @UpdateDate: 2022/6/12 16:30
  */
-public class A3LevelCombo extends SmartRefreshLayout {
+public class A3LevelComboRv extends RecyclerView {
 
-    private RecyclerView mRecyclerview;
     private LinearLayoutManager linearLayoutManager;
     private A3LevelComboAdapter a3LevelComboAdapter;
 
@@ -34,18 +33,18 @@ public class A3LevelCombo extends SmartRefreshLayout {
         this.onItemClickCallBack = onItemClickCallBack;
     }
 
-    public A3LevelCombo(Context context) {
+    public A3LevelComboRv(Context context) {
         super(context);
         initView(context);
     }
 
-    public A3LevelCombo(Context context, AttributeSet attrs) {
+    public A3LevelComboRv(Context context, AttributeSet attrs) {
         super(context, attrs);
         initView(context);
 
     }
 
-    public A3LevelCombo(Context context, AttributeSet attrs, int defStyleAttr) {
+    public A3LevelComboRv(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initView(context);
 
@@ -54,14 +53,10 @@ public class A3LevelCombo extends SmartRefreshLayout {
 
 
     private void initView(Context context) {
-        View view = LayoutInflater.from(context).inflate(R.layout.recycleview_layout_merge, this,true);
-        mRecyclerview = view.findViewById(R.id.a3_level_combo_rv);
         linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false);
         a3LevelComboAdapter = new A3LevelComboAdapter(R.layout.a3_level_combo_item);
-        mRecyclerview.setLayoutManager(linearLayoutManager);
-        mRecyclerview.setAdapter(a3LevelComboAdapter);
-        setEnableRefresh(false);
-        setEnableLoadMore(false);
+        setLayoutManager(linearLayoutManager);
+        setAdapter(a3LevelComboAdapter);
         a3LevelComboAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
@@ -77,5 +72,6 @@ public class A3LevelCombo extends SmartRefreshLayout {
             a3LevelComboAdapter.setNewData(arrays);
         }
     }
+
 
 }
