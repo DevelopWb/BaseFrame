@@ -11,6 +11,9 @@ import com.chad.library.adapter.base.callback.ItemDragAndSwipeCallback;
 import com.chad.library.adapter.base.listener.OnItemDragListener;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import java.util.Collections;
+import java.util.List;
+
 import a3phone.of.com.main.R;
 import a3phone.of.com.main.base.BaseAppActivity;
 import a3phone.of.disabled.basecomponent.mvp.BasePresenter;
@@ -38,26 +41,39 @@ public class SortLableActivity extends BaseAppActivity {
 
     @Override
     public void initView() {
-
+        setTitleName("排序");
+        getTitleRightTv().setText("完成");
+        getTitleRightTv().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                List<String> arrays = sortLableAdapter.getData();
+                arrays.size();
+            }
+        });
         mRecyclerview = (RecyclerView) findViewById(R.id.recyclerview);
-        sortLableAdapter = new SortLableAdapter(R.layout.sort_lable_item,getTestData());
-        LinearLayoutManager manager = new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false);
+        sortLableAdapter = new SortLableAdapter(R.layout.sort_lable_item, getTestData());
+        LinearLayoutManager manager = new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false);
         mRecyclerview.setLayoutManager(manager);
         mRecyclerview.setAdapter(sortLableAdapter);
         sortLableAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                String aa = (String) adapter.getItem(position);
+                if (0 != position) {
+                    //更新列表
+                   adapter.notifyItemMoved(position,position-1);
+                   //更新数据
+                    Collections.swap(adapter.getData(), position, position - 1);
+                }
             }
         });
     }
+
 
     @Override
     public void initData() {
         ItemDragAndSwipeCallback itemDragAndSwipeCallback = new ItemDragAndSwipeCallback(sortLableAdapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(itemDragAndSwipeCallback);
         itemTouchHelper.attachToRecyclerView(mRecyclerview);
-
 // 开启拖拽
         sortLableAdapter.enableDragItem(itemTouchHelper);
         sortLableAdapter.setOnItemDragListener(new OnItemDragListener() {
