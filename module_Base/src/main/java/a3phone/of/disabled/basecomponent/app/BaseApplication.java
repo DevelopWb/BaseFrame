@@ -34,7 +34,6 @@ public abstract class BaseApplication extends MultiDexApplication {
     public static int navigationBarH;
     public static BaseApplication app;
     ArrayList<Activity> activities = new ArrayList<>();
-    public static boolean isReLoadWarn = true;//登录被顶，是否提示
 
     /*app处于后台true,前台false*/
     public abstract void appBackground(boolean isBackground, Activity activity);
@@ -59,66 +58,11 @@ public abstract class BaseApplication extends MultiDexApplication {
             Logger.addLogAdapter(new AndroidLogAdapter(PrettyFormatStrategy.newBuilder().
                     tag(getString(R.string.app_name)).build()));
             LogUtil.logInit(true);
-            a3phone.of.disabled.basecomponent.utils.Logger.LOG_ENABLE = true;
         }
+        CrashHandler.getInstance().init(getApplicationContext(), BaseAppUtils.getAppName());
         registerActivityLifecycleCallbacks(mCallbacks);
-//        hotFix();
     }
 
-//    private void hotFix() {
-//        // 设置是否开启热更新能力，默认为true
-//        Beta.enableHotfix = true;
-//        // 设置是否自动下载补丁，默认为true
-//        Beta.canAutoDownloadPatch = true;
-//        // 设置是否自动合成补丁，默认为true
-//        Beta.canAutoPatch = true;
-//        // 设置是否提示用户重启，默认为false
-//        Beta.canNotifyUserRestart = true;
-//        // 补丁回调接口
-//        Beta.betaPatchListener = new BetaPatchListener() {
-//            @Override
-//            public void onPatchReceived(String patchFile) {
-//                Toast.makeText(getApplicationContext(), "补丁下载地址" + patchFile, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onDownloadReceived(long savedLength, long totalLength) {
-//                Toast.makeText(getApplicationContext(), String.format(Locale.getDefault(), "%s %d%%", Beta.strNotificationDownloading, (int) (totalLength == 0 ? 0 : savedLength * 100 / totalLength)), Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onDownloadSuccess(String msg) {
-//                Toast.makeText(getApplicationContext(), "补丁下载成功", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onDownloadFailure(String msg) {
-//                Toast.makeText(getApplicationContext(), "补丁下载失败", Toast.LENGTH_SHORT).show();
-//
-//            }
-//
-//            @Override
-//            public void onApplySuccess(String msg) {
-//                Toast.makeText(getApplicationContext(), "补丁应用成功", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onApplyFailure(String msg) {
-//                Toast.makeText(getApplicationContext(), "补丁应用失败", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onPatchRollback() {
-//
-//            }
-//        };
-//
-//        // 设置开发设备，默认为false，上传补丁如果下发范围指定为“开发设备”，需要调用此接口来标识开发设备
-//        Bugly.setIsDevelopmentDevice(getApplicationContext(), true);
-//        // 调试时，将第三个参数改为true
-//        Bugly.init(this, getTinkerId(), false);
-//    }
-//
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -227,7 +171,6 @@ public abstract class BaseApplication extends MultiDexApplication {
 
         @Override
         public void onActivityDestroyed(Activity activity) {
-            //LogUtil.d("Activity-onActivityDestroyed = " + activity.getClass().getName());
             activities.remove(activity);
         }
     };
@@ -237,6 +180,5 @@ public abstract class BaseApplication extends MultiDexApplication {
     @Override
     public void onTerminate() {
         super.onTerminate();
-//        Beta.unInit();
     }
 }

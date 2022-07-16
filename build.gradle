@@ -14,10 +14,6 @@ buildscript {
         maven { url "https://jitpack.io" }
         //华为推送 必填
         maven {url 'http://developer.huawei.com/repo/'}
-        // 1.添加MobSDK Maven地址
-        maven {
-            url "https://mvn.mob.com/android"
-        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.6.4'
@@ -25,8 +21,6 @@ buildscript {
         classpath "com.tencent.bugly:tinker-support:1.2.0"
         //华为推送 必填
         classpath 'com.huawei.agconnect:agcp:1.4.1.300'
-        //mob
-        classpath "com.mob.sdk:MobSDK:2018.0319.1724"
         //知乎选择图片的控件需要
         classpath 'com.novoda:bintray-release:0.8.1'
     }
@@ -40,9 +34,6 @@ allprojects {
         maven { url "https://jitpack.io" }
         //华为推送 必填
         maven {url 'http://developer.huawei.com/repo/'}
-        maven {
-            url "https://mvn.mob.com/android"
-        }
     }
 }
 
