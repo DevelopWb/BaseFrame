@@ -4,9 +4,8 @@ package a3phone.of.com.main.mine;
 import a3phone.of.com.main.R;
 import a3phone.of.com.main.base.BaseAppPresent;
 import a3phone.of.disabled.basecomponent.mvp.BaseIView;
-import a3phone.of.disabled.basecomponent.mvp.BasePresenter;
 import a3phone.of.disabled.basecomponent.mvp.IModel;
-import a3phone.of.com.main.bean.MultipleItem;
+import a3phone.of.com.main.bean.multiBean.MultipleItem;
 import a3phone.of.com.main.bean.MyMenuBean;
 
 import java.util.ArrayList;

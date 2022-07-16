@@ -5,7 +5,7 @@ import com.chad.library.adapter.base.BaseMultiItemQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import a3phone.of.com.main.R;
-import a3phone.of.com.main.bean.MultipleItem;
+import a3phone.of.com.main.bean.multiBean.MultipleItem;
 import a3phone.of.com.main.bean.MyMenuBean;
 
 import java.util.List;

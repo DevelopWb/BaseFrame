@@ -16,27 +16,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.orhanobut.hawk.Hawk;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.Map;
 
-import a3phone.of.com.main.MainActivity;
 import a3phone.of.com.main.R;
 import a3phone.of.com.main.base.BaseAppFragment;
-import a3phone.of.com.main.bean.MultipleItem;
+import a3phone.of.com.main.bean.multiBean.MultipleItem;
 import a3phone.of.com.main.bean.MyMenuBean;
-import a3phone.of.com.main.bean.UserBean;
 import a3phone.of.com.main.entrance.LoginActivity;
 import a3phone.of.com.main.mine.sign.SignActivity;
 import a3phone.of.com.main.net.CmdCallBack;
 import a3phone.of.com.main.net.CmdUtil;
-import a3phone.of.com.main.utils.HawkProperty;
 import a3phone.of.com.main.utils.UserInfoManager;
 import a3phone.of.disabled.basecomponent.mvp.BaseIView;
-import a3phone.of.disabled.basecomponent.utils.GsonTools;
 import a3phone.of.disabled.basecomponent.utils.ImageLoadUtil;
 import a3phone.of.disabled.basecomponent.utils.ToastUtils;
 

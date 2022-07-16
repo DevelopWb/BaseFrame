@@ -1,4 +1,4 @@
-package a3phone.of.com.main.bean;
+package a3phone.of.com.main.bean.multiBean;
 
 import android.text.TextUtils;
 

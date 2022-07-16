@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
+    android:paddingLeft="15dp"
+    android:paddingTop="3dp"
+    android:paddingRight="15dp"
+    android:paddingBottom="3dp">
+    <TextView
+        android:id="@+id/important_tag_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="*"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/edit_key_tv"
+        android:textColor="@color/red"
+        app:layout_constraintLeft_toLeftOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/edit_key_tv"
+        style="@style/multiTextKeyStyle"
+        android:text="编辑控件的key"
+        app:layout_constraintLeft_toRightOf="@+id/important_tag_tv"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/edit_value_et"
+        style="@style/multiEditStyle"
+        app:layout_constraintHorizontal_bias="0"
+        android:hint="请输入"
+        app:layout_constraintLeft_toLeftOf="@+id/edit_key_tv"
+        app:layout_constraintTop_toBottomOf="@+id/edit_key_tv"
+        app:layout_constraintRight_toRightOf="parent"
+         />
+
+
+</android.support.constraint.ConstraintLayout>
