@@ -12,7 +12,6 @@ import a3phone.of.disabled.basecomponent.app.BaseApplication;
 import a3phone.of.disabled.video.ModuleVideo_Init;
 import a3phone.of.com.main.utils.HawkProperty;
 import a3phone.of.com.main.utils.UserInfoManager;
-import com.mob.MobSDK;
 import com.orhanobut.hawk.Hawk;
 import a3phone.siyee.oscvpush.PushConstants;
 import a3phone.siyee.oscvpush.base.PushAdapter;
@@ -73,7 +72,6 @@ public class MyApp extends BaseApplication {
         super.onCreate();
         app = this;
         Hawk.init(this).build();
-        MobSDK.init(this);
         //Video模块初始化
         ModuleVideo_Init.init();
         //百度地图初始化
