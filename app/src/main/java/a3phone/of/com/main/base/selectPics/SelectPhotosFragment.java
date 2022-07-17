@@ -17,27 +17,26 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.tbruyelle.rxpermissions2.RxPermissions;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import a3phone.of.com.main.R;
+import a3phone.of.com.main.utils.CalendarUtil;
+import a3phone.of.com.main.utils.StringTools;
 import a3phone.of.disabled.basecomponent.app.BaseApplication;
+import a3phone.of.disabled.basecomponent.base.BaseMvpFragment;
 import a3phone.of.disabled.basecomponent.mvp.IPresenter;
 import a3phone.of.disabled.basecomponent.utils.BaseAppUtils;
 import a3phone.of.disabled.basecomponent.utils.DisplayUtil;
 import a3phone.of.disabled.basecomponent.utils.FileCacheUtils;
 import a3phone.of.disabled.basecomponent.utils.GlideEngine4;
 import a3phone.of.disabled.basecomponent.utils.LogUtil;
-import a3phone.of.com.main.base.BaseAppFragment;
-import a3phone.of.com.main.utils.CalendarUtil;
-import a3phone.of.com.main.utils.StringTools;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 import a3phone.zhihu.matisse.Matisse;
 import a3phone.zhihu.matisse.MimeType;
 import a3phone.zhihu.matisse.internal.entity.CaptureStrategy;
-
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
-
 import es.dmoral.toasty.Toasty;
 import io.reactivex.functions.Consumer;
 import top.zibin.luban.CompressionPredicate;
@@ -68,7 +67,7 @@ import static android.app.Activity.RESULT_OK;
  * //最后一步 记得commit
  * beginTransaction.commit();
  */
-public class SelectPhotosFragment extends BaseAppFragment implements View.OnClickListener {
+public class SelectPhotosFragment<T> extends BaseMvpFragment implements View.OnClickListener {
 
     private RecyclerView mSelectPhotosRv;
     private TextView mSelectPhotosTitleTv;
@@ -91,6 +90,34 @@ public class SelectPhotosFragment extends BaseAppFragment implements View.OnClic
     private int type;//0拍照照片，1拍照
 
     public String cameraPath;
+    private boolean isShowTag = false;//是否显示底部标记
+    private GridLayoutManager manager;
+    private OnPicLoadSuccessCallBack onPicLoadSuccessCallBack;
+
+
+    /**
+     * 是否显示底部标识
+     *
+     * @param showTag
+     * @return
+     */
+    public SelectPhotosFragment setShowTag(boolean showTag) {
+        this.isShowTag = showTag;
+        if (selectedPicsAdapter != null) {
+//            selectedPicsAdapter.setShowTag(isShowTag);
+        }
+        return this;
+    }
+
+    private T object;
+
+    public T getObject() {
+        return object;
+    }
+
+    public void setObject(T object) {
+        this.object = object;
+    }
 
     /**
      * 在这里我们提供一个静态的方法来实例化PageFragment
@@ -109,6 +136,22 @@ public class SelectPhotosFragment extends BaseAppFragment implements View.OnClic
      */
     public SelectPhotosFragment setSpanCount(int spanCount) {
         this.mSpanCount = spanCount;
+        if (manager != null) {
+            manager.setSpanCount(spanCount);
+        }
+        if (selectedPicsAdapter != null) {
+            selectedPicsAdapter.setWidthAndHeigh(calculateImageHeight());
+        }
+
+        return this;
+    }
+
+    /**
+     * @param onPicLoadSuccessCallBack //选择图片  图片压缩后
+     * @return
+     */
+    public SelectPhotosFragment setOnPicLoadSuccessCallBack(OnPicLoadSuccessCallBack onPicLoadSuccessCallBack) {
+        this.onPicLoadSuccessCallBack = onPicLoadSuccessCallBack;
         return this;
     }
 
@@ -123,9 +166,10 @@ public class SelectPhotosFragment extends BaseAppFragment implements View.OnClic
 
     /**
      * 获取最大个数
+     *
      * @return
      */
-    public  int getmMaxCount(){
+    public int getmMaxCount() {
         return mMaxCount;
     }
 
@@ -143,6 +187,7 @@ public class SelectPhotosFragment extends BaseAppFragment implements View.OnClic
      */
     public SelectPhotosFragment setPhotoTitle(String title) {
         this.title = title;
+        initTitle();
         return this;
     }
 
@@ -151,6 +196,9 @@ public class SelectPhotosFragment extends BaseAppFragment implements View.OnClic
      */
     public SelectPhotosFragment setPhotoDelateable(boolean deleteable) {
         this.deleteable = deleteable;
+        if (selectedPicsAdapter != null) {
+            selectedPicsAdapter.setDelateable(deleteable);
+        }
         return this;
     }
 
@@ -265,6 +313,9 @@ public class SelectPhotosFragment extends BaseAppFragment implements View.OnClic
                 selectedPicsAdapter.setNewData(reSortIconList());
                 if (compressedSize == paths.size()) {
                     getBaseActivity().stopLoadingDialog();
+                    if (onPicLoadSuccessCallBack != null) {
+                        onPicLoadSuccessCallBack.loadSuccess(getSelectedPics(icons));
+                    }
                 }
 
             }
@@ -305,6 +356,9 @@ public class SelectPhotosFragment extends BaseAppFragment implements View.OnClic
                 icons.add(file.getPath());
                 selectedPicsAdapter.setNewData(reSortIconList());
                 getBaseActivity().stopLoadingDialog();
+                if (onPicLoadSuccessCallBack != null) {
+                    onPicLoadSuccessCallBack.loadSuccess(getSelectedPics(icons));
+                }
             }
 
             @Override
@@ -326,6 +380,10 @@ public class SelectPhotosFragment extends BaseAppFragment implements View.OnClic
         }
     }
 
+    @Override
+    protected boolean canCancelLoadingDialog() {
+        return false;
+    }
 
     @Override
     protected int getLayoutRes() {
@@ -354,7 +412,7 @@ public class SelectPhotosFragment extends BaseAppFragment implements View.OnClic
                             if (icon_path.contains(".mp4")) {
                                 //视频路径
                                 if (onPhotoItemClick != null) {
-                                    onPhotoItemClick.onVedioPicClick(adapter, position);
+                                    onPhotoItemClick.onVedioClick(adapter, position);
                                 }
                             } else {
                                 //图片路径
@@ -373,6 +431,9 @@ public class SelectPhotosFragment extends BaseAppFragment implements View.OnClic
                             }
                         }
                         icons = arrays;
+                        if (onPicLoadSuccessCallBack != null) {
+                            onPicLoadSuccessCallBack.loadSuccess(getSelectedPics(icons));
+                        }
                         adapter.setNewData(arrays);
                         break;
                     default:
@@ -382,26 +443,50 @@ public class SelectPhotosFragment extends BaseAppFragment implements View.OnClic
         });
     }
 
+    /**
+     * 获取选中的照片
+     *
+     * @return
+     */
+    private List<String> getSelectedPics(List<String> pics) {
+        List<String> icons_new = new ArrayList<>();
+        for (String icon : pics) {
+            if (!"-1".equals(icon)) {
+                icons_new.add(icon);
+            }
+        }
+        return icons_new;
+    }
+
     @Override
     protected void initData() {
-        GridLayoutManager managere = new GridLayoutManager(mContext, mSpanCount)
-        {
+        manager = new GridLayoutManager(mContext, mSpanCount) {
             @Override
             public boolean canScrollVertically() {
                 return false;
             }
         };
-        mSelectPhotosRv.setLayoutManager(managere);
+        mSelectPhotosRv.setLayoutManager(manager);
         mSelectPhotosRv.setAdapter(selectedPicsAdapter);
         selectedPicsAdapter.setWidthAndHeigh(calculateImageHeight());
         selectedPicsAdapter.setDelateable(deleteable);
-        if (StringTools.isStringValueOk(title)) {
-            mSelectPhotosTitleTv.setVisibility(View.VISIBLE);
-            mSelectPhotosTitleTv.setText(title);
-        } else {
-            mSelectPhotosTitleTv.setVisibility(View.GONE);
-        }
+        initTitle();
         initContentAndIcons();
+    }
+
+    /**
+     * 标题
+     */
+    private void initTitle() {
+        if (mSelectPhotosTitleTv != null) {
+            if (StringTools.isStringValueOk(title)) {
+                mSelectPhotosTitleTv.setVisibility(View.VISIBLE);
+                mSelectPhotosTitleTv.setText(title);
+            } else {
+                mSelectPhotosTitleTv.setVisibility(View.GONE);
+            }
+        }
+
     }
 
 
@@ -484,7 +569,7 @@ public class SelectPhotosFragment extends BaseAppFragment implements View.OnClic
                     } else {
                         //打开照相机
                         Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                        Uri  imageUri = getOutputMediaFileUri(mContext.getApplicationContext());
+                        Uri imageUri = getOutputMediaFileUri(mContext.getApplicationContext());
                         openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
                         //Android7.0添加临时权限标记，此步千万别忘了
                         openCameraIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
@@ -525,7 +610,7 @@ public class SelectPhotosFragment extends BaseAppFragment implements View.OnClic
      * 视频图片和普通图片的点击事件
      */
     public interface OnPhotoItemClick {
-        void onVedioPicClick(BaseQuickAdapter adapter, int position);
+        void onVedioClick(BaseQuickAdapter adapter, int position);
 
         void onPicClick(BaseQuickAdapter adapter, int position);
     }
@@ -543,5 +628,13 @@ public class SelectPhotosFragment extends BaseAppFragment implements View.OnClic
         onPicCalculateed = null;
         mContext = null;
         super.onDetach();
+    }
+
+    /**
+     * 图片加载完成
+     */
+    public interface OnPicLoadSuccessCallBack {
+        void loadSuccess(List<String> icons);
+
     }
 }

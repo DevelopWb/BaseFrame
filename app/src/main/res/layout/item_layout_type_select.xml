@@ -2,11 +2,11 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:id="@+id/select_root_cl"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
-    android:paddingLeft="15dp"
+    android:paddingLeft="10dp"
     android:paddingTop="3dp"
-    android:paddingRight="15dp"
+    android:paddingRight="10dp"
     android:paddingBottom="3dp">
     <TextView
         android:id="@+id/important_tag_tv"
@@ -39,8 +39,8 @@
 
     <ImageView
         android:id="@+id/select_arrow_right_iv"
-        android:layout_width="12dp"
-        android:layout_height="8dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
         android:src="@mipmap/arrow_right"
         app:layout_constraintBottom_toBottomOf="@+id/select_value_tv"
         app:layout_constraintRight_toRightOf="parent"

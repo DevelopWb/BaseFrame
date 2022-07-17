@@ -291,8 +291,9 @@ public class DividerItemDecoration extends RecyclerView.ItemDecoration {
      *
      * @param dividerMode {@link #INSIDE } or {@link #END}
      */
-    public void setDividerMode(int dividerMode) {
+    public DividerItemDecoration setDividerMode(int dividerMode) {
         this.dividerMode = dividerMode;
+        return this;
     }
 
 

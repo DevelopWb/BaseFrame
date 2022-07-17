@@ -90,7 +90,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sp_filled_white"
+                    android:background="@drawable/sp_filled_white_6dp"
                     android:padding="15dp">
 
                     <TextView
@@ -133,7 +133,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="15dp"
                     android:layout_weight="1"
-                    android:background="@drawable/sp_filled_white"
+                    android:background="@drawable/sp_filled_white_6dp"
                     android:padding="15dp">
 
                     <TextView

@@ -77,7 +77,7 @@ public abstract class BaseSelectPicsAndVedioActivity<P extends BasePresenter> ex
     }
 
     @Override
-    public void onVedioPicClick(BaseQuickAdapter adapter, int position) {
+    public void onVedioClick(BaseQuickAdapter adapter, int position) {
 
     }
 

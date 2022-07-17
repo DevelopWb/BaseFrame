@@ -43,7 +43,7 @@ public class XieTongFragment extends BaseAppFragment<XieTongPresent> implements 
 
     @Override
     protected void initView() {
-        getBaseAppActivity().setTitleBg(R.drawable.sp_filled_white);
+        getBaseAppActivity().setTitleBg(R.drawable.sp_filled_white_6dp);
         mXietongTablayout = (TabLayout) getView(R.id.xietong_tablayout);
         mMoreMenuBtn = (ImageView) getView(R.id.search_btn);
         mMoreMenuBtn.setOnClickListener(this);

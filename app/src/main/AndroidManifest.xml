@@ -29,7 +29,8 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning"
         tools:replace="android:appComponentFactory">
-        <activity android:name=".xietong.sortLable.SortLableActivity"></activity>
+        <activity android:name=".control.purchaseRequest.PurchaseRequestActivity"></activity>
+        <activity android:name=".xietong.sortLable.SortLableActivity" />
         <activity android:name=".mine.SuggestionActivity" />
         <activity android:name=".mine.sign.SignActivity" />
         <activity android:name=".control.appManager.AppManagerActivity" />

@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_white_only_bottom_gray_shape_1px"
-    android:paddingLeft="15dp"
+    android:id="@+id/edit_root_cl"
+    android:paddingLeft="10dp"
     android:paddingTop="3dp"
-    android:paddingRight="15dp"
+    android:paddingRight="10dp"
     android:paddingBottom="3dp">
     <TextView
         android:id="@+id/important_tag_tv"
@@ -29,8 +29,9 @@
     <EditText
         android:id="@+id/edit_value_et"
         style="@style/multiEditStyle"
-        app:layout_constraintHorizontal_bias="0"
+        android:layout_width="0dp"
         android:hint="请输入"
+        android:gravity="left"
         app:layout_constraintLeft_toLeftOf="@+id/edit_key_tv"
         app:layout_constraintTop_toBottomOf="@+id/edit_key_tv"
         app:layout_constraintRight_toRightOf="parent"

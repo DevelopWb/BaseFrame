@@ -73,7 +73,7 @@ public class SuggestionActivity extends BaseAppActivity<MyCenterPresent> impleme
     }
 
     @Override
-    public void onVedioPicClick(BaseQuickAdapter adapter, int position) {
+    public void onVedioClick(BaseQuickAdapter adapter, int position) {
 
     }
 
