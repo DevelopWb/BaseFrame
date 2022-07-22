@@ -2,10 +2,13 @@ package a3phone.of.com.main.control.purchaseRequest;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import a3phone.of.com.main.R;
 import a3phone.of.com.main.multi.BaseMultiActivity;
 
 /**
@@ -22,16 +25,12 @@ public class PurchaseRequestActivity extends BaseMultiActivity {
 //        setTitleName("采购申请");
     }
 
-    @Override
-    protected View getAdapterFootView() {
-        return null;
-    }
+
 
     @Override
     protected void getRvAdapterData() {
         baseQuickAdapter.setNewData(mPresenter.getPurchaseRequestData(getSupportFragmentManager(),false));
     }
-
 
 
 }
